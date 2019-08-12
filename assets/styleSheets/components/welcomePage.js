@@ -17,9 +17,5 @@ export default styles = StyleSheet.create({
     width: 240,
     textAlign: "center",
     marginBottom: 40
-  },
-  button: {
-    // fontFamily: 'mplus-1p-r',
-    color: colors.accent
   }
 });

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Button from 'react-native-button';
+import { View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../../../assets/styleSheets/components/welcomePage'
+import MyButton from '../../utils/MyButton';
+
 
 class WelcomePage extends Component{
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>nori-nori</Text>
-        <Button
-          style={styles.button}
-          onPress={() => { Actions.refresh() }}
-        >
-          はじめる
-        </Button>
+        <MyButton
+          text={"ドライブする"}
+          action={Actions.refresh()}
+        />
       </View>
     )
   }
