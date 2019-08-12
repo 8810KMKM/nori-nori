@@ -12,7 +12,7 @@ class WelcomePage extends Component{
         <Text style={styles.title}>nori-nori</Text>
         <MyButton
           text={"ドライブする"}
-          action={Actions.refresh()}
+          action={() => Actions.refresh()}
         />
       </View>
     )

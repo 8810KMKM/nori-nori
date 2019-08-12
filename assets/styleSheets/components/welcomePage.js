@@ -13,8 +13,8 @@ export default styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     color: colors.white,
-    fontFamily: 'bangers-r',
-    width: 240,
+    // fontFamily: 'bangers-r',
+    fontFamily: 'erica',
     textAlign: "center",
     marginBottom: 40
   }

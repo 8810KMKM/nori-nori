@@ -10,7 +10,7 @@ export default class App extends Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'bangers-r': require('./assets/fonts/Bangers-Regular.ttf'),
+      'erica': require('./assets/fonts/EricaOne-Regular.ttf'),
       'mplus-1p-r': require('./assets/fonts/MPLUS1p-Regular.ttf'),
       'mplus-1p-b': require('./assets/fonts/MPLUS1p-Bold.ttf'),
     });
