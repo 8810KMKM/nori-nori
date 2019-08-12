@@ -1,19 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Router, Scene } from 'react-native-router-flux';
+import WelcomePage from './src/components/welcomePage';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Router>
+      <Scene key='main'>
+        <Scene
+          key='welcome'
+          component={WelcomePage}
+          initial={true}
+        />
+      </Scene>
+    </Router>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
