@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Router, Scene } from "react-native-router-flux";
 import WelcomePage from "./src/components/welcomePage";
-import DistinationForm from "./src/components/distinationForm";
+import DistinationForm from "./src/components/DistinationForm";
 import * as Font from "expo-font";
 
 export default class App extends Component {
