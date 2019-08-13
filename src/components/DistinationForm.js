@@ -19,6 +19,7 @@ export default class extends Component {
     if (!to) {
       return this.setState({ errorMessage: { to: "入力してください" } });
     }
+    Actions.result()
     console.log(from, to);
   };
 
@@ -38,7 +39,6 @@ export default class extends Component {
           onChangeText={text => this.setState({ to: text })}
           errorMessage={errorMessage.to}
         />
-
         <MyButton text={"決定!!"} onPress={this.submit} />
       </View>
     );
