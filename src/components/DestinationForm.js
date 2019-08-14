@@ -19,7 +19,7 @@ export default class extends Component {
     if (!to) {
       return this.setState({ errorMessage: { to: "入力してください" } });
     }
-    Actions.result()
+    Actions.result({from: from, to: to})
     console.log(from, to);
   };
 

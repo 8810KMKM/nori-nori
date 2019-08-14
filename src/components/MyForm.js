@@ -27,13 +27,14 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 32,
+    fontSize: 24,
     marginBottom: 8
   },
   input: {
-    height: 60,
+    height: 56,
     width: "90%",
-    fontSize: 32,
+    paddingLeft: 8,
+    fontSize: 24,
     backgroundColor: colors.white,
     color: colors.black,
     fontWeight: "bold",
