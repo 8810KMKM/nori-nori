@@ -7,9 +7,11 @@ export default class MyButton extends Component {
     return (
       <AwesomeButtonCartman
         backgroundColor={colors.accent}
-        textSize={16}
+        textSize={24}
         textColor={colors.main}
         textFontFamily="mplus-1p-b"
+        width={200}
+        height={64}
         onPress={() => {
           this.props.onPress();
         }}>

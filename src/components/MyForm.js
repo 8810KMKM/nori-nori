@@ -25,24 +25,26 @@ const styles = StyleSheet.create({
     alignItems: "flex-start"
   },
   label: {
-    fontFamily: "erica",
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 40
+    fontSize: 24,
+    marginBottom: 8
   },
   input: {
-    height: 60,
+    height: 56,
     width: "90%",
-    fontSize: 30,
-    color: colors.white,
+    paddingLeft: 8,
+    fontSize: 24,
+    backgroundColor: colors.white,
+    color: colors.black,
     fontWeight: "bold",
-    borderColor: "gray",
-    borderWidth: 1
+    borderRadius: 8
   },
   error: {
     marginTop: 20,
     marginBottom: 20,
-    fontSize: 20,
-    color: "red"
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.accent
   }
 });

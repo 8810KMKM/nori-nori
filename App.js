@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Router, Scene } from "react-native-router-flux";
-import WelcomePage from "./src/components/welcomePage";
-import DistinationForm from "./src/components/DistinationForm";
+import WelcomePage from "./src/components/WelcomePage"
+import DestinationForm from "./src/components/DestinationForm";
 import * as Font from "expo-font";
+import { Recorded } from "rx";
+import ResultPage from "./src/components/ResultPage";
 
 export default class App extends Component {
   state = {
@@ -23,7 +25,8 @@ export default class App extends Component {
       <Router>
         <Scene key="main">
           <Scene key="welcome" component={WelcomePage} initial={true} />
-          <Scene key="form" component={DistinationForm} />
+          <Scene key="form" component={DestinationForm} />
+          <Scene key="result" component={ResultPage}/>
         </Scene>
       </Router>
     ) : null;
