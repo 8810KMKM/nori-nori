@@ -2,42 +2,53 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { Actions } from "react-native-router-flux";
 
+import calculation_fee from "../utils/calculation_fee";
+
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import MyButton from "./MyButton";
 import MyForm from "./MyForm";
 
 export default class extends Component {
-  state = { from: "", to: "", errorMessage: { from: "", to: "" } };
+  state = {
+    origin: "",
+    destination: "",
+    errorMessage: { origin: "", destination: "" }
+  };
 
   submit = () => {
-    const { from, to } = this.state;
+    const { origin, destination } = this.state;
+    const key = "AIzaSyDc51p9dKD29Ron4c-2lvsI9WSFCKDA_Io";
 
-    if (!from) {
-      return this.setState({ errorMessage: { from: "入力してください" } });
+    if (!origin) {
+      return this.setState({ errorMessage: { origin: "入力してください" } });
     }
-    if (!to) {
-      return this.setState({ errorMessage: { to: "入力してください" } });
+    if (!destination) {
+      return this.setState({
+        errorMessage: { destination: "入力してください" }
+      });
     }
-    Actions.result({from: from, to: to})
-    console.log(from, to);
+    // Actions.result({origin: origin, destination: destination})
+
+    calculation_fee(origin, destination);
   };
 
   render() {
-    const { from, to, errorMessage } = this.state;
+    const { origin, destination, errorMessage } = this.state;
+
     return (
       <View style={globalStyles.container}>
         <MyForm
           label="出発地"
-          value={from}
-          onChangeText={text => this.setState({ from: text })}
-          errorMessage={errorMessage.from}
+          value={origin}
+          onChangeText={text => this.setState({ origin: text })}
+          errorMessage={errorMessage.origin}
         />
         <MyForm
           label="到着地"
-          value={to}
-          onChangeText={text => this.setState({ to: text })}
-          errorMessage={errorMessage.to}
+          value={destination}
+          onChangeText={text => this.setState({ destination: text })}
+          errorMessage={errorMessage.destination}
         />
         <MyButton text={"決定!!"} onPress={this.submit} />
       </View>
