@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 
 import colors from "../../assets/variables/colors";
 
-export default ({ label, value, onChangeText, errorMessage }) => {
+export default ({ label, value, onChangeText, errorMessage, placeholder }) => {
   return (
     <>
       <View style={styles.labelContainer}>
@@ -14,6 +14,7 @@ export default ({ label, value, onChangeText, errorMessage }) => {
         onChangeText={onChangeText}
         autoCapitalize="none"
         style={styles.input}
+        placeholder={placeholder}
       />
       <Text style={styles.error}>{errorMessage}</Text>
     </>
