@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19003,
+  "packagerPid": 28719,
+  "expoServerNgrokUrl": "https://ix-2p9.susiyaki.nori-nori.exp.direct",
+  "packagerNgrokUrl": "https://packager.ix-2p9.susiyaki.nori-nori.exp.direct",
+  "ngrokPid": 28735
 }
