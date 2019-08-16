@@ -12,6 +12,7 @@ export default ({ label, value, onChangeText, errorMessage }) => {
       <TextInput
         value={value}
         onChangeText={onChangeText}
+        autoCapitalize="none"
         style={styles.input}
       />
       <Text style={styles.error}>{errorMessage}</Text>

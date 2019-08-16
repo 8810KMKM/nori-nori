@@ -4,6 +4,7 @@ import { Actions } from "react-native-router-flux";
 import MyButton from "./MyButton";
 import colors from "../../assets/variables/colors";
 import globalStyles from "../../assets/styleSheets/globalStyles";
+import { FoodList } from "./FoodList";
 
 export default class ResultPage extends Component {
   render() {

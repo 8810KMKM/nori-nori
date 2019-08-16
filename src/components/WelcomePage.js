@@ -9,7 +9,7 @@ export default () => {
   return (
     <View style={globalStyles.container}>
       <Text style={styles.title}>nori-nori</Text>
-      <MyButton text={"ドライブする"} onPress={() => Actions.form()} />
+      <MyButton text={"ドライブする"} onPress={() => Actions.foods()} />
     </View>
   );
 };

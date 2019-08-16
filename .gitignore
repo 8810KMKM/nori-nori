@@ -82,3 +82,6 @@ RNTester/build
 /template/ios/Podfile.lock
 RNTester/Pods/Local Podspecs
 RNTester/Pods/Target Support Files
+
+.env
+.tags

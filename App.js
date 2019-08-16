@@ -5,6 +5,7 @@ import DestinationForm from "./src/components/DestinationForm";
 import * as Font from "expo-font";
 import { Recorded } from "rx";
 import ResultPage from "./src/components/ResultPage";
+import FoodList from "./src/components/FoodList";
 
 export default class App extends Component {
   state = {
@@ -26,7 +27,8 @@ export default class App extends Component {
         <Scene key="main">
           <Scene key="welcome" component={WelcomePage} initial={true} />
           <Scene key="form" component={DestinationForm} />
-          <Scene key="result" component={ResultPage}/>
+          <Scene key="result" component={ResultPage} />
+          <Scene key="foods" component={FoodList} />
         </Scene>
       </Router>
     ) : null;
