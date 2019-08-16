@@ -10,7 +10,7 @@ export default class ResultPage extends Component {
   render() {
     return (
       <View style={globalStyles.container}>
-        <Text style={styles.message}>ドライバーへのお礼は</Text>
+        <Text style={styles.message}>お礼は一人あたり...</Text>
         {/* <Text style={styles.result}>
           {`${this.props.from}から${this.props.to}までいくよ`}
         </Text> */}
