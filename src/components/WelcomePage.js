@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
-import MyButton from "./MyButton";
+import Button from "./Button";
 import colors from "../../assets/variables/colors";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -9,7 +9,7 @@ export default () => {
   return (
     <View style={globalStyles.container}>
       <Text style={styles.title}>nori-nori</Text>
-      <MyButton text={"ドライブする"} onPress={() => Actions.foods()} />
+      <Button text="ドライブする" onPress={() => Actions.form()} />
     </View>
   );
 };
@@ -17,10 +17,10 @@ export default () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 56,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.white,
     // fontFamily: 'bangers-r',
-    fontFamily: 'erica',
+    fontFamily: "erica",
     textAlign: "center",
     marginBottom: 40
   }
