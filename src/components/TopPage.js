@@ -8,13 +8,16 @@ import default_format from "../utils/format_result";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import DestinationForm from "./DestinationForm";
+import SettingModal from "./SettingModal";
+import Button from "./Button";
 
 export default class extends Component {
   state = {
     origin: "",
     destination: "",
     people: 1,
-    errorMessage: { origin: "", destination: "" }
+    errorMessage: { origin: "", destination: "" },
+    isModalVisible: false
   };
 
   handleChange = (target, text) => {
@@ -41,9 +44,19 @@ export default class extends Component {
     Actions.result({ foodAmounts: formatted_result });
   };
 
+  toggleModal = () => {
+    const { isModalVisible } = this.state;
+    this.setState({ isModalVisible: !isModalVisible });
+  };
+
   render() {
+    const { isModalVisible } = this.state;
     return (
       <View style={globalStyles.container}>
+        <SettingModal
+          isVisible={isModalVisible}
+          toggleModal={this.toggleModal}
+        />
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>nori-nori</Text>
         </View>
@@ -53,7 +66,7 @@ export default class extends Component {
           submit={this.submit}
         />
         {/* TODO:styleよろしく */}
-        <Text style={{ fontSize: 30 }}>設定</Text>
+        <Button text="設定" onPress={this.toggleModal} />
       </View>
     );
   }

@@ -35,20 +35,20 @@ export default ({
       <Form
         label="出発地"
         value={origin}
-        onChangeText={text => handleChange("origin", text)}
+        handleChange={text => handleChange("origin", text)}
         errorMessage={errorMessage.origin}
         placeholder="例）福岡県, 警固公園"
       />
       <Form
         label="到着地"
         value={destination}
-        onChangeText={text => handleChange("destination", text)}
+        handleChange={text => handleChange("destination", text)}
         errorMessage={errorMessage.destination}
         placeholder="例）北九州市, 門司港レトロ"
       />
       <SelectBox
         label="人数"
-        onValueChange={value => handleChange("people", text)}
+        onValueChange={value => handleChange("people", value)}
         items={people_count}
         value={people}
         placeholder={placeholder}
