@@ -85,4 +85,4 @@ RNTester/Pods/Target Support Files
 
 .env
 .tags
-this.props.foodAmounts["juice"]
+.expo/packager-info.json
