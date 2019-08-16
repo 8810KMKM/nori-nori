@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import calculation_fee from "../utils/calculation_fee";
@@ -8,17 +8,18 @@ import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import MyButton from "./MyButton";
 import MyForm from "./MyForm";
+import SelectBox from "./SelectBox.js";
 
 export default class extends Component {
   state = {
     origin: "",
     destination: "",
+    people: 1,
     errorMessage: { origin: "", destination: "" }
   };
 
-  submit = () => {
-    const { origin, destination } = this.state;
-    const key = "AIzaSyDc51p9dKD29Ron4c-2lvsI9WSFCKDA_Io";
+  submit = async () => {
+    const { origin, destination, people } = this.state;
 
     if (!origin) {
       return this.setState({ errorMessage: { origin: "入力してください" } });
@@ -28,13 +29,33 @@ export default class extends Component {
         errorMessage: { destination: "入力してください" }
       });
     }
-    // Actions.result({origin: origin, destination: destination})
 
-    const fee = calculation_fee(origin, destination);
+    const fuel = (await AsyncStorage.getItem("fuel")) || 150000;
+    const cost = (await AsyncStorage.getItem("cost")) || 140;
+
+    const fee = await calculation_fee(origin, destination, people, fuel, cost);
+
+    // Actions.result({origin: origin, destination: destination})
   };
 
   render() {
-    const { origin, destination, errorMessage } = this.state;
+    const { origin, destination, errorMessage, people } = this.state;
+
+    const people_count = [
+      { label: "2人", value: 2 },
+      { label: "3人", value: 3 },
+      { label: "4人", value: 4 },
+      { label: "5人", value: 5 },
+      { label: "6人", value: 6 },
+      { label: "7人", value: 7 },
+      { label: "8人", value: 8 }
+    ];
+
+    const placeholder = {
+      label: "デフォルト値：1人",
+      value: 1,
+      color: "#9EA0A4"
+    };
 
     return (
       <View style={globalStyles.container}>
@@ -50,7 +71,14 @@ export default class extends Component {
           onChangeText={text => this.setState({ destination: text })}
           errorMessage={errorMessage.destination}
         />
-        <MyButton text={"決定!!"} onPress={this.submit} />
+        <SelectBox
+          label="人数"
+          onValueChange={value => this.setState({ people: value })}
+          items={people_count}
+          value={people}
+          placeholder={placeholder}
+        />
+        <MyButton text="決定!!" onPress={this.submit} />
       </View>
     );
   }

@@ -13,15 +13,11 @@ const fetchData = async (origin, destination) => {
 
 const additionalBonusDuration = duration => {};
 
-export default async (origin, destination, people) => {
+export default async (origin, destination, people, fuel, cost) => {
   const data = await fetchData(origin, destination);
   const route = data.routes[0];
   const leg = route.legs[0];
   const [distance, duration] = [leg.distance.value, leg.duration.value];
 
-  // 燃費
-  const fuel = 150000;
-  // ガソリン代/リットル
-  const cost = 140;
   return 500;
 };
