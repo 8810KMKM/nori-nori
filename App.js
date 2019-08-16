@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Router, Scene } from "react-native-router-flux";
-import DestinationForm from "./src/components/DestinationForm";
+import TopPage from "./src/components/TopPage";
 import * as Font from "expo-font";
 import { Recorded } from "rx";
 import ResultPage from "./src/components/ResultPage";
@@ -24,7 +24,7 @@ export default class App extends Component {
     return this.state.fontLoaded ? (
       <Router>
         <Scene key="main">
-          <Scene key="form" component={DestinationForm} initial={true}/>
+          <Scene key="top" component={TopPage} initial={true} />
           <Scene key="result" component={ResultPage} />
         </Scene>
       </Router>
