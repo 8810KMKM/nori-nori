@@ -3,7 +3,15 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 
 import colors from "../../assets/variables/colors";
 
-export default ({ label, value, onChangeText, errorMessage, placeholder }) => {
+export default ({
+  label,
+  value,
+  handleChange,
+  errorMessage,
+  placeholder,
+  formStyles
+}) => {
+  const styles = formStyles || defaultStyles;
   return (
     <>
       <View style={styles.labelContainer}>
@@ -11,7 +19,7 @@ export default ({ label, value, onChangeText, errorMessage, placeholder }) => {
       </View>
       <TextInput
         value={value}
-        onChangeText={onChangeText}
+        onChangeText={text => handleChange(text)}
         autoCapitalize="none"
         style={styles.input}
         placeholder={placeholder}
@@ -21,7 +29,7 @@ export default ({ label, value, onChangeText, errorMessage, placeholder }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   labelContainer: {
     width: "90%",
     alignItems: "flex-start"
