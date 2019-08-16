@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { View, AsyncStorage } from "react-native";
+import { View, AsyncStorage, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
-
 import calculation_fee from "../utils/calculation_fee";
-
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import Button from "./Button";
 import Form from "./Form";
 import SelectBox from "./SelectBox.js";
+import colors from "../../assets/variables/colors";
 
 export default class extends Component {
   state = {
@@ -35,7 +34,7 @@ export default class extends Component {
 
     const fee = await calculation_fee(origin, destination, people, fuel, cost);
 
-    Actions.foods()
+    Actions.result();
   };
 
   render() {
@@ -60,6 +59,9 @@ export default class extends Component {
 
     return (
       <View style={globalStyles.container}>
+        <View style={styles.titleWrapper}>
+        <Text style={styles.title}>nori-nori</Text>
+        </View>
         <Form
           label="出発地"
           value={origin}
@@ -86,3 +88,20 @@ export default class extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  titleWrapper: {
+    borderBottomWidth: 8,
+    borderBottomColor: colors.accent,
+    marginBottom: 64
+  },
+  title: {
+    fontSize: 56,
+    fontWeight: "bold",
+    color: colors.white,
+    // fontFamily: 'bangers-r',
+    fontFamily: "erica",
+    textAlign: "center",
+    marginBottom: -8
+  }
+});

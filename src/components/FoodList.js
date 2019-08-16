@@ -15,7 +15,7 @@ const sample = {
 };
 
 export default () => (
-  <View style={globalStyles.container}>
+  <View>
     <Text>お礼は一人あたり このどれか!!</Text>
     <ConvertedFood
       name="ジュース"
@@ -32,9 +32,5 @@ export default () => (
       amount={sample.ramen}
       foodIcon={ramenImage}
     />
-    <Button
-      text="再入力"
-      onPress={() => Actions.pop()}
-    />
   </View>
-)
+);
