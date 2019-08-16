@@ -36,7 +36,7 @@ export default class extends Component {
 
     console.log(formatted_result);
 
-    Actions.result();
+    Actions.result({foodAmounts: formatted_result});
   };
 
   render() {

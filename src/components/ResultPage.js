@@ -7,9 +7,10 @@ import Button from "./Button";
 
 export default class ResultPage extends Component {
   render() {
+    console.log(this.props.foodAmounts)
     return (
       <View style={globalStyles.container}>
-        <FoodList />
+        <FoodList foodAmounts={this.props.foodAmounts}/>
         <Button
           text="再入力"
           onPress={() => Actions.pop()}
