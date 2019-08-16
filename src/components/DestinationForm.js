@@ -6,7 +6,7 @@ import calculation_fee from "../utils/calculation_fee";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-import MyButton from "./MyButton";
+import Button from "./Button";
 import Form from "./Form";
 import SelectBox from "./SelectBox.js";
 
@@ -80,7 +80,7 @@ export default class extends Component {
           value={people}
           placeholder={placeholder}
         />
-        <MyButton text="決定!!" onPress={this.submit} />
+        <Button text="決定!!" onPress={this.submit} />
       </View>
     );
   }

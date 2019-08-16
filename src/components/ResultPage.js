@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Actions } from "react-native-router-flux";
-import MyButton from "./MyButton";
+import Button from "./Button";
 import colors from "../../assets/variables/colors";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -15,13 +15,13 @@ export default class ResultPage extends Component {
         </Text> */}
         <Image
           style={styles.result}
-          source={require('../../assets/images/image.png')}
+          source={require("../../assets/images/image.png")}
         />
-        <MyButton text={"トップに戻る"} onPress={() => Actions.welcome()} />
+        <Button text="トップに戻る" onPress={() => Actions.welcome()} />
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   message: {
