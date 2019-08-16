@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { View, AsyncStorage, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
-import calculation_fee from "../utils/calculation_fee";
+
+import { feePerPeople } from "../utils/calculation";
+import default_format from "../utils/format_result";
+
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import Button from "./Button";
 import Form from "./Form";
-import SelectBox from "./SelectBox.js";
-import colors from "../../assets/variables/colors";
+import SelectBox from "./SelectBox";
 
 export default class extends Component {
   state = {
@@ -29,10 +31,10 @@ export default class extends Component {
       });
     }
 
-    const fuel = (await AsyncStorage.getItem("fuel")) || 150000;
-    const cost = (await AsyncStorage.getItem("cost")) || 140;
+    const fee_per_people = await feePerPeople(origin, destination, people);
+    const formatted_result = default_format(fee_per_people);
 
-    const fee = await calculation_fee(origin, destination, people, fuel, cost);
+    console.log(formatted_result);
 
     Actions.result();
   };

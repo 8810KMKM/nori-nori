@@ -1,3 +1,4 @@
+import { AsyncStorage } from "react-native";
 import {
   GOOGLE_MAP_DIRECTIONS_KEY,
   GOOGLE_MAP_DIRECTIONS_URL
@@ -13,11 +14,21 @@ const fetchData = async (origin, destination) => {
 
 const additionalBonusDuration = duration => {};
 
-export default async (origin, destination, people, fuel, cost) => {
+export const feePerPeople = async (origin, destination, people) => {
   const data = await fetchData(origin, destination);
   const route = data.routes[0];
   const leg = route.legs[0];
   const [distance, duration] = [leg.distance.value, leg.duration.value];
 
-  return 500;
+  // const fuel = (await AsyncStorage.getItem("fuel")) || 15000;
+  // const cost = (await AsyncStorage.getItem("cost")) || 140;
+  const fuel = 15000;
+  const cost = 140;
+
+  const use_fuel_amount = distance / fuel;
+  const fee = use_fuel_amount * cost;
+
+  const fee_per_people = fee / people;
+
+  return Math.round(fee_per_people / 10) * 10;
 };
