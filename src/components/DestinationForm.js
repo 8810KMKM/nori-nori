@@ -30,7 +30,7 @@ export default class extends Component {
     }
     // Actions.result({origin: origin, destination: destination})
 
-    calculation_fee(origin, destination);
+    const fee = calculation_fee(origin, destination);
   };
 
   render() {
