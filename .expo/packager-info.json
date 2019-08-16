@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ix-2p9.anonymous.nori-nori.exp.direct",
+  "packagerNgrokUrl": "https://packager.ix-2p9.anonymous.nori-nori.exp.direct",
+  "ngrokPid": 50901
 }
