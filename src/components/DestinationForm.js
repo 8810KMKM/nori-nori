@@ -7,7 +7,7 @@ import calculation_fee from "../utils/calculation_fee";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import MyButton from "./MyButton";
-import MyForm from "./MyForm";
+import Form from "./Form";
 import SelectBox from "./SelectBox.js";
 
 export default class extends Component {
@@ -59,17 +59,19 @@ export default class extends Component {
 
     return (
       <View style={globalStyles.container}>
-        <MyForm
+        <Form
           label="出発地"
           value={origin}
           onChangeText={text => this.setState({ origin: text })}
           errorMessage={errorMessage.origin}
+          placeholder="例）福岡県, 警固公園"
         />
-        <MyForm
+        <Form
           label="到着地"
           value={destination}
           onChangeText={text => this.setState({ destination: text })}
           errorMessage={errorMessage.destination}
+          placeholder="例）北九州市, 門司港レトロ"
         />
         <SelectBox
           label="人数"
