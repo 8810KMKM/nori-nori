@@ -42,6 +42,7 @@ export default class extends Component {
     const { origin, destination, errorMessage, people } = this.state;
 
     const people_count = [
+      { label: "1人", value: 1 },
       { label: "2人", value: 2 },
       { label: "3人", value: 3 },
       { label: "4人", value: 4 },
@@ -52,8 +53,8 @@ export default class extends Component {
     ];
 
     const placeholder = {
-      label: "デフォルト値：1人",
-      value: 1,
+      label: "人数を選択してください",
+      value: null,
       color: "#9EA0A4"
     };
 
