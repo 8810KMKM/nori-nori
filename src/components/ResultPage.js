@@ -9,7 +9,6 @@ const { height, width } = Dimensions.get('window');
 
 export default class ResultPage extends Component {
   render() {
-    console.log(height);
     return (
       <View style={globalStyles.container}>
         <FoodList
