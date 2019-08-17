@@ -13,6 +13,6 @@ export default foodAmount => {
     case foodAmount < 51:
       return width / 12;
     default:
-      return width / 15;
+      return width / 8;
   }
 };

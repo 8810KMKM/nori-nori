@@ -5,4 +5,4 @@ export default colors = {
   accent: '#E8E53F',
   gray: '#DCDDDF',
   darkGray: '#626262'
-}
+};

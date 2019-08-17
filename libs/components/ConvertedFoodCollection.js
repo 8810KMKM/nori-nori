@@ -6,29 +6,34 @@ import ramenImage from '../../assets/images/foods/ramen.png';
 import grayJuiceImage from '../../assets/images/foods/soda-gray.png';
 import grayBurgerImage from '../../assets/images/foods/burger-gray.png';
 import grayRamenImage from '../../assets/images/foods/ramen-gray.png';
+import multiJuiceImage from '../../assets/images/foods/soda-x10.png';
 import ConvertedFood from './ConvertedFood';
 import colors from '../../assets/variables/colors';
+import divide_amount from '../../utils/divide_amount';
 
 export default ({foodAmounts}) => (
   <View style={styles.wrapper}>
     <Text style={styles.message}>お礼は一人あたり このどれか!!</Text>
     <ConvertedFood
       name="ジュース"
-      amount={foodAmounts.juice}
-      foodIcon={juiceImage}
+      amount={divide_amount(foodAmounts.juice)}
+      icon={juiceImage}
       grayFoodIcon={grayJuiceImage}
+      multiIcon={multiJuiceImage}
     />
     <ConvertedFood
       name="ハンバーガー"
-      amount={foodAmounts.burger}
-      foodIcon={burgerImage}
-      grayFoodIcon={grayBurgerImage}
+      amount={divide_amount(foodAmounts.burger)}
+      icon={burgerImage}
+      grayIcon={grayBurgerImage}
+      multiIcon={multiJuiceImage}
     />
     <ConvertedFood
       name="ラーメン"
-      amount={foodAmounts.ramen}
-      foodIcon={ramenImage}
-      grayFoodIcon={grayRamenImage}
+      amount={divide_amount(foodAmounts.ramen)}
+      icon={ramenImage}
+      grayIcon={grayRamenImage}
+      multiIcon={multiJuiceImage}
     />
   </View>
 );
