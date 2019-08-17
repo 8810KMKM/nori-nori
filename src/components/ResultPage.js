@@ -17,7 +17,7 @@ export default class ResultPage extends Component {
         />
         <View style={styles.buttonWrapper}>
           <Button
-            text="再入力"
+            text="戻る"
             onPress={() => Actions.pop()}
           />
         </View>
