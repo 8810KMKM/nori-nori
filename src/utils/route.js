@@ -31,24 +31,29 @@ const TabBarIcon = ({ iconName, focused }) => {
 export default ({}) => {
   return (
     <Router>
-      <Tabs key="root" swipeEnabled={true} animationEnabled={true}>
-        <Scene
-          key="top"
-          initial
-          component={TopPage}
-          // 画面上部
-          title="Top"
-          // タブアイコンの下
-          tabBarLabel="nori-nori"
-          icon={TabBarIcon}
-        />
-        <Scene
-          key="setting"
-          component={Setting}
-          title="設定"
-          tabBarLabel="settings"
-        />
-      </Tabs>
+      {/* ここはタイトル隠したほうがいいかもしれないね・・・ 任せる */}
+      <Scene key="root" title="nori-nori">
+        <Tabs key="tabBar" swipeEnabled={true} animationEnabled={true}>
+          <Scene
+            key="top"
+            initial
+            component={TopPage}
+            // タブアイコンの下
+            tabBarLabel="nori-nori"
+            icon={TabBarIcon}
+            // SceneにhideNavBarをしたら、画面上部のtitleが表示されなくなる
+            hideNavBar={true}
+          />
+          <Scene
+            key="setting"
+            component={Setting}
+            // 画面上部タイトル
+            title="設定"
+            tabBarLabel="settings"
+          />
+        </Tabs>
+        <Scene key="result" component={ResultPage} title="結果" />
+      </Scene>
     </Router>
   );
 };
