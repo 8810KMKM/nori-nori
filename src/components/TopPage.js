@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 import {
-  GOOGLE_MAP_DIRECTIONS_KEY,
-  GOOGLE_MAP_DIRECTIONS_URL
+  GOOGLE_API_KEY,
+  GOOGLE_MAP_DIRECTIONS_URL,
+  GOOGLE_MAP_GEOCODING_URL
 } from "react-native-dotenv";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -18,8 +21,26 @@ export default class extends Component {
   state = {
     origin: "",
     destination: "",
+    responseOrigin: "",
+    responseDestination: "",
     people: 2,
-    errorMessage: { origin: "", destination: "" }
+    errorMessage: { origin: "", destination: "", location: "" }
+  };
+
+  getCurrentLocation = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      this.setState({
+        errorMessage: { location: "現在地取得の権限を許可してください" }
+      });
+    } else {
+      const currentLocation = await Location.getCurrentPositionAsync({});
+      const currentPlace = await fetch(`${GOOGLE_MAP_GEOCODING_URL}?latlng=`);
+
+      this.setState({
+        origin: ""
+      });
+    }
   };
 
   handleChange = (target, text) => {
@@ -44,7 +65,7 @@ export default class extends Component {
     }
 
     const response = await fetch(
-      `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
+      `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_API_KEY}&language=ja`
     )
       .then(res => res.json())
       .catch(e => e.json().then(err => console.log(err)));
@@ -55,10 +76,16 @@ export default class extends Component {
         errorMessage: { origin: errorMessage, destination: errorMessage }
       });
     }
-    console.log(response);
 
     const data = response.routes[0].legs[0];
+    console.log(data);
     const [distance, duration] = [data.distance.value, data.duration.value];
+
+    this.setState({
+      origin: data.start_address,
+      responseOrigin: data.start_address,
+      responseDestination: data.end_address
+    });
 
     const fee_per_people = await feePerPeople(distance, people);
     const formatted_result = default_format(fee_per_people);
@@ -76,6 +103,8 @@ export default class extends Component {
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>nori-nori</Text>
         </View>
+        <Button text="現在地を取得" onPress={this.getCurrentLocation}></Button>
+        <Text>{this.state.errorMessage.location}</Text>
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
