@@ -49,12 +49,13 @@ export default class extends Component {
       .then(res => res.json())
       .catch(e => e.json().then(err => console.log(err)));
 
-    if (response.status === "NOT_FOUND") {
+    if (response.status === "NOT_FOUND" || response.status === "ZERO_RESULTS") {
       const errorMessage = "正しい地名が入力されているか確認してください";
       return this.setState({
         errorMessage: { origin: errorMessage, destination: errorMessage }
       });
     }
+    console.log(response);
 
     const data = response.routes[0].legs[0];
     const [distance, duration] = [data.distance.value, data.duration.value];
@@ -62,6 +63,10 @@ export default class extends Component {
     const fee_per_people = await feePerPeople(distance, people);
     const formatted_result = default_format(fee_per_people);
 
+    this.setState({
+      destination: "",
+      errorMessage: { origin: "", destination: "" }
+    });
     Actions.result({ foodAmounts: formatted_result });
   };
 
