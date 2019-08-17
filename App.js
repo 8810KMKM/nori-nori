@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Router, Scene } from "react-native-router-flux";
-import TopPage from "./src/components/TopPage";
 import * as Font from "expo-font";
 import { Recorded } from "rx";
-import ResultPage from "./src/components/ResultPage";
-import FoodList from "./src/components/FoodList";
+
+import Route from "./src/utils/Route";
 
 export default class App extends Component {
   state = {
@@ -21,13 +20,7 @@ export default class App extends Component {
   }
 
   render() {
-    return this.state.fontLoaded ? (
-      <Router>
-        <Scene key="main">
-          <Scene key="top" component={TopPage} initial={true} />
-          <Scene key="result" component={ResultPage} />
-        </Scene>
-      </Router>
-    ) : null;
+    const { fontLoaded } = this.state;
+    return fontLoaded ? <Route /> : null;
   }
 }

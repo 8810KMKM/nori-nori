@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, AsyncStorage, StyleSheet } from "react-native";
 
-import Modal from "react-native-modal";
-import Button from "./Button";
-import Form from "./Form";
+import globalStyles from "../../assets/styleSheets/globalStyles";
+
+import Button from "../../libs/components/Button";
+import Form from "../../libs/components/Form";
 
 export default class extends Component {
   state = {
@@ -50,39 +51,30 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
-
-    this.props.toggleModal();
   };
 
   render() {
-    const isVisible = this.props.isVisible;
     const { fuel, cost, errorMessage } = this.state;
     return (
-      <View>
-        <Modal
-          backdropColor="white"
-          backdropOpacity={1.0}
-          isVisible={isVisible}>
-          <View style={{ flex: 1 }}>
-            <Form
-              label="燃費"
-              value={fuel}
-              handleChange={text => this.handleChange("fuel", text)}
-              placeholder="ex）15km/l→15"
-              errorMessage={errorMessage.fuel}
-              formStyles={formStyles}
-            />
-            <Form
-              label="ガゾリン相場"
-              value={cost}
-              handleChange={text => this.handleChange("cost", text)}
-              placeholder="ex）140円/l→140"
-              errorMessage={errorMessage.cost}
-              formStyles={formStyles}
-            />
-          </View>
-          <Button text="保存" onPress={this.save} />
-        </Modal>
+      <View style={globalStyles.container}>
+        <Text>設定</Text>
+        <Form
+          label="燃費"
+          value={fuel}
+          handleChange={text => this.handleChange("fuel", text)}
+          placeholder="ex）15km/l→15"
+          errorMessage={errorMessage.fuel}
+          formStyles={formStyles}
+        />
+        <Form
+          label="ガゾリン相場"
+          value={cost}
+          handleChange={text => this.handleChange("cost", text)}
+          placeholder="ex）140円/l→140"
+          errorMessage={errorMessage.cost}
+          formStyles={formStyles}
+        />
+        <Button text="保存" onPress={this.save} />
       </View>
     );
   }
