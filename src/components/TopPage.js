@@ -24,7 +24,7 @@ export default class extends Component {
     responseOrigin: "",
     responseDestination: "",
     people: 2,
-    errorMessage: { origin: "", destination: "", location: "" }
+    errorMessage: { origin: "", destination: "" }
   };
 
   getCurrentLocation = async () => {
@@ -35,11 +35,17 @@ export default class extends Component {
       });
     } else {
       const currentLocation = await Location.getCurrentPositionAsync({});
-      const currentPlace = await fetch(`${GOOGLE_MAP_GEOCODING_URL}?latlng=`);
-
-      this.setState({
-        origin: ""
-      });
+      await fetch(
+        `${GOOGLE_MAP_GEOCODING_URL}?language=ja&latlng=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&key=${GOOGLE_API_KEY}`
+      )
+        .then(response =>
+          response.json().then(res => {
+            this.setState({ origin: res.results[0].formatted_address });
+          })
+        )
+        .catch(e =>
+          this.setState({ errorMessage: "現在地の取得に失敗しました" })
+        );
     }
   };
 
