@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, AsyncStorage, StyleSheet } from "react-native";
+import { View, Text, AsyncStorage, StyleSheet, Alert } from "react-native";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -63,6 +63,8 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
+
+    Alert.alert("設定を更新しました!");
   };
 
   render() {
