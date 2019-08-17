@@ -16,17 +16,17 @@ export default class extends Component {
   componentDidMount = async () => {
     try {
       const data = await AsyncStorage.multiGet(["fuel", "cost"]);
-      data.map(d =>
-        this.setState({
-          [d[0]]: d[1]
-        })
-      );
+      data.map(d => {
+        d[1] &&
+          this.setState({
+            [d[0]]: d[1]
+          });
+      });
     } catch (e) {
       console.log("async storage get error");
     }
 
     const { fuel, cost } = this.state;
-    console.log(fuel, cost);
   };
 
   handleChange = (target, text) => {

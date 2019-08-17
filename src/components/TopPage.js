@@ -84,7 +84,6 @@ export default class extends Component {
     }
 
     const data = response.routes[0].legs[0];
-    console.log(data);
     const [distance, duration] = [data.distance.value, data.duration.value];
 
     this.setState({
