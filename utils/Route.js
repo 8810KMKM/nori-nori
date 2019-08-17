@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Router, Scene, Tabs } from "react-native-router-flux";
 
-import TopPage from "../components/TopPage";
-import ResultPage from "../components/ResultPage";
-import Setting from "../components/Setting";
+import TopPage from "../src/components/TopPage";
+import ResultPage from "../src/components/ResultPage";
+import Setting from "../src/components/Setting";
 
-import topIcon from "../../assets/icon.png";
+import topIcon from "../assets/icon.png";
 
 // 色とかいい感じに頼む
 const styles = StyleSheet.create({

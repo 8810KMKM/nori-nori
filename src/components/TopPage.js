@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
+import {
+  GOOGLE_MAP_DIRECTIONS_KEY,
+  GOOGLE_MAP_DIRECTIONS_URL
+} from "react-native-dotenv";
 
-import { feePerPeople } from "../utils/calculation";
-import default_format from "../utils/format_result";
+import { feePerPeople } from "../../utils/calculation";
+import default_format from "../../utils/format_result";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -14,7 +18,7 @@ export default class extends Component {
   state = {
     origin: "",
     destination: "",
-    people: 1,
+    people: 2,
     errorMessage: { origin: "", destination: "" }
   };
 
@@ -33,11 +37,32 @@ export default class extends Component {
         errorMessage: { destination: "入力してください" }
       });
     }
+    if (origin === destination) {
+      return this.setState({
+        errorMessage: { destination: "出発地と到着地が同じです" }
+      });
+    }
 
-    const fee_per_people = await feePerPeople(origin, destination, people);
+    const response = await fetch(
+      `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
+    )
+      .then(res => res.json())
+      .catch(e => e.json().then(err => console.log(err)));
+
+    if (response.status === "NOT_FOUND") {
+      const errorMessage = "正しい地名が入力されているか確認してください";
+      return this.setState({
+        errorMessage: { origin: errorMessage, destination: errorMessage }
+      });
+    }
+
+    const data = response.routes[0].legs[0];
+
+    return this.setState({ errorMessage: { origin: e, destination: e } });
+    const [distance, duration] = [data.distance.value, data.duration.value];
+
+    const fee_per_people = await feePerPeople(distance, people);
     const formatted_result = default_format(fee_per_people);
-
-    console.log(formatted_result);
 
     Actions.result({ foodAmounts: formatted_result });
   };

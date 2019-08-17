@@ -3,7 +3,7 @@ import { Router, Scene } from "react-native-router-flux";
 import * as Font from "expo-font";
 import { Recorded } from "rx";
 
-import Route from "./src/utils/Route";
+import Route from "./utils/Route";
 
 export default class App extends Component {
   state = {
