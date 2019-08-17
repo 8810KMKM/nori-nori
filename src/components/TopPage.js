@@ -43,19 +43,25 @@ export default class extends Component {
       });
     }
 
-    const data = await fetch(
+    const response = await fetch(
       `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
     )
       .then(res => res.json())
       .catch(e => e.json().then(err => console.log(err)));
 
-    const route = data.routes[0];
-    const leg = route.legs[0];
+    if (response.status === "NOT_FOUND") {
+      const errorMessage = "正しい地名が入力されているか確認してください";
+      return this.setState({
+        errorMessage: { origin: errorMessage, destination: errorMessage }
+      });
+    }
 
-    const [distance, duration] = [leg.distance.value, leg.duration.value];
+    const data = response.routes[0].legs[0];
+
+    return this.setState({ errorMessage: { origin: e, destination: e } });
+    const [distance, duration] = [data.distance.value, data.duration.value];
 
     const fee_per_people = await feePerPeople(distance, people);
-
     const formatted_result = default_format(fee_per_people);
 
     Actions.result({ foodAmounts: formatted_result });
