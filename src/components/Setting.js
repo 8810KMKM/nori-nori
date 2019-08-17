@@ -45,6 +45,18 @@ export default class extends Component {
       return this.setState({ errorMessage: { cost: errorMessage } });
     }
 
+    if (parseInt(fuel) < 3 || parseInt(fuel) > 30) {
+      return this.setState({
+        errorMessage: { fuel: "3~30の数字を入力してください" }
+      });
+    }
+
+    if (parseInt(cost) < 100 || parseInt(cost) > 170) {
+      return this.setState({
+        errorMessage: { cost: "100~170の数字を入力してください" }
+      });
+    }
+
     try {
       await AsyncStorage.multiRemove(["fuel", "cost"]);
       await AsyncStorage.multiSet([["fuel", fuel], ["cost", cost]]);
