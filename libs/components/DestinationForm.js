@@ -14,7 +14,7 @@ export default ({
   submit
 }) => {
   const people_count = [
-    { label: "1人", value: 1 },
+    // { label: "1人", value: 1 },
     { label: "2人", value: 2 },
     { label: "3人", value: 3 },
     { label: "4人", value: 4 },
