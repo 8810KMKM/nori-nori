@@ -57,8 +57,6 @@ export default class extends Component {
     }
 
     const data = response.routes[0].legs[0];
-
-    return this.setState({ errorMessage: { origin: e, destination: e } });
     const [distance, duration] = [data.distance.value, data.duration.value];
 
     const fee_per_people = await feePerPeople(distance, people);
