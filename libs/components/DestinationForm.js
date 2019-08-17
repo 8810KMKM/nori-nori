@@ -12,7 +12,7 @@ export default ({
   errorMessage,
   handleChange,
   submit,
-  getCurrentLocation
+  setCurrentLocation
 }) => {
   const people_count = [
     // { label: "1人", value: 1 },
@@ -39,7 +39,7 @@ export default ({
         handleChange={text => handleChange("origin", text)}
         errorMessage={errorMessage.origin}
         placeholder="例）福岡県, 警固公園"
-        getCurrentLocation={getCurrentLocation}
+        setCurrentLocation={setCurrentLocation}
       />
       <Form
         label="到着地"
