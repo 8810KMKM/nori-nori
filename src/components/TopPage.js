@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-import { feePerPeople } from "../utils/calculation";
-import default_format from "../utils/format_result";
+import { feePerPeople } from "../../utils/calculation";
+import default_format from "../../utils/format_result";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -39,10 +39,13 @@ export default class extends Component {
       });
     }
 
-    const fee_per_people = await feePerPeople(origin, destination, people);
-    const formatted_result = default_format(fee_per_people);
+    const fee_per_people = await feePerPeople(
+      origin,
+      destination,
+      people
+    ).catch(e => console.log(e));
 
-    console.log(formatted_result);
+    const formatted_result = default_format(fee_per_people);
 
     Actions.result({ foodAmounts: formatted_result });
   };

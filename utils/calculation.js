@@ -74,7 +74,7 @@ export const feePerPeople = async (origin, destination, people) => {
     { 報酬: reward },
     { 一人あたり支払い: pay_per_person }
   ];
-  console.log(check);
+  // console.log(check);
 
   return pay_per_person;
 };
