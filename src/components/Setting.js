@@ -3,8 +3,8 @@ import { View, Text, AsyncStorage, StyleSheet } from "react-native";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-import Button from "./Button";
-import Form from "./Form";
+import Button from "../../libs/components/Button";
+import Form from "../../libs/components/Form";
 
 export default class extends Component {
   state = {

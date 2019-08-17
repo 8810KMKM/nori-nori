@@ -7,8 +7,8 @@ import default_format from "../utils/format_result";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-import DestinationForm from "./DestinationForm";
-import Button from "./Button";
+import DestinationForm from "../../libs/components/DestinationForm";
+import Button from "../../libs/components/Button";
 
 export default class extends Component {
   state = {
