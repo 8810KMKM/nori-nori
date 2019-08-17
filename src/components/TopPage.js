@@ -16,6 +16,7 @@ import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import DestinationForm from "../../libs/components/DestinationForm";
 import Button from "../../libs/components/Button";
+import NoticeModal from "../../libs/components/NoticeModal";
 
 export default class extends Component {
   state = {
@@ -24,11 +25,11 @@ export default class extends Component {
     responseOrigin: "",
     responseDestination: "",
     people: 2,
-    errorMessage: { origin: "", destination: "" }
+    errorMessage: { notice: "", origin: "", destination: "" },
+    isNoticeModalVisible: false
   };
 
   getCurrentLocation = async () => {
-    console.log("call");
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
       this.setState({
@@ -48,6 +49,11 @@ export default class extends Component {
           this.setState({ errorMessage: "現在地の取得に失敗しました" })
         );
     }
+  };
+
+  toggleNoticeModal = () => {
+    const { isNoticeModalVisible } = this.state;
+    this.setState({ isNoticeModalVisible: !isNoticeModalVisible });
   };
 
   handleChange = (target, text) => {
@@ -77,10 +83,18 @@ export default class extends Component {
       .then(res => res.json())
       .catch(e => e.json().then(err => console.log(err)));
 
-    if (response.status === "NOT_FOUND" || response.status === "ZERO_RESULTS") {
-      const errorMessage = "正しい地名が入力されているか確認してください";
+    if (response.status === "NOT_FOUND") {
+      const notice = "正しい地名が入力されているか確認してください";
       return this.setState({
-        errorMessage: { origin: errorMessage, destination: errorMessage }
+        isNoticeModalVisible: true,
+        errorMessage: { notice }
+      });
+    }
+    if (response.status === "ZERO_RESULTS") {
+      const notice = "車のみのルートでは移動できない可能性があります";
+      return this.setState({
+        isNoticeModalVisible: true,
+        errorMessage: { notice }
       });
     }
 
@@ -104,8 +118,14 @@ export default class extends Component {
   };
 
   render() {
+    const { errorMessage, isNoticeModalVisible } = this.state;
     return (
       <View style={globalStyles.container}>
+        <NoticeModal
+          text={errorMessage.notice}
+          isNoticeModalVisible={isNoticeModalVisible}
+          toggleNoticeModal={this.toggleNoticeModal}
+        />
         <View style={styles.titleWrapper}>
           <View style={styles.titleUnderLine}>
             <Text style={styles.title}>nori-nori</Text>
