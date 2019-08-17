@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
@@ -11,7 +11,8 @@ export default ({
   people,
   errorMessage,
   handleChange,
-  submit
+  submit,
+  getCurrentLocation
 }) => {
   const people_count = [
     // { label: "1人", value: 1 },
@@ -31,13 +32,14 @@ export default ({
   };
 
   return (
-    <>
+    <View style={styles.formContainer}>
       <Form
         label="出発地"
         value={origin}
         handleChange={text => handleChange("origin", text)}
         errorMessage={errorMessage.origin}
         placeholder="例）福岡県, 警固公園"
+        getCurrentLocation={getCurrentLocation}
       />
       <Form
         label="到着地"
@@ -54,6 +56,15 @@ export default ({
         placeholder={placeholder}
       />
       <Button text="決定!!" onPress={submit} />
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  formContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    flexGrow: 1
+  }
+});

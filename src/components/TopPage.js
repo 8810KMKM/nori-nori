@@ -28,6 +28,7 @@ export default class extends Component {
   };
 
   getCurrentLocation = async () => {
+    console.log("call");
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
       this.setState({
@@ -106,14 +107,15 @@ export default class extends Component {
     return (
       <View style={globalStyles.container}>
         <View style={styles.titleWrapper}>
-          <Text style={styles.title}>nori-nori</Text>
+          <View style={styles.titleUnderLine}>
+            <Text style={styles.title}>nori-nori</Text>
+          </View>
         </View>
-        <Button text="現在地を取得" onPress={this.getCurrentLocation}></Button>
-        <Text>{this.state.errorMessage.location}</Text>
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
           submit={this.submit}
+          getCurrentLocation={this.getCurrentLocation}
         />
       </View>
     );
@@ -122,17 +124,21 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   titleWrapper: {
-    borderBottomWidth: 8,
-    borderBottomColor: colors.accent,
-    marginBottom: 64
+    flexBasis: "20%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   title: {
     fontSize: 56,
+    textAlign: "center",
     fontWeight: "bold",
     color: colors.white,
     // fontFamily: 'bangers-r',
-    fontFamily: "erica",
-    textAlign: "center",
-    marginBottom: -8
+    fontFamily: "erica"
+  },
+  titleUnderLine: {
+    marginTop: 20,
+    borderBottomWidth: 8,
+    borderBottomColor: colors.accent
   }
 });
