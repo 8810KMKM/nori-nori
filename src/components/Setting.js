@@ -79,7 +79,7 @@ export default class extends Component {
           formStyles={formStyles}
         />
         <Form
-          label="ガゾリン相場"
+          label="ガソリン相場"
           value={cost}
           handleChange={text => this.handleChange("cost", text)}
           placeholder="ex）140円/l→140"

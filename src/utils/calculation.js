@@ -20,12 +20,10 @@ export const feePerPeople = async (origin, destination, people) => {
   const leg = route.legs[0];
   const [distance, duration] = [leg.distance.value, leg.duration.value];
 
-  // const fuel = (await AsyncStorage.getItem("fuel")) || 15000;
-  // const cost = (await AsyncStorage.getItem("cost")) || 140;
-  const fuel = 15000;
-  const cost = 140;
+  const fuel = (await AsyncStorage.getItem("fuel")) || 15;
+  const cost = (await AsyncStorage.getItem("cost")) || 140;
 
-  const use_fuel_amount = distance / fuel;
+  const use_fuel_amount = distance / (fuel * 1000);
   const fee = use_fuel_amount * cost;
 
   const fee_per_people = fee / people;
