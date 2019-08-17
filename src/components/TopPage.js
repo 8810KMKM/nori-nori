@@ -14,7 +14,7 @@ export default class extends Component {
   state = {
     origin: "",
     destination: "",
-    people: 1,
+    people: 2,
     errorMessage: { origin: "", destination: "" }
   };
 
@@ -31,6 +31,11 @@ export default class extends Component {
     if (!destination) {
       return this.setState({
         errorMessage: { destination: "入力してください" }
+      });
+    }
+    if (origin === destination) {
+      return this.setState({
+        errorMessage: { destination: "出発地と到着地が同じです" }
       });
     }
 
