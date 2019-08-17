@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import colors from '../../assets/variables/colors';
-import resize_image from '../utils/resize_image';
+import resize_image from '../../src/utils/resize_image';
 
 export default ({ name, amount, foodIcon, grayFoodIcon }) => {
   const imageSize = resize_image(amount);

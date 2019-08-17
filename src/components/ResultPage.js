@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
+
 import globalStyles from "../../assets/styleSheets/globalStyles";
-import FoodList from "./FoodList";
-import Button from "./Button";
+import FoodList from "../../libs/components/FoodList";
+import Button from "../../libs/components/Button";
 
 const { height, width } = Dimensions.get('window');
 
