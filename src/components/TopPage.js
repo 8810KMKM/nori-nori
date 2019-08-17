@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Actions } from "react-native-router-flux";
+import {
+  GOOGLE_MAP_DIRECTIONS_KEY,
+  GOOGLE_MAP_DIRECTIONS_URL
+} from "react-native-dotenv";
 
 import { feePerPeople } from "../../utils/calculation";
 import default_format from "../../utils/format_result";
@@ -39,11 +43,18 @@ export default class extends Component {
       });
     }
 
-    const fee_per_people = await feePerPeople(
-      origin,
-      destination,
-      people
-    ).catch(e => console.log(e));
+    const data = await fetch(
+      `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
+    )
+      .then(res => res.json())
+      .catch(e => e.json().then(err => console.log(err)));
+
+    const route = data.routes[0];
+    const leg = route.legs[0];
+
+    const [distance, duration] = [leg.distance.value, leg.duration.value];
+
+    const fee_per_people = await feePerPeople(distance, people);
 
     const formatted_result = default_format(fee_per_people);
 

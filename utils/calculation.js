@@ -1,16 +1,4 @@
 import { AsyncStorage } from "react-native";
-import {
-  GOOGLE_MAP_DIRECTIONS_KEY,
-  GOOGLE_MAP_DIRECTIONS_URL
-} from "react-native-dotenv";
-
-const fetchData = async (origin, destination) => {
-  return await fetch(
-    `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
-  )
-    .then(res => res.json())
-    .catch(e => e.json().then(err => console.log(err)));
-};
 
 // 移動距離に応じたドライバーへの報酬, メートル
 const rateForReward = distance => {
@@ -40,14 +28,7 @@ const rateForPeople = people => {
   }
 };
 
-export const feePerPeople = async (origin, destination, people) => {
-  const data = await fetchData(origin, destination);
-  const route = data.routes[0];
-  const leg = route.legs[0];
-
-  // const duration = leg.duration.value
-  const distance = leg.distance.value;
-
+export const feePerPeople = async (distance, people) => {
   const fuel = (await AsyncStorage.getItem("fuel")) || 15;
   const cost = (await AsyncStorage.getItem("cost")) || 140;
 
