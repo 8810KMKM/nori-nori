@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     marginBottom: 16
   },
   image: {
-    width: 80,
-    height: 80
+    width: 64,
+    height: 64,
+    margin: 4
   }
 });

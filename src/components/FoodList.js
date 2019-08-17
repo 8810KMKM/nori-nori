@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import juiceImage from '../../assets/images/foods/003-soda.png';
 import burgerImage from '../../assets/images/foods/002-burger.png';
 import ramenImage from '../../assets/images/foods/001-food-and-restaurant.png';
 import ConvertedFood from './ConvertedFood';
+import globalStyles from '../../assets/styleSheets/globalStyles';
 
 export default ({foodAmounts}) => (
-  <View>
+  <View style={styles.wrapper}>
     <Text>お礼は一人あたり このどれか!!</Text>
     <ConvertedFood
       name="ジュース"
@@ -25,3 +26,10 @@ export default ({foodAmounts}) => (
     />
   </View>
 );
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: "flex-start"
+  }
+})
