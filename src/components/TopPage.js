@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
@@ -28,12 +28,9 @@ export default class extends Component {
   };
 
   getCurrentLocation = async () => {
-    console.log("call");
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
-      this.setState({
-        errorMessage: { location: "現在地取得の権限を許可してください" }
-      });
+      Alert.alert("現在地取得の権限を許可してください");
     } else {
       const currentLocation = await Location.getCurrentPositionAsync({});
       await fetch(
@@ -44,10 +41,13 @@ export default class extends Component {
             this.setState({ origin: res.results[0].formatted_address });
           })
         )
-        .catch(e =>
-          this.setState({ errorMessage: "現在地の取得に失敗しました" })
-        );
+        .catch(e => Alert.alert("現在地の取得に失敗しました"));
     }
+  };
+
+  toggleNoticeModal = () => {
+    const { isNoticeModalVisible } = this.state;
+    this.setState({ isNoticeModalVisible: !isNoticeModalVisible });
   };
 
   handleChange = (target, text) => {
@@ -77,11 +77,11 @@ export default class extends Component {
       .then(res => res.json())
       .catch(e => e.json().then(err => console.log(err)));
 
-    if (response.status === "NOT_FOUND" || response.status === "ZERO_RESULTS") {
-      const errorMessage = "正しい地名が入力されているか確認してください";
-      return this.setState({
-        errorMessage: { origin: errorMessage, destination: errorMessage }
-      });
+    if (response.status === "NOT_FOUND") {
+      return Alert.alert("正しい地名が入力されているか確認してください");
+    }
+    if (response.status === "ZERO_RESULTS") {
+      return Alert.alert("車のみのルートでは移動できない可能性があります");
     }
 
     const data = response.routes[0].legs[0];
@@ -89,6 +89,7 @@ export default class extends Component {
 
     this.setState({
       origin: data.start_address,
+      // 後で詳細表示に使いたい
       responseOrigin: data.start_address,
       responseDestination: data.end_address
     });
@@ -104,6 +105,7 @@ export default class extends Component {
   };
 
   render() {
+    const { errorMessage, isNoticeModalVisible } = this.state;
     return (
       <View style={globalStyles.container}>
         <View style={styles.titleWrapper}>
