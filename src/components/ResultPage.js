@@ -9,7 +9,6 @@ import Button from "../../libs/components/Button";
 
 export default class extends Component {
   render() {
-    console.log(this.props.foodAmounts);
     return (
       <View style={globalStyles.container}>
         <FoodList foodAmounts={this.props.foodAmounts} />

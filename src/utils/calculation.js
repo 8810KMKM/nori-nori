@@ -12,7 +12,9 @@ const fetchData = async (origin, destination) => {
     .catch(e => e.json().then(err => console.log(err)));
 };
 
-const additionalBonusDuration = duration => {};
+const rateForDistance = distance => {
+  return Math.log10(Math.pow(distance, 0.45)) + 0.006 * distance - 0.7;
+};
 
 export const feePerPeople = async (origin, destination, people) => {
   const data = await fetchData(origin, destination);
