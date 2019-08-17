@@ -18,9 +18,9 @@ export default ({
   errorMessage,
   placeholder,
   formStyles,
-  getCurrentLocation
+  setCurrentLocation
 }) => {
-  const styles = formStyles || defaultStyles(getCurrentLocation);
+  const styles = defaultStyles(setCurrentLocation);
   return (
     <>
       <View style={styles.labelContainer}>
@@ -35,10 +35,10 @@ export default ({
           style={styles.input}
           placeholder={placeholder}
         />
-        {getCurrentLocation && (
+        {setCurrentLocation && (
           <TouchableOpacity
             style={styles.currentLocationIconContainer}
-            onPress={getCurrentLocation}>
+            onPress={setCurrentLocation}>
             <Image
               style={styles.currentLocationIcon}
               source={currentLocationIcon}
@@ -52,7 +52,7 @@ export default ({
   );
 };
 
-const defaultStyles = getCurrentLocation =>
+const defaultStyles = setCurrentLocation =>
   StyleSheet.create({
     labelContainer: {
       width: "90%"
@@ -76,8 +76,8 @@ const defaultStyles = getCurrentLocation =>
       color: colors.black,
       fontWeight: "bold",
       borderRadius: 8,
-      borderTopRightRadius: getCurrentLocation && 0,
-      borderBottomRightRadius: getCurrentLocation && 0
+      borderTopRightRadius: setCurrentLocation && 0,
+      borderBottomRightRadius: setCurrentLocation && 0
     },
     error: {
       marginTop: 8,
