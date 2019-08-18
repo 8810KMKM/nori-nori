@@ -4,7 +4,6 @@ import { Actions } from "react-native-router-flux";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 import Button from "../../libs/components/Button";
 import ConvertedFoodCollection from "../../libs/components/ConvertedFoodCollection";
-import colors from "../../assets/variables/colors";
 
 const { height, width } = Dimensions.get("window");
 
@@ -13,7 +12,6 @@ export default class ResultPage extends Component {
     const { detailData, foodAmounts } = this.props;
     return (
       <View style={globalStyles.container}>
-        <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
         <ConvertedFoodCollection
           style={styles.foodList}
           foodAmounts={foodAmounts}
