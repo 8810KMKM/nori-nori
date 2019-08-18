@@ -100,7 +100,7 @@ const formStyles = StyleSheet.create({
   },
   label: {
     fontWeight: "bold",
-    color: colors.black,
+    color: colors.white,
     fontSize: 24,
     marginBottom: 8
   },

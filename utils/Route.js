@@ -1,29 +1,38 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Router, Scene, Tabs } from "react-native-router-flux";
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import TopPage from "../src/components/TopPage";
 import ResultPage from "../src/components/ResultPage";
 import Setting from "../src/components/Setting";
 
 import topIcon from "../assets/icon.png";
+import colors from "../assets/variables/colors";
 
 // 色とかいい感じに頼む
 const styles = StyleSheet.create({
-  tabIconContainerStyle: {
+  tabIconContainer: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
-  tabIconStyle: {
+  tabIcon: {
     width: 24,
-    height: 24
+    height: 24,
+    fontSize: 24,
+    marginTop: 8,
+    marginBottom: 2
   }
 });
 
-const TabBarIcon = ({ iconName, focused }) => {
+const TabBarIcon = props => {
   return (
-    <View style={styles.tabIconContainerStyle}>
-      <Image style={styles.tabIconStyle} source={topIcon} />
+    <View style={styles.tabIconContainer}>
+      <Icon
+        name={props.iconName}
+        color={props.focused ? colors.main : colors.gray}
+        style={styles.tabIcon}
+      />
     </View>
   );
 };
@@ -31,25 +40,26 @@ const TabBarIcon = ({ iconName, focused }) => {
 export default ({}) => {
   return (
     <Router>
-      {/* ここはタイトル隠したほうがいいかもしれないね・・・ 任せる */}
-      <Scene key="root" title="nori-nori">
-        <Tabs key="tabBar" swipeEnabled={true} animationEnabled={true}>
+      <Scene key="root" hideNavBar={true}>
+        <Tabs
+          key="tabBar"
+          swipeEnabled={true}
+          animationEnabled={true}
+        >
           <Scene
             key="top"
             initial
             component={TopPage}
-            // タブアイコンの下
-            tabBarLabel="nori-nori"
+            iconName="car"
             icon={TabBarIcon}
-            // SceneにhideNavBarをしたら、画面上部のtitleが表示されなくなる
             hideNavBar={true}
           />
           <Scene
             key="setting"
             component={Setting}
-            // 画面上部タイトル
-            title="設定"
-            tabBarLabel="settings"
+            iconName="setting"
+            icon={TabBarIcon}
+            hideNavBar={true}
           />
         </Tabs>
         <Scene key="result" component={ResultPage} title="結果" />

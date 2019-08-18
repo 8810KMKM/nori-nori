@@ -13,7 +13,7 @@ import divide_amount from '../../utils/divide_amount';
 
 export default ({foodAmounts}) => (
   <View style={styles.wrapper}>
-    <Text style={styles.message}>お礼は一人あたり このどれか!!</Text>
+    <Text style={styles.message}>お礼は一人あたり...</Text>
     <ConvertedFood
       name="ジュース"
       amount={divide_amount(foodAmounts.juice)}
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   message: {
     fontWeight: "bold",
     fontSize: 16,
-    lineHeight: 64,
-    color: colors.white
+    lineHeight: 80,
+    color: colors.white,
+    marginTop: 40
   }
 });
