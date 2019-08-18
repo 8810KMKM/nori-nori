@@ -37,14 +37,14 @@ const defaultStyles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 8
   },
   input: {
     height: 56,
     width: "90%",
     paddingLeft: 8,
-    fontSize: 24,
+    fontSize: 20,
     backgroundColor: colors.white,
     color: colors.black,
     fontWeight: "bold",

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Actions } from "react-native-router-flux";
 import {
   GOOGLE_MAP_DIRECTIONS_KEY,
@@ -12,7 +12,7 @@ import default_format from "../../utils/format_result";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import DestinationForm from "../../libs/components/DestinationForm";
-import Button from "../../libs/components/Button";
+import logoImage from '../../assets/images/nori-nori-logo.png'
 
 export default class extends Component {
   state = {
@@ -68,9 +68,10 @@ export default class extends Component {
   render() {
     return (
       <View style={globalStyles.container}>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title}>nori-nori</Text>
-        </View>
+        <Image
+          source={logoImage}
+          style={styles.logo}
+        />
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
@@ -82,18 +83,8 @@ export default class extends Component {
 }
 
 const styles = StyleSheet.create({
-  titleWrapper: {
-    borderBottomWidth: 8,
-    borderBottomColor: colors.accent,
-    marginBottom: 64
-  },
-  title: {
-    fontSize: 56,
-    fontWeight: "bold",
-    color: colors.white,
-    // fontFamily: 'bangers-r',
-    fontFamily: "erica",
-    textAlign: "center",
-    marginBottom: -8
+  logo: {
+    width: 320,
+    height: 160
   }
 });

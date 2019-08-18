@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 8
   },
   selectBoxContainer: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     borderRadius: 8,
     color: "black",

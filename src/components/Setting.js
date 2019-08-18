@@ -5,6 +5,7 @@ import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import Button from "../../libs/components/Button";
 import Form from "../../libs/components/Form";
+import HeadLine from "../../libs/components/HeadLine";
 
 export default class extends Component {
   state = {
@@ -69,9 +70,9 @@ export default class extends Component {
     const { fuel, cost, errorMessage } = this.state;
     return (
       <View style={globalStyles.container}>
-        <Text>設定</Text>
+        <HeadLine pageName="Setting"/>
         <Form
-          label="燃費"
+          label="燃費 [km/l]"
           value={fuel}
           handleChange={text => this.handleChange("fuel", text)}
           placeholder="ex）15km/l→15"
@@ -79,7 +80,7 @@ export default class extends Component {
           formStyles={formStyles}
         />
         <Form
-          label="ガソリン相場"
+          label="ガソリン相場 [円/l]"
           value={cost}
           handleChange={text => this.handleChange("cost", text)}
           placeholder="ex）140円/l→140"
@@ -93,6 +94,9 @@ export default class extends Component {
 }
 
 const formStyles = StyleSheet.create({
+  headLine: {
+
+  },
   labelContainer: {
     paddingTop: 40,
     width: "90%",
@@ -101,14 +105,14 @@ const formStyles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 8
   },
   input: {
     height: 56,
     width: "90%",
     paddingLeft: 8,
-    fontSize: 24,
+    fontSize: 20,
     backgroundColor: colors.white,
     color: colors.black,
     fontWeight: "bold",
