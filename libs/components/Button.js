@@ -22,7 +22,6 @@ export default ({ onPress, text}) => (
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 8,
-    marginBottom: 24
+    marginVertical: 8
   }
 })

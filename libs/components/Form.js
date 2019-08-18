@@ -18,7 +18,9 @@ export default ({
   errorMessage,
   placeholder,
   formStyles,
-  setCurrentLocation
+  setCurrentLocation,
+  editable,
+  keyboardType
 }) => {
   const styles = defaultStyles(setCurrentLocation);
   return (
@@ -34,6 +36,8 @@ export default ({
           autoCapitalize="none"
           style={styles.input}
           placeholder={placeholder}
+          editable={editable}
+          keyboardType={keyboardType}
         />
         {setCurrentLocation && (
           <TouchableOpacity

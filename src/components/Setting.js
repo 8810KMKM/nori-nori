@@ -72,57 +72,39 @@ export default class extends Component {
     const { fuel, cost, errorMessage } = this.state;
     return (
       <View style={globalStyles.container}>
-        <HeadLine pageName="Setting"/>
-        <Form
-          label="燃費 [km/l]"
-          value={fuel}
-          handleChange={text => this.handleChange("fuel", text)}
-          placeholder="ex）15km/l→15"
-          errorMessage={errorMessage.fuel}
-        />
-        <Form
-          label="ガソリン相場 [円/l]"
-          value={cost}
-          handleChange={text => this.handleChange("cost", text)}
-          placeholder="ex）140円/l→140"
-          errorMessage={errorMessage.cost}
-        />
-        <Button text="保存" onPress={this.save} />
+        <HeadLine pageName="Setting" />
+        <View style={styles.formWrapper}>
+          <Form
+            label="燃費 [km/l]"
+            value={fuel}
+            handleChange={text => this.handleChange("fuel", text)}
+            placeholder="ex）15km/l→15"
+            errorMessage={errorMessage.fuel}
+            keyboardType="number-pad"
+          />
+          <Form
+            label="ガソリン相場 [円/l]"
+            value={cost}
+            handleChange={text => this.handleChange("cost", text)}
+            placeholder="ex）140円/l→140"
+            errorMessage={errorMessage.cost}
+            keyboardType="number-pad"
+          />
+          <View style={styles.buttonWrapper}>
+            <Button text="保存" onPress={this.save} />
+          </View>
+        </View>
       </View>
     );
   }
 }
 
-const formStyles = StyleSheet.create({
-  headLine: {
-
+const styles = StyleSheet.create({
+  formWrapper: {
+    flex: 4,
   },
-  labelContainer: {
-    paddingTop: 40,
-    width: "90%",
-    alignItems: "flex-start"
-  },
-  label: {
-    fontWeight: "bold",
-    color: colors.white,
-    fontSize: 20,
-    marginBottom: 8
-  },
-  input: {
-    height: 56,
-    width: "90%",
-    paddingLeft: 8,
-    fontSize: 20,
-    backgroundColor: colors.white,
-    color: colors.black,
-    fontWeight: "bold",
-    borderRadius: 8
-  },
-  error: {
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 16,
-    fontWeight: "bold",
-    color: colors.accent
+  buttonWrapper: {
+    flex: 1,
+    alignItems: "center"
   }
 });

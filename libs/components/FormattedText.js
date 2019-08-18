@@ -15,12 +15,14 @@ export default ({ category, value, fontSize = 16 }) => {
     },
     category: {
       color: colors.white,
-      fontSize: fontSize
+      fontSize: fontSize,
+      paddingLeft: 1,
     },
     value: {
       color: colors.accent,
       fontWeight: "bold",
-      fontSize: fontSize
+      fontSize: fontSize,
+      paddingRight: 1
     }
   });
 

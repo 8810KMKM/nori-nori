@@ -35,11 +35,12 @@ export default ({
     <View style={styles.formContainer}>
       <Form
         label="出発地"
-        value={origin}
+        value={origin.label}
         handleChange={text => handleChange("origin", text)}
         errorMessage={errorMessage.origin}
         placeholder="例）福岡県, 警固公園"
         setCurrentLocation={setCurrentLocation}
+        editable={origin.label !== "現在地"}
       />
       <Form
         label="到着地"
@@ -65,8 +66,8 @@ const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
-    justifyContent: "flex-start",
+    // justifyContent: "flex-start",
     alignItems: "center",
-    flexGrow: 1
+    flex: 4
   }
 });

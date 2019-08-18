@@ -36,7 +36,11 @@ export default class extends Component {
       options
     );
 
-    Sharing.shareAsync(shareImgSource).catch(() =>
+    const shareImgSourcePath = shareImgSource.match("file://")
+      ? shareImgSource
+      : `file://${shareImgSource}`;
+
+    Sharing.shareAsync(shareImgSourcePath).catch(() =>
       Alert.alert("共有に失敗しました")
     );
     this.setState({ loading: false });
@@ -63,7 +67,7 @@ export default class extends Component {
           <Marker coordinate={start_latLng} title="origin" />
           <Marker coordinate={end_latLng} title="destination" />
         </MapView>
-        <ScrollView style={styles.text}>
+        <View style={styles.text}>
           <FormattedText
             category="出発地"
             value={responseOrigin}
@@ -92,7 +96,7 @@ export default class extends Component {
             category="一人あたりの支払い"
             value={`${Math.round(payPerPerson)}円`}
           />
-        </ScrollView>
+        </View>
         <View style={styles.buttonWrapper}>
           <Button
             text="戻る"
@@ -112,20 +116,20 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   map: {
-    flex: 1,
+    flex: 3,
     position: "relative",
-    height: "40%",
     width: "90%"
   },
   text: {
-    flex: 1,
+    flex: 3,
     width: "90%",
     marginBottom: 24
   },
   buttonWrapper: {
-    height: 96,
+    flex: 1,
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "flex-start"
   }
 });

@@ -6,43 +6,62 @@ import { feePerPeople } from "../../utils/calculation";
 import defaultFormat, { detailFormat } from "../../utils/format_result";
 import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
-
 import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
+import RefreshContainer from "../../libs/components/RefreshContainer";
 import logoImage from "../../assets/images/nori-nori-logo.png";
 
 export default class extends Component {
   state = {
-    origin: "",
+    origin: { label: "", value: "" },
     destination: "",
     people: 2,
     errorMessage: { origin: "", destination: "" },
-    loading: false
+    loading: false,
+    refreshing: false
+  };
+
+  getInitialState = () => {
+    return {
+      origin: { label: "", value: "" },
+      destination: "",
+      people: 2,
+      errorMessage: { origin: "", destination: "" },
+      loading: false,
+      refreshing: false
+    };
+  };
+
+  onRefresh = () => {
+    const initialState = this.getInitialState();
+    this.setState({ ...initialState, refreshing: true });
+    this.setState({ refreshing: false });
   };
 
   setCurrentLocation = async () => {
     this.setState({ loading: true });
     this.setState({
-      origin: await getCurrentLocation(),
+      origin: {
+        label: "現在地",
+        value: await getCurrentLocation()
+      },
       loading: false,
       errorMessage: { origin: "" }
     });
   };
 
-  toggleNoticeModal = () => {
-    const { isNoticeModalVisible } = this.state;
-    this.setState({ isNoticeModalVisible: !isNoticeModalVisible });
-  };
-
   handleChange = (target, text) => {
-    this.setState({ [target]: text });
+    if (target === "origin") {
+      this.setState({ origin: { label: text, value: text } });
+    } else {
+      this.setState({ [target]: text });
+    }
   };
 
   submit = async () => {
     const { origin, destination, people } = this.state;
 
-    if (!origin) {
+    if (!origin.value) {
       return this.setState({ errorMessage: { origin: "入力してください" } });
     }
     if (!destination) {
@@ -50,14 +69,14 @@ export default class extends Component {
         errorMessage: { destination: "入力してください" }
       });
     }
-    if (origin === destination) {
+    if (origin.value === destination) {
       return this.setState({
         errorMessage: { destination: "出発地と到着地が同じです" }
       });
     }
 
     this.setState({ loading: true });
-    const response = await fetchDirections(origin, destination);
+    const response = await fetchDirections(origin.value, destination);
 
     if (response.status === "NOT_FOUND") {
       this.setState({ loading: false });
@@ -72,7 +91,10 @@ export default class extends Component {
     const result = await feePerPeople(data.distance.value, people);
 
     this.setState({
-      origin: data.start_address,
+      origin: {
+        label: origin.label === "現在地" ? "現在地" : data.start_address,
+        value: data.start_address
+      },
       destination: "",
       errorMessage: { origin: "", destination: "" },
       loading: false
@@ -89,9 +111,9 @@ export default class extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, refreshing } = this.state;
     return (
-      <View style={globalStyles.container}>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
@@ -100,16 +122,17 @@ export default class extends Component {
           submit={this.submit}
           setCurrentLocation={this.setCurrentLocation}
         />
-      </View>
+      </RefreshContainer>
     );
   }
 }
 
 const styles = StyleSheet.create({
   logo: {
-    width: 240 ,
-    height: 120,
-    marginTop: 40
+    flex: 1,
+    width: 280 ,
+    height: 80,
+    marginBottom: 16,
   },
   loading: {
     position: "absolute"
