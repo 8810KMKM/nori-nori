@@ -56,9 +56,11 @@ export default class extends Component {
     const response = await fetchDirections(origin, destination);
 
     if (response.status === "NOT_FOUND") {
+      this.setState({ loading: false });
       return Alert.alert("正しい地名が入力されているか確認してください");
     }
     if (response.status === "ZERO_RESULTS") {
+      this.setState({ loading: false });
       return Alert.alert("車のみのルートでは移動できない可能性があります");
     }
 
