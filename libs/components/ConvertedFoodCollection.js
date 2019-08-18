@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
   },
   message: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 20,
     lineHeight: 80,
     color: colors.white,
-    marginTop: 40
+    marginTop: 16
   }
 });

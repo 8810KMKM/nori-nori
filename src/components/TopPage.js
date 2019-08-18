@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { View, StyleSheet, Image, Alert, Dimensions } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -106,8 +106,8 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 320,
-    height: 160,
+    width: 280 ,
+    height: 140,
     marginTop: 48
   }
 });

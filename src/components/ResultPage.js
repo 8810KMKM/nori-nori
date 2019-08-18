@@ -4,6 +4,7 @@ import { Actions } from "react-native-router-flux";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 import Button from "../../libs/components/Button";
 import ConvertedFoodCollection from "../../libs/components/ConvertedFoodCollection";
+import colors from "../../assets/variables/colors";
 
 const { height, width } = Dimensions.get("window");
 
@@ -17,8 +18,14 @@ export default class ResultPage extends Component {
           foodAmounts={foodAmounts}
         />
         <View style={styles.buttonWrapper}>
-          <Button text="戻る" onPress={Actions.pop} />
-          <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
+          <Button
+            text="戻る"
+            onPress={Actions.pop}
+          />
+          <Button
+            text="詳細"
+            onPress={() => Actions.detail({ detailData })}
+          />
         </View>
       </View>
     );
@@ -30,6 +37,9 @@ const styles = StyleSheet.create({
     height: height - 120
   },
   buttonWrapper: {
-    height: 120
+    height: 120,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
