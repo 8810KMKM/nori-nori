@@ -10,10 +10,8 @@ import { Actions } from "react-native-router-flux";
 import FormattedText from "../../libs/components/FormattedText";
 import HeadLine from "../../libs/components/HeadLine";
 
-import Loading from "../../libs/components/Loading";
-import colors from "../../assets/variables/colors";
-
-// style={globalStyles.container} 
+import originFlagIcon from '../../assets/images/flags/flag-origin.png';
+import destinationFlagIcon from '../../assets/images/flags/flag-destination.png';
 
 export default class extends Component {
   constructor(props) {
@@ -64,8 +62,16 @@ export default class extends Component {
       <View style={globalStyles.container} ref={this.shareImgRef}>
         <HeadLine pageName="Drive Info" />
         <MapView region={region} style={styles.map}>
-          <Marker coordinate={start_latLng} title="origin" />
-          <Marker coordinate={end_latLng} title="destination" />
+          <Marker
+            coordinate={start_latLng}
+            title="origin"
+            image={originFlagIcon}
+          />
+          <Marker
+            coordinate={end_latLng}
+            title="destination"
+            image={destinationFlagIcon}
+          />
         </MapView>
         <View style={styles.text}>
           <FormattedText
