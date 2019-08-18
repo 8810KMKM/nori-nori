@@ -13,6 +13,7 @@ export default class extends Component {
       <View style={globalStyles.container}>
         <FoodList foodAmounts={this.props.foodAmounts} />
         <Button text="再入力" onPress={() => Actions.pop()} />
+        <Button text="詳細" onPress={() => Actions.detail()} />
       </View>
     );
   }
