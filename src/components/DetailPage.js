@@ -29,7 +29,11 @@ export default class extends Component {
       options
     );
 
-    Sharing.shareAsync(shareImgSource).catch(() =>
+    const shareImgSourcePath = shareImgSource.match("file://")
+      ? shareImgSource
+      : `file://${shareImgSource}`;
+
+    Sharing.shareAsync(shareImgSourcePath).catch(() =>
       Alert.alert("共有に失敗しました")
     );
     this.setState({ loading: false });
