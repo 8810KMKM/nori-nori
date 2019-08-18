@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, Alert, Dimensions } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
-import default_format from "../../utils/format_result";
+import defaultFormat, { detailFormat } from "../../utils/format_result";
 import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
@@ -15,8 +15,6 @@ export default class extends Component {
   state = {
     origin: "",
     destination: "",
-    responseOrigin: "",
-    responseDestination: "",
     people: 2,
     errorMessage: { origin: "", destination: "" }
   };
@@ -61,32 +59,23 @@ export default class extends Component {
     }
 
     const data = response.routes[0].legs[0];
-    const distance = data.distance.value;
 
     this.setState({
       origin: data.start_address,
       destination: "",
-      responseOrigin: data.start_address,
-      responseDestination: data.end_address,
-
       errorMessage: { origin: "", destination: "" }
     });
 
-    const result = await feePerPeople(distance, people);
-    const formattedResult = default_format(result.payPerPerson);
+    const result = await feePerPeople(data.distance.value, people);
 
-    const detailData = {
-      region: { latitude: "", longitude: "" },
-      responseOrigin: this.state.responseOrigin,
-      responseDestination: this.state.responseDestination,
-      distance: data.distance.text,
-      duration: data.duration.text,
-      useFuelAmount: result.useFuelAmount,
-      feeOfFuel: result.feeOfFuel,
-      payPerPerson: result.payPerPerson
-    };
+    // データ整形
+    const formattedResult = defaultFormat(result.payPerPerson);
+    const formattedDetail = detailFormat(data, result);
 
-    Actions.result({ foodAmounts: formattedResult, detailData });
+    Actions.result({
+      foodAmounts: formattedResult,
+      detailData: formattedDetail
+    });
   };
 
   render() {

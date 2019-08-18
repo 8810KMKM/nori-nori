@@ -13,6 +13,7 @@ export default class ResultPage extends Component {
     const { detailData, foodAmounts } = this.props;
     return (
       <View style={globalStyles.container}>
+        <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
         <ConvertedFoodCollection
           style={styles.foodList}
           foodAmounts={foodAmounts}
