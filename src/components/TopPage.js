@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
 import defaultFormat, { detailFormat } from "../../utils/format_result";
 import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
-
 import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
+import RefreshContainer from "../../libs/components/RefreshContainer";
 import logoImage from "../../assets/images/nori-nori-logo.png";
 
 export default class extends Component {
@@ -18,7 +17,8 @@ export default class extends Component {
     destination: "",
     people: 2,
     errorMessage: { origin: "", destination: "" },
-    loading: false
+    loading: false,
+    refreshing: false
   };
 
   setCurrentLocation = async () => {
@@ -33,9 +33,9 @@ export default class extends Component {
     });
   };
 
-  toggleNoticeModal = () => {
-    const { isNoticeModalVisible } = this.state;
-    this.setState({ isNoticeModalVisible: !isNoticeModalVisible });
+  onRefresh = () => {
+    this.setState({ refreshing: true, origin: { label: "", value: "" } });
+    this.setState({ refreshing: false });
   };
 
   handleChange = (target, text) => {
@@ -99,9 +99,9 @@ export default class extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, refreshing } = this.state;
     return (
-      <View style={globalStyles.container}>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
@@ -110,7 +110,7 @@ export default class extends Component {
           submit={this.submit}
           setCurrentLocation={this.setCurrentLocation}
         />
-      </View>
+      </RefreshContainer>
     );
   }
 }
@@ -119,9 +119,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 320,
     height: 160,
-    marginTop: 48
-  },
-  loading: {
-    position: "absolute"
+    marginTop: 48,
+    flex: 3
   }
 });
