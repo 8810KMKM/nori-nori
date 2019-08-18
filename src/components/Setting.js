@@ -72,13 +72,14 @@ export default class extends Component {
     const { fuel, cost, errorMessage } = this.state;
     return (
       <View style={globalStyles.container}>
-        <HeadLine pageName="Setting"/>
+        <HeadLine pageName="Setting" />
         <Form
           label="燃費 [km/l]"
           value={fuel}
           handleChange={text => this.handleChange("fuel", text)}
           placeholder="ex）15km/l→15"
           errorMessage={errorMessage.fuel}
+          keyboardType="number-pad"
         />
         <Form
           label="ガソリン相場 [円/l]"
@@ -86,6 +87,7 @@ export default class extends Component {
           handleChange={text => this.handleChange("cost", text)}
           placeholder="ex）140円/l→140"
           errorMessage={errorMessage.cost}
+          keyboardType="number-pad"
         />
         <Button text="保存" onPress={this.save} />
       </View>
@@ -94,9 +96,7 @@ export default class extends Component {
 }
 
 const formStyles = StyleSheet.create({
-  headLine: {
-
-  },
+  headLine: {},
   labelContainer: {
     paddingTop: 40,
     width: "90%",
