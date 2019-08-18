@@ -17,9 +17,10 @@ export default ({ name, amount, icon, grayIcon, multiIcon }) => {
         <View style={styles.text}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.amount}>
-            {amount.single === 0 ?
-              "--" :
-              `${amount.multi*10 + amount.single}個`}
+            {amount.single === 0 && amount.multi === 0 ?
+                "--"
+                :
+                `${amount.multi * 10 + amount.single}個`}
           </Text>
         </View>
       </View>
