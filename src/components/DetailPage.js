@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-// マップ
-
 export default class extends Component {
   render() {
-    console.log(this.props.detailData);
     const {
       region,
+      start_latLng,
+      end_latLng,
       responseOrigin,
       responseDestination,
       distance,
@@ -20,6 +20,10 @@ export default class extends Component {
     } = this.props.detailData;
     return (
       <View style={globalStyles.container}>
+        <MapView region={region} style={styles.map}>
+          <Marker coordinate={start_latLng} title="origin" />
+          <Marker coordinate={end_latLng} title="destination" />
+        </MapView>
         <Text>出発地:{responseOrigin}</Text>
         <Text>到着地:{responseDestination}</Text>
         <Text>走行距離:{distance}</Text>
@@ -33,3 +37,11 @@ export default class extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  map: {
+    position: "relative",
+    height: "60%",
+    width: "90%"
+  }
+});

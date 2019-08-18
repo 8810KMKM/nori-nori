@@ -12,13 +12,13 @@ export default class ResultPage extends Component {
     const { detailData, foodAmounts } = this.props;
     return (
       <View style={globalStyles.container}>
+        <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
         <ConvertedFoodCollection
           style={styles.foodList}
           foodAmounts={foodAmounts}
         />
         <View style={styles.buttonWrapper}>
           <Button text="戻る" onPress={Actions.pop} />
-          <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
         </View>
       </View>
     );
