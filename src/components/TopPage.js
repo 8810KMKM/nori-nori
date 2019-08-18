@@ -23,7 +23,11 @@ export default class extends Component {
 
   setCurrentLocation = async () => {
     this.setState({ loading: true });
-    this.setState({ origin: await getCurrentLocation(), loading: false });
+    this.setState({
+      origin: await getCurrentLocation(),
+      loading: false,
+      errorMessage: { origin: "" }
+    });
   };
 
   toggleNoticeModal = () => {
