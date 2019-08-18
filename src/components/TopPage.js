@@ -8,6 +8,7 @@ import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
+import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
 import logoImage from "../../assets/images/nori-nori-logo.png";
 
@@ -16,11 +17,17 @@ export default class extends Component {
     origin: "",
     destination: "",
     people: 2,
-    errorMessage: { origin: "", destination: "" }
+    errorMessage: { origin: "", destination: "" },
+    loading: false
   };
 
   setCurrentLocation = async () => {
-    this.setState({ origin: await getCurrentLocation() });
+    this.setState({ loading: true });
+    this.setState({
+      origin: await getCurrentLocation(),
+      loading: false,
+      errorMessage: { origin: "" }
+    });
   };
 
   toggleNoticeModal = () => {
@@ -49,24 +56,27 @@ export default class extends Component {
       });
     }
 
+    this.setState({ loading: true });
     const response = await fetchDirections(origin, destination);
 
     if (response.status === "NOT_FOUND") {
+      this.setState({ loading: false });
       return Alert.alert("正しい地名が入力されているか確認してください");
     }
     if (response.status === "ZERO_RESULTS") {
+      this.setState({ loading: false });
       return Alert.alert("車のみのルートでは移動できない可能性があります");
     }
 
     const data = response.routes[0].legs[0];
+    const result = await feePerPeople(data.distance.value, people);
 
     this.setState({
       origin: data.start_address,
       destination: "",
-      errorMessage: { origin: "", destination: "" }
+      errorMessage: { origin: "", destination: "" },
+      loading: false
     });
-
-    const result = await feePerPeople(data.distance.value, people);
 
     // データ整形
     const formattedResult = defaultFormat(result.payPerPerson);
@@ -79,8 +89,10 @@ export default class extends Component {
   };
 
   render() {
+    const { loading } = this.state;
     return (
       <View style={globalStyles.container}>
+        {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
           {...this.state}
@@ -95,8 +107,11 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   logo: {
-    width: 280 ,
-    height: 140,
-    marginTop: 48
+    width: 240 ,
+    height: 120,
+    marginTop: 40
+  },
+  loading: {
+    position: "absolute"
   }
 });

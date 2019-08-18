@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
@@ -60,10 +60,12 @@ export default ({
   );
 };
 
+const { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     flexGrow: 1
   }

@@ -1,7 +1,9 @@
 import React from "react";
 import AwesomeButtonCartman from "react-native-really-awesome-button/src/themes/cartman";
 import colors from "../../assets/variables/colors";
-import { View, StyleSheet} from "react-native";
+import { View, StyleSheet, Dimensions} from "react-native";
+
+const { height, width } = Dimensions.get('window');
 
 export default ({ onPress, text}) => (
   <View style={styles.wrapper}>
@@ -10,8 +12,8 @@ export default ({ onPress, text}) => (
       textSize={24}
       textColor={colors.main}
       textFontFamily="mplus-1p-b"
-      width={120}
-      height={64}
+      width={width / 3}
+      height={width / 6}
       onPress={onPress}>
       {text}
     </AwesomeButtonCartman>
@@ -20,7 +22,7 @@ export default ({ onPress, text}) => (
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 16,
-    marginBottom: 40
+    marginTop: 8,
+    marginBottom: 24
   }
 })

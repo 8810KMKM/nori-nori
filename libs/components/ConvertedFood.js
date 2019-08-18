@@ -16,6 +16,7 @@ export default ({ name, amount, icon, grayIcon, multiIcon }) => {
     <View style={{ width: "100%" }}>
       <FormattedText
         category={name}
+        fontSize={24}
         value={amount.single === 0 && amount.multi === 0 ?
           "--"
           :

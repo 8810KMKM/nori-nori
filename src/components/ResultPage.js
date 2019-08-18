@@ -34,6 +34,7 @@ export default class ResultPage extends Component {
 const styles = StyleSheet.create({
   foodList: {
     height: height - 120
+
   },
   buttonWrapper: {
     height: 120,
