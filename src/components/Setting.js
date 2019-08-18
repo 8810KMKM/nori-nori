@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, AsyncStorage, StyleSheet } from "react-native";
+import { View, Text, AsyncStorage, StyleSheet, Alert } from "react-native";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -17,17 +17,17 @@ export default class extends Component {
   componentDidMount = async () => {
     try {
       const data = await AsyncStorage.multiGet(["fuel", "cost"]);
-      data.map(d =>
-        this.setState({
-          [d[0]]: d[1]
-        })
-      );
+      data.map(d => {
+        d[1] &&
+          this.setState({
+            [d[0]]: d[1]
+          });
+      });
     } catch (e) {
       console.log("async storage get error");
     }
 
     const { fuel, cost } = this.state;
-    console.log(fuel, cost);
   };
 
   handleChange = (target, text) => {
@@ -64,6 +64,8 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
+
+    Alert.alert("設定を更新しました!");
   };
 
   render() {
@@ -77,7 +79,6 @@ export default class extends Component {
           handleChange={text => this.handleChange("fuel", text)}
           placeholder="ex）15km/l→15"
           errorMessage={errorMessage.fuel}
-          formStyles={formStyles}
         />
         <Form
           label="ガソリン相場 [円/l]"
@@ -85,7 +86,6 @@ export default class extends Component {
           handleChange={text => this.handleChange("cost", text)}
           placeholder="ex）140円/l→140"
           errorMessage={errorMessage.cost}
-          formStyles={formStyles}
         />
         <Button text="保存" onPress={this.save} />
       </View>

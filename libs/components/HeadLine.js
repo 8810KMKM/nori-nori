@@ -10,6 +10,7 @@ export default ({pageName}) => (
 
 const styles = StyleSheet.create({
   wrapper: {
+    marginBottom: 24
   },
   headline: {
     fontSize: 40,

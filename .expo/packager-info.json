@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 3959,
   "expoServerNgrokUrl": "https://n4-k8r.anonymous.nori-nori.exp.direct",
   "packagerNgrokUrl": "https://packager.n4-k8r.anonymous.nori-nori.exp.direct",
-  "ngrokPid": 3970
+  "ngrokPid": 8391,
+  "devToolsPort": 19002,
+  "packagerPort": 19003,
+  "packagerPid": 8380
 }

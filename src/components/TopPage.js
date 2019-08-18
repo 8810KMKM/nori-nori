@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
-import {
-  GOOGLE_MAP_DIRECTIONS_KEY,
-  GOOGLE_MAP_DIRECTIONS_URL
-} from "react-native-dotenv";
 
 import { feePerPeople } from "../../utils/calculation";
 import default_format from "../../utils/format_result";
+import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
@@ -18,8 +15,19 @@ export default class extends Component {
   state = {
     origin: "",
     destination: "",
+    responseOrigin: "",
+    responseDestination: "",
     people: 2,
     errorMessage: { origin: "", destination: "" }
+  };
+
+  setCurrentLocation = async () => {
+    this.setState({ origin: await getCurrentLocation() });
+  };
+
+  toggleNoticeModal = () => {
+    const { isNoticeModalVisible } = this.state;
+    this.setState({ isNoticeModalVisible: !isNoticeModalVisible });
   };
 
   handleChange = (target, text) => {
@@ -43,25 +51,32 @@ export default class extends Component {
       });
     }
 
-    const response = await fetch(
-      `${GOOGLE_MAP_DIRECTIONS_URL}?origin=${origin}&destination=${destination}&key=${GOOGLE_MAP_DIRECTIONS_KEY}`
-    )
-      .then(res => res.json())
-      .catch(e => e.json().then(err => console.log(err)));
+    const response = await fetchDirections(origin, destination);
 
     if (response.status === "NOT_FOUND") {
-      const errorMessage = "正しい地名が入力されているか確認してください";
-      return this.setState({
-        errorMessage: { origin: errorMessage, destination: errorMessage }
-      });
+      return Alert.alert("正しい地名が入力されているか確認してください");
+    }
+    if (response.status === "ZERO_RESULTS") {
+      return Alert.alert("車のみのルートでは移動できない可能性があります");
     }
 
     const data = response.routes[0].legs[0];
     const [distance, duration] = [data.distance.value, data.duration.value];
 
+    this.setState({
+      origin: data.start_address,
+      // 後で詳細表示に使いたい
+      responseOrigin: data.start_address,
+      responseDestination: data.end_address
+    });
+
     const fee_per_people = await feePerPeople(distance, people);
     const formatted_result = default_format(fee_per_people);
 
+    this.setState({
+      destination: "",
+      errorMessage: { origin: "", destination: "" }
+    });
     Actions.result({ foodAmounts: formatted_result });
   };
 
@@ -76,6 +91,7 @@ export default class extends Component {
           {...this.state}
           handleChange={this.handleChange}
           submit={this.submit}
+          setCurrentLocation={this.setCurrentLocation}
         />
       </View>
     );
@@ -85,6 +101,7 @@ export default class extends Component {
 const styles = StyleSheet.create({
   logo: {
     width: 320,
-    height: 160
+    height: 160,
+    marginTop: 48
   }
 });
