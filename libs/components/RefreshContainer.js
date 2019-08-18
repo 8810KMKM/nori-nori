@@ -20,8 +20,10 @@ export default ({ refreshing, onRefresh, children }) => {
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    height: "100%",
     width: "100%"
   },
-  contentContainer: { alignItems: "center", justifyContent: "center" }
+  contentContainer: {
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
