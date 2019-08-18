@@ -21,6 +21,23 @@ export default class extends Component {
     refreshing: false
   };
 
+  getInitialState = () => {
+    return {
+      origin: { label: "", value: "" },
+      destination: "",
+      people: 2,
+      errorMessage: { origin: "", destination: "" },
+      loading: false,
+      refreshing: false
+    };
+  };
+
+  onRefresh = () => {
+    const initialState = this.getInitialState();
+    this.setState({ ...initialState, refreshing: true });
+    this.setState({ refreshing: false });
+  };
+
   setCurrentLocation = async () => {
     this.setState({ loading: true });
     this.setState({
@@ -31,11 +48,6 @@ export default class extends Component {
       loading: false,
       errorMessage: { origin: "" }
     });
-  };
-
-  onRefresh = () => {
-    this.setState({ refreshing: true, origin: { label: "", value: "" } });
-    this.setState({ refreshing: false });
   };
 
   handleChange = (target, text) => {
