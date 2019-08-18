@@ -15,28 +15,29 @@ export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
     <Text style={styles.message}>お礼は一人あたり...</Text>
     <ScrollView>
-      <ConvertedFood
-        name="ジュース"
-        amount={divide_amount(foodAmounts.juice)}
-        icon={juiceImage}
-        grayFoodIcon={grayJuiceImage}
-        multiIcon={multiJuiceImage}
-      />
-      <ConvertedFood
-        name="ハンバーガー"
-        amount={divide_amount(foodAmounts.burger)}
-        icon={burgerImage}
-        grayIcon={grayBurgerImage}
-        multiIcon={multiJuiceImage}
-      />
-      <ConvertedFood
-        name="ラーメン"
-        amount={divide_amount(foodAmounts.ramen)}
-        icon={ramenImage}
-        grayIcon={grayRamenImage}
-        multiIcon={multiJuiceImage}
-      />
+        <ConvertedFood
+          name="ジュース"
+          amount={divide_amount(foodAmounts.juice)}
+          icon={juiceImage}
+          grayFoodIcon={grayJuiceImage}
+          multiIcon={multiJuiceImage}
+        />
+        <ConvertedFood
+          name="ハンバーガー"
+          amount={divide_amount(foodAmounts.burger)}
+          icon={burgerImage}
+          grayIcon={grayBurgerImage}
+          multiIcon={multiJuiceImage}
+        />
+        <ConvertedFood
+          name="ラーメン"
+          amount={divide_amount(foodAmounts.ramen)}
+          icon={ramenImage}
+          grayIcon={grayRamenImage}
+          multiIcon={multiJuiceImage}
+        />
     </ScrollView>
+    
   </View>
 );
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "flex-start",
+    // alignItems: "flex-start",
     width: "90%"
   },
   message: {

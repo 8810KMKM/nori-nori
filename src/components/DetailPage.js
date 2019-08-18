@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
   map: {
     flex: 3,
     position: "relative",
-    width: "90%"
+    width: "90%",
+    marginBottom: 4
   },
   text: {
     flex: 3,
