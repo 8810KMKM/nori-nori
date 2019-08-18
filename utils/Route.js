@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import TopPage from "../src/components/TopPage";
 import ResultPage from "../src/components/ResultPage";
+import DetailPage from "../src/components/DetailPage";
 import Setting from "../src/components/Setting";
 
 import topIcon from "../assets/icon.png";
@@ -63,6 +64,7 @@ export default ({}) => {
           />
         </Tabs>
         <Scene key="result" component={ResultPage} title="結果" />
+        <Scene key="detail" component={DetailPage} title="詳細" />
       </Scene>
     </Router>
   );
