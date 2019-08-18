@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Alert,
-  ActivityIndicator
-} from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-import colors from "../../assets/variables/colors";
 import { feePerPeople } from "../../utils/calculation";
 import defaultFormat, { detailFormat } from "../../utils/format_result";
 import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
+import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
 import logoImage from "../../assets/images/nori-nori-logo.png";
 
@@ -92,13 +86,7 @@ export default class extends Component {
     const { loading } = this.state;
     return (
       <View style={globalStyles.container}>
-        {loading && (
-          <ActivityIndicator
-            style={styles.loading}
-            size="large"
-            color={colors.accent}
-          />
-        )}
+        {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
           {...this.state}
