@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -9,7 +9,7 @@ import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import DestinationForm from "../../libs/components/DestinationForm";
-import Button from "../../libs/components/Button";
+import logoImage from '../../assets/images/nori-nori-logo.png'
 
 export default class extends Component {
   state = {
@@ -83,11 +83,10 @@ export default class extends Component {
   render() {
     return (
       <View style={globalStyles.container}>
-        <View style={styles.titleWrapper}>
-          <View style={styles.titleUnderLine}>
-            <Text style={styles.title}>nori-nori</Text>
-          </View>
-        </View>
+        <Image
+          source={logoImage}
+          style={styles.logo}
+        />
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
@@ -100,22 +99,9 @@ export default class extends Component {
 }
 
 const styles = StyleSheet.create({
-  titleWrapper: {
-    flexBasis: "20%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  title: {
-    fontSize: 56,
-    textAlign: "center",
-    fontWeight: "bold",
-    color: colors.white,
-    // fontFamily: 'bangers-r',
-    fontFamily: "erica"
-  },
-  titleUnderLine: {
-    marginTop: 20,
-    borderBottomWidth: 8,
-    borderBottomColor: colors.accent
+  logo: {
+    width: 320,
+    height: 160,
+    marginTop: 48
   }
 });

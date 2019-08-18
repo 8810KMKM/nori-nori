@@ -1,9 +1,10 @@
 import React from "react";
 import AwesomeButtonCartman from "react-native-really-awesome-button/src/themes/cartman";
 import colors from "../../assets/variables/colors";
+import { View } from "react-native-animatable";
 
-export default ({ onPress, text }) => {
-  return (
+export default ({ onPress, text }) => (
+  <View style={{ marginBottom: 40 }}>
     <AwesomeButtonCartman
       backgroundColor={colors.accent}
       textSize={24}
@@ -14,5 +15,5 @@ export default ({ onPress, text }) => {
       onPress={onPress}>
       {text}
     </AwesomeButtonCartman>
-  );
-};
+  </View>
+);

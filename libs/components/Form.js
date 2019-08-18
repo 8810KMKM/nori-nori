@@ -60,7 +60,7 @@ const defaultStyles = setCurrentLocation =>
     label: {
       fontWeight: "bold",
       color: colors.white,
-      fontSize: 24,
+      fontSize: 20,
       marginBottom: 8
     },
     inputContainer: {
@@ -71,7 +71,7 @@ const defaultStyles = setCurrentLocation =>
       flex: 1,
       height: 56,
       paddingLeft: 8,
-      fontSize: 24,
+      fontSize: 20,
       backgroundColor: colors.white,
       color: colors.black,
       fontWeight: "bold",
