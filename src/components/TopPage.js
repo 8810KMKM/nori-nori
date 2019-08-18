@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  ActivityIndicator
+} from "react-native";
 import { Actions } from "react-native-router-flux";
 
+import colors from "../../assets/variables/colors";
 import { feePerPeople } from "../../utils/calculation";
 import defaultFormat, { detailFormat } from "../../utils/format_result";
 import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
@@ -16,11 +23,13 @@ export default class extends Component {
     origin: "",
     destination: "",
     people: 2,
-    errorMessage: { origin: "", destination: "" }
+    errorMessage: { origin: "", destination: "" },
+    loading: false
   };
 
   setCurrentLocation = async () => {
-    this.setState({ origin: await getCurrentLocation() });
+    this.setState({ loading: true });
+    this.setState({ origin: await getCurrentLocation(), loading: false });
   };
 
   toggleNoticeModal = () => {
@@ -49,6 +58,7 @@ export default class extends Component {
       });
     }
 
+    this.setState({ loading: true });
     const response = await fetchDirections(origin, destination);
 
     if (response.status === "NOT_FOUND") {
@@ -59,14 +69,14 @@ export default class extends Component {
     }
 
     const data = response.routes[0].legs[0];
+    const result = await feePerPeople(data.distance.value, people);
 
     this.setState({
       origin: data.start_address,
       destination: "",
-      errorMessage: { origin: "", destination: "" }
+      errorMessage: { origin: "", destination: "" },
+      loading: false
     });
-
-    const result = await feePerPeople(data.distance.value, people);
 
     // データ整形
     const formattedResult = defaultFormat(result.payPerPerson);
@@ -79,8 +89,16 @@ export default class extends Component {
   };
 
   render() {
+    const { loading } = this.state;
     return (
       <View style={globalStyles.container}>
+        {loading && (
+          <ActivityIndicator
+            style={styles.loading}
+            size="large"
+            color={colors.accent}
+          />
+        )}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
           {...this.state}
@@ -98,5 +116,8 @@ const styles = StyleSheet.create({
     width: 320,
     height: 160,
     marginTop: 48
+  },
+  loading: {
+    position: "absolute"
   }
 });
