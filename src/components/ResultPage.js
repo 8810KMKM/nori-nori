@@ -9,15 +9,16 @@ const { height, width } = Dimensions.get("window");
 
 export default class ResultPage extends Component {
   render() {
+    const { detailData, foodAmounts } = this.props;
     return (
       <View style={globalStyles.container}>
         <ConvertedFoodCollection
           style={styles.foodList}
-          foodAmounts={this.props.foodAmounts}
+          foodAmounts={foodAmounts}
         />
         <View style={styles.buttonWrapper}>
-          <Button text="戻る" onPress={() => Actions.pop()} />
-          <Button text="詳細" onPress={() => Actions.detail()} />
+          <Button text="戻る" onPress={Actions.pop} />
+          <Button text="詳細" onPress={() => Actions.detail({ detailData })} />
         </View>
       </View>
     );

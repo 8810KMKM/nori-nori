@@ -33,29 +33,29 @@ export const feePerPeople = async (distance, people) => {
   const cost = (await AsyncStorage.getItem("cost")) || 140;
 
   // ガソリン消費量
-  const use_fuel_amount = distance / (fuel * 1000);
+  const useFuelAmount = distance / (fuel * 1000);
   // 消費したガソリンの値段
-  const fee = use_fuel_amount * cost;
+  const feeOfFuel = useFuelAmount * cost;
   // ガソリン代の一人あたりの精算（ドライバー・同乗者共に同じ）
-  const fee_per_people = fee / people;
+  const feePerPeople = feeOfFuel / people;
 
   const reward = rateForReward(distance);
 
   // 報酬に人数による変動を加味して、ガソリン代を上乗せ
-  const pay_per_person = reward * rateForPeople(people) + fee_per_people;
+  const payPerPerson = reward * rateForPeople(people) + feePerPeople;
 
-  const check = [
-    { 燃費: fuel },
-    { ガソリン相場: cost },
-    { 消費: use_fuel_amount },
-    { ガソリン値段: fee },
-    { 人数: people },
-    { 一人あたりガソリン: fee_per_people },
-    { 距離: distance },
-    { 報酬: reward },
-    { 一人あたり支払い: pay_per_person }
-  ];
-  console.log(check);
+  // const check = [
+  //   { 燃費: fuel },
+  //   { ガソリン相場: cost },
+  //   { 消費: useFuelAmount },
+  //   { ガソリン値段: feeOfFuel },
+  //   { 人数: people },
+  //   { 一人あたりガソリン: feePerPeople },
+  //   { 距離: distance },
+  //   { 報酬: reward },
+  //   { 一人あたり支払い: payPerPerson }
+  // ];
+  // console.log(check);
 
-  return pay_per_person;
+  return { useFuelAmount, feeOfFuel, payPerPerson };
 };

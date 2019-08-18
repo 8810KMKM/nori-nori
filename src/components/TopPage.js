@@ -9,7 +9,7 @@ import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
 import DestinationForm from "../../libs/components/DestinationForm";
-import logoImage from '../../assets/images/nori-nori-logo.png'
+import logoImage from "../../assets/images/nori-nori-logo.png";
 
 export default class extends Component {
   state = {
@@ -61,32 +61,38 @@ export default class extends Component {
     }
 
     const data = response.routes[0].legs[0];
-    const [distance, duration] = [data.distance.value, data.duration.value];
+    const distance = data.distance.value;
 
     this.setState({
       origin: data.start_address,
-      // 後で詳細表示に使いたい
-      responseOrigin: data.start_address,
-      responseDestination: data.end_address
-    });
-
-    const fee_per_people = await feePerPeople(distance, people);
-    const formatted_result = default_format(fee_per_people);
-
-    this.setState({
       destination: "",
+      responseOrigin: data.start_address,
+      responseDestination: data.end_address,
+
       errorMessage: { origin: "", destination: "" }
     });
-    Actions.result({ foodAmounts: formatted_result });
+
+    const result = await feePerPeople(distance, people);
+    const formattedResult = default_format(result.payPerPerson);
+
+    const detailData = {
+      region: { latitude: "", longitude: "" },
+      responseOrigin: this.state.responseOrigin,
+      responseDestination: this.state.responseDestination,
+      distance: data.distance.text,
+      duration: data.duration.text,
+      useFuelAmount: result.useFuelAmount,
+      feeOfFuel: result.feeOfFuel,
+      payPerPerson: result.payPerPerson
+    };
+
+    Actions.result({ foodAmounts: formattedResult, detailData });
   };
 
   render() {
     return (
       <View style={globalStyles.container}>
-        <Image
-          source={logoImage}
-          style={styles.logo}
-        />
+        <Image source={logoImage} style={styles.logo} />
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
