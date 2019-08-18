@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import juiceImage from '../../assets/images/foods/soda.png';
 import burgerImage from '../../assets/images/foods/burger.png';
 import ramenImage from '../../assets/images/foods/ramen.png';
@@ -11,30 +11,32 @@ import ConvertedFood from './ConvertedFood';
 import colors from '../../assets/variables/colors';
 import divide_amount from '../../utils/divide_amount';
 
-export default ({foodAmounts}) => (
+export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
     <Text style={styles.message}>お礼は一人あたり...</Text>
-    <ConvertedFood
-      name="ジュース"
-      amount={divide_amount(foodAmounts.juice)}
-      icon={juiceImage}
-      grayFoodIcon={grayJuiceImage}
-      multiIcon={multiJuiceImage}
-    />
-    <ConvertedFood
-      name="ハンバーガー"
-      amount={divide_amount(foodAmounts.burger)}
-      icon={burgerImage}
-      grayIcon={grayBurgerImage}
-      multiIcon={multiJuiceImage}
-    />
-    <ConvertedFood
-      name="ラーメン"
-      amount={divide_amount(foodAmounts.ramen)}
-      icon={ramenImage}
-      grayIcon={grayRamenImage}
-      multiIcon={multiJuiceImage}
-    />
+    <ScrollView>
+      <ConvertedFood
+        name="ジュース"
+        amount={divide_amount(foodAmounts.juice)}
+        icon={juiceImage}
+        grayFoodIcon={grayJuiceImage}
+        multiIcon={multiJuiceImage}
+      />
+      <ConvertedFood
+        name="ハンバーガー"
+        amount={divide_amount(foodAmounts.burger)}
+        icon={burgerImage}
+        grayIcon={grayBurgerImage}
+        multiIcon={multiJuiceImage}
+      />
+      <ConvertedFood
+        name="ラーメン"
+        amount={divide_amount(foodAmounts.ramen)}
+        icon={ramenImage}
+        grayIcon={grayRamenImage}
+        multiIcon={multiJuiceImage}
+      />
+    </ScrollView>
   </View>
 );
 
