@@ -10,9 +10,13 @@ import multiJuiceImage from '../../assets/images/foods/soda-x10.png';
 import ConvertedFood from './ConvertedFood';
 import colors from '../../assets/variables/colors';
 import divide_amount from '../../utils/divide_amount';
+import HeadLine from './HeadLine';
 
 export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
+    <View style={styles.header}>
+      <HeadLine pageName="Result"/>
+    </View>
     <Text style={styles.message}>お礼は一人あたり...</Text>
     <ScrollView>
         <ConvertedFood
@@ -48,11 +52,15 @@ const styles = StyleSheet.create({
     // alignItems: "flex-start",
     width: "90%"
   },
+  header: {
+    flex: 2,
+    alignItems: "center",
+    padding: 16
+  },
   message: {
-    fontWeight: "bold",
-    fontSize: 20,
-    lineHeight: 80,
+    fontSize: 16,
+    fontFamily: "mplus-1p-b",
     color: colors.white,
-    marginTop: 16
+    marginBottom: 4
   }
 });

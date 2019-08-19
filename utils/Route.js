@@ -7,7 +7,7 @@ import TopPage from "../src/components/TopPage";
 import ResultPage from "../src/components/ResultPage";
 import DetailPage from "../src/components/DetailPage";
 import Setting from "../src/components/Setting";
-import WishListPage from "../src/components/WithListPage";
+import WishListPage from "../src/components/WishListPage";
 import AccountPage from "../src/components/AccountPage";
 
 import topIcon from "../assets/icon.png";
@@ -55,9 +55,9 @@ export default ({}) => {
             hideNavBar={true}
           />
           <Scene
-            key="withList"
+            key="wish list"
             component={WishListPage}
-            iconName="car"
+            iconName="profile"
             icon={TabBarIcon}
             hideNavBar={true}
           />
@@ -71,7 +71,7 @@ export default ({}) => {
           <Scene
             key="account"
             component={AccountPage}
-            iconName="setting"
+            iconName="user"
             icon={TabBarIcon}
             hideNavBar={true}
           />
