@@ -139,7 +139,7 @@ export default class extends Component {
           ))}
         </View>
         <View style={styles.buttonWrapper}>
-          <Button text="top" onPress={() => Actions.top()} />
+          <Button text="ホーム" onPress={() => Actions.top()} />
           <Button text="共有" onPress={this.onShare} />
         </View>
       </View>
