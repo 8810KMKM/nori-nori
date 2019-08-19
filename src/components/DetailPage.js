@@ -12,7 +12,6 @@ import HeadLine from "../../libs/components/HeadLine";
 
 import originFlagIcon from "../../assets/images/flags/flag-origin.png";
 import destinationFlagIcon from "../../assets/images/flags/flag-destination.png";
-import omit_text from "../../utils/omit_text";
 
 export default class extends Component {
   constructor(props) {
@@ -70,49 +69,7 @@ export default class extends Component {
 
   render() {
     const { loading } = this.state;
-    const {
-      region,
-      start_latLng,
-      end_latLng,
-      responseOrigin,
-      responseDestination,
-      distance,
-      duration,
-      useFuelAmount,
-      feeOfFuel,
-      payPerPerson
-    } = this.props.detailData;
-
-    const details = [
-      {
-        category: "出発地",
-        value: omit_text(responseOrigin)
-      },
-      {
-        category: "到着地",
-        value: omit_text(responseDestination)
-      },
-      {
-        category: "走行距離",
-        value: duration
-      },
-      {
-        category: "運転時間",
-        value: distance
-      },
-      {
-        category: "ガソリン消費量",
-        value: `${Math.round(useFuelAmount * 10) / 10}リットル`
-      },
-      {
-        category: "ガソリン代",
-        value: `${Math.round(feeOfFuel)}円`
-      },
-      {
-        category: "一人あたりの支払い",
-        value: `${Math.round(payPerPerson)}円`
-      }
-    ];
+    const { region, start_latLng, end_latLng, details } = this.props.detailData;
 
     return (
       <View style={globalStyles.container} ref={this.detailImgRef}>
