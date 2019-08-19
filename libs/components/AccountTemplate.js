@@ -5,7 +5,7 @@ import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";
 
 export default ({
-  userEmail,
+  user,
   email,
   password,
   passwordConfirmation,
@@ -18,7 +18,7 @@ export default ({
     <>
       {mode === "logout" ? (
         <>
-          <Text>{userEmail}でログインしています</Text>
+          <Text>{user.email}でログインしています</Text>
           <Button text="ログアウト" onPress={onPress} />
         </>
       ) : (

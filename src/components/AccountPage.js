@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Alert, AsyncStorage } from "react-native";
-import { Actions } from "react-native-router-flux";
 
 import { userActions } from "../../utils/firebase";
 
@@ -10,7 +9,7 @@ import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
-    userEmail: "",
+    user: {},
     mode: "login",
     email: "",
     password: "",
@@ -19,10 +18,15 @@ export default class extends Component {
     refreshing: false
   };
 
+  setUser = async () => {
+    const user = await userActions.current();
+    user.uid && this.setState({ user, mode: "logout" });
+  };
+
   componentDidMount = async () => {
     this.setState({ loading: true });
-    const { userEmail } = await userActions.current();
-    this.setState({ userEmail, mode: "logout", loading: false });
+    this.setUser();
+    this.setState({ loading: false });
   };
 
   handleChange = (target, text) => {
@@ -49,20 +53,23 @@ export default class extends Component {
     }
 
     this.setState({ logding: true });
-    mode === "login"
-      ? await userActions.login(email, password)
-      : await userActions.signup(email, password);
+    try {
+      mode === "login"
+        ? await userActions.login(email, password)
+        : await userActions.signup(email, password);
+    } catch (e) {
+      return this.setState({ loading: false });
+    }
 
-    const { userEmail } = await userActions.current();
+    this.setUser();
     this.setState({
-      userEmail,
       mode: "logout",
       loading: "false",
       email: "",
       password: "",
-      passwordConfirmation: ""
+      passwordConfirmation: "",
+      loading: false
     });
-    Actions.accunt();
   };
 
   toggleMode = () => {
@@ -73,6 +80,7 @@ export default class extends Component {
   };
 
   render() {
+    console.log(this.state.mode);
     const { loading } = this.state;
     return (
       <RefreshContainer>
