@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Alert, Text, Modal } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
 
 import firebase, { wishListActions } from "../../utils/firebase";
-import colors from "../../assets/variables/colors";
-import omit_text from "../../utils/omit_text";
 
-import Loading from "../../libs/components/Loading";
-import Form from "../../libs/components/Form";
-import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
-import HeadLine from "../../libs/components/HeadLine";
-import FormattedText from "../../libs/components/FormattedText";
+import AddWithModal from "../../libs/components/AddWithModal";
+import WishList from "../../libs/components/WishList";
 
 export default class extends Component {
   state = {
@@ -92,105 +85,26 @@ export default class extends Component {
     this.setState({ modalVisible: !modalVisible });
   };
 
+  handleChange = (target, text) => {
+    this.setState({ [target]: text });
+  };
+
   render() {
-    const { wishList, title, price, refreshing, errorMessage } = this.state;
+    const { refreshing } = this.state;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-        <HeadLine pageName="Wish List" />
-        <View style={styles.wishListContainer}>
-          <View style={styles.wishListWrapper}>
-            {wishList.map((d, index) => (
-              <View style={styles.wishItem} key={index}>
-                <FormattedText
-                  fontSize={20}
-                  key={index}
-                  category={omit_text(d.title)}
-                  value={`¥${d.price}`}
-                />
-                <Icon
-                  name="closecircleo"
-                  color={colors.gray}
-                  onPress={() => this.deleteWishItem(d.id)}
-                  style={styles.deleteIcon}
-                />
-              </View>
-            ))}
-          </View>
-          <Icon
-            name="pluscircleo"
-            style={styles.addIcon}
-            onPress={this.toggleModalVisible}
-          />
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}>
-          <View style={styles.modalContainer}>
-            <HeadLine pageName="Add Wish Item" />
-            <View style={styles.addWishForm}>
-              <Form
-                label="ほしいもの"
-                value={title}
-                handleChange={text => this.setState({ title: text })}
-                errorMessage={errorMessage.title}
-                placeholder="例）本、もみじ饅頭"
-              />
-              <Form
-                label="値段"
-                value={price}
-                handleChange={text => this.setState({ price: text })}
-                errorMessage={errorMessage.price}
-                placeholder="例）1200, 100"
-                keyboardType="number-pad"
-              />
-              <Button onPress={this.createWishItem} text="追加" />
-              <Button text="閉じる" onPress={this.toggleModalVisible} />
-            </View>
-          </View>
-        </Modal>
+        <AddWithModal
+          {...this.state}
+          handleChange={this.handleChange}
+          createWishItem={this.createWishItem}
+          toggleModalVisible={this.toggleModalVisible}
+        />
+        <WishList
+          {...this.state}
+          deleteWishItem={this.deleteWishItem}
+          toggleModalVisible={this.toggleModalVisible}
+        />
       </RefreshContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wishListContainer: {
-    height: "80%",
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  wishListWrapper: {},
-  addIcon: {
-    height: 48,
-    width: 48,
-    fontSize: 48,
-    color: colors.accent
-  },
-  wishItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: 40,
-    marginBottom: 12,
-    width: "90%"
-  },
-  deleteIcon: {
-    height: 24,
-    width: 24,
-    fontSize: 24,
-    marginLeft: 8
-  },
-  modalContainer: {
-    flex: 1,
-    fontFamily: "mplus-1p-r",
-    alignItems: "center",
-    color: colors.white,
-    backgroundColor: colors.main
-  },
-  addWishForm: {
-    height: "80%",
-    justifyContent: "center",
-    alignItems: "center"
-  }
-});
