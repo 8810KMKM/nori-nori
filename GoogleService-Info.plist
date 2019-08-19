@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>63235105397-uppilvu0i3fqb7r5ahifn20ib4vhhgur.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.63235105397-uppilvu0i3fqb7r5ahifn20ib4vhhgur</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>63235105397-mjl1961a8ig9p64fop24b9bb478g0qn4.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBURSbP8SkGCJp9wdBl7QrcWE872UAMNM4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>63235105397</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.norinori.expo.googlesignin</string>
+	<key>PROJECT_ID</key>
+	<string>nori-nori-836f8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nori-nori-836f8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:63235105397:ios:4b62fcab196d80ef</string>
+	<key>DATABASE_URL</key>
+	<string>https://nori-nori-836f8.firebaseio.com</string>
+</dict>
+</plist>

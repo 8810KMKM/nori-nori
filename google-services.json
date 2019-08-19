@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "63235105397",
+    "firebase_url": "https://nori-nori-836f8.firebaseio.com",
+    "project_id": "nori-nori-836f8",
+    "storage_bucket": "nori-nori-836f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63235105397:android:4b62fcab196d80ef",
+        "android_client_info": {
+          "package_name": "com.norinori.expo.googlesignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63235105397-koj4kc52lf4si7ol71e555qmbjucvak5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwmerSO5gP-puyP4vwwpE6Pa87r_J38YQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63235105397-koj4kc52lf4si7ol71e555qmbjucvak5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "63235105397-uppilvu0i3fqb7r5ahifn20ib4vhhgur.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.norinori.expo.googlesignin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
