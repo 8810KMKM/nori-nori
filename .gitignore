@@ -86,3 +86,5 @@ RNTester/Pods/Target Support Files
 .env
 .tags
 .expo/packager-info.json
+GoogleService-Info.plist
+google-services.json
