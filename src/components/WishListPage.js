@@ -96,11 +96,10 @@ export default class extends Component {
   render() {
     const { wishLists, title, price, refreshing, errorMessage } = this.state;
     return (
-      <View style={globalStyles.container}>
-        <HeadLine pageName="Wish List" />
-        <View style={{ flex: 5 }}>
-          <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-            {/* ここから */}
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        <View style={globalStyles.container}>
+          <HeadLine pageName="Wish List" />
+          <View style={{ flex: 5 }}>
             {wishLists.map((d, index) => (
               <View style={styles.wishList} key={index}>
                 <View style={styles.wish}>
@@ -118,44 +117,41 @@ export default class extends Component {
                 </View>
               </View>
             ))}
-          </RefreshContainer>
-        </View>
-        {/* ここまで詳細画面みたいな感じでリスト表示したい */}
-        {/* ここから */}
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}>
-          <View style={globalStyles.container}>
-            <View style={styles.addWishContainer}>
-              <Form
-                label="ほしいもの"
-                value={title}
-                handleChange={text => this.setState({ title: text })}
-                errorMessage={errorMessage.title}
-                placeholder="例）本、もみじ饅頭"
-              />
-              <Form
-                label="値段"
-                value={price}
-                handleChange={text => this.setState({ price: text })}
-                errorMessage={errorMessage.price}
-                placeholder="例）1200, 100"
-                keyboardType="number-pad"
-              />
-            </View>
-            <Button onPress={this.createWishItem} text="追加" />
-            <Button text="閉じる" onPress={this.toggleModalVisible} />
           </View>
-        </Modal>
-        {/* ここまでモーダルにしたい */}
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}>
+            <View style={globalStyles.container}>
+              <View style={styles.addWishContainer}>
+                <Form
+                  label="ほしいもの"
+                  value={title}
+                  handleChange={text => this.setState({ title: text })}
+                  errorMessage={errorMessage.title}
+                  placeholder="例）本、もみじ饅頭"
+                />
+                <Form
+                  label="値段"
+                  value={price}
+                  handleChange={text => this.setState({ price: text })}
+                  errorMessage={errorMessage.price}
+                  placeholder="例）1200, 100"
+                  keyboardType="number-pad"
+                />
+              </View>
+              <Button onPress={this.createWishItem} text="追加" />
+              <Button text="閉じる" onPress={this.toggleModalVisible} />
+            </View>
+          </Modal>
 
-        <Icon
-          name="pluscircleo"
-          style={styles.modalIcon}
-          onPress={this.toggleModalVisible}
-        />
-      </View>
+          <Icon
+            name="pluscircleo"
+            style={styles.modalIcon}
+            onPress={this.toggleModalVisible}
+          />
+        </View>
+      </RefreshContainer>
     );
   }
 }

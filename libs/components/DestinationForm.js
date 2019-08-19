@@ -61,7 +61,7 @@ export default ({
   );
 };
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   formContainer: {

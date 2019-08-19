@@ -3,28 +3,27 @@ import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-export default ({ refreshing, onRefresh, children }) => {
+export default ({ refreshing, onRefresh, children, offset }) => {
   return (
     <View style={globalStyles.container}>
-      <View style={styles.scrollViewContainer}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <View style={styles.contentContainer}>{children}</View>
-        </ScrollView>
-      </View>
+      <ScrollView
+        contentContainerStyle={styles.contentContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <View style={{ height: offset }} />
+        {children}
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    width: "100%"
-  },
   contentContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    borderWidth: 2,
+    width: "100%",
+    height: "100%",
+    alignItems: "center"
   }
 });
