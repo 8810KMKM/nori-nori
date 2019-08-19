@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+
 import juiceImage from "../../assets/images/foods/soda.png";
 import burgerImage from "../../assets/images/foods/burger.png";
 import ramenImage from "../../assets/images/foods/ramen.png";
@@ -7,9 +8,11 @@ import grayJuiceImage from "../../assets/images/foods/soda-gray.png";
 import grayBurgerImage from "../../assets/images/foods/burger-gray.png";
 import grayRamenImage from "../../assets/images/foods/ramen-gray.png";
 import multiJuiceImage from "../../assets/images/foods/soda-x10.png";
-import ConvertedFood from "./ConvertedFood";
 import colors from "../../assets/variables/colors";
+
 import divide_amount from "../../utils/divide_amount";
+
+import ConvertedFood from "./ConvertedFood";
 
 export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
@@ -44,7 +47,8 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "space-between",
     height: "70%",
-    width: "90%"
+    width: "100%",
+    paddingHorizontal: "5%"
   },
   message: {
     fontSize: 20,

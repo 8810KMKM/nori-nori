@@ -3,12 +3,15 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
+import colors from "../../assets/variables/colors";
+
 import Button from "../../libs/components/Button";
 import { Actions } from "react-native-router-flux";
 import FormattedText from "../../libs/components/FormattedText";
 import HeadLine from "../../libs/components/HeadLine";
 import DistanceMap from "../../libs/components/DistanceMap";
 import RefreshContainer from "../../libs/components/RefreshContainer";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   constructor(props) {
@@ -17,7 +20,13 @@ export default class extends Component {
   }
 
   state = {
-    loading: false
+    loading: false,
+    refreshing: false
+  };
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.setState({ refreshing: false });
   };
 
   captureDetailImg = async () => {
@@ -65,27 +74,30 @@ export default class extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, refreshing } = this.state;
     const { region, start_latLng, end_latLng, details } = this.props.detailData;
 
     return (
-      <RefreshContainer>
-        <HeadLine pageName="Drive Info" />
-        <View style={styles.detailContainer}>
-          <DistanceMap
-            region={region}
-            start_latLng={start_latLng}
-            end_latLng={end_latLng}
-          />
-          <View style={styles.detailList}>
-            {details.map((detail, i) => (
-              <FormattedText
-                key={i}
-                category={detail.category}
-                value={detail.value}
-                fontSize={16}
-              />
-            ))}
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {loading && <Loading />}
+        <View ref={this.detailImgRef} collapsable={false} style={styles.detail}>
+          <HeadLine pageName="Drive Info" />
+          <View style={styles.detailContainer}>
+            <DistanceMap
+              region={region}
+              start_latLng={start_latLng}
+              end_latLng={end_latLng}
+            />
+            <View style={styles.detailList}>
+              {details.map((detail, i) => (
+                <FormattedText
+                  key={i}
+                  category={detail.category}
+                  value={detail.value}
+                  fontSize={16}
+                />
+              ))}
+            </View>
           </View>
         </View>
         <View style={styles.actions}>
@@ -98,15 +110,22 @@ export default class extends Component {
 }
 
 const styles = StyleSheet.create({
+  detail: {
+    backgroundColor: colors.main,
+    alignItems: "center",
+    width: "100%"
+  },
   detailContainer: {
     height: "70%",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between"
   },
+  // TODO: detailListの要素幅広げたいけどわからん！
   detailList: {
     flex: 1,
-    width: "90%"
+    width: "100%",
+    paddingHorizontal: "5%"
   },
   actions: {
     height: "10%",
