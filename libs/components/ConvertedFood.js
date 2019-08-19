@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import colors from '../../assets/variables/colors';
-import resize_image from '../../utils/resize_image';
-import FoodIconList from './FoodIconList';
-import FormattedText from './FormattedText';
+import React from "react";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import colors from "../../assets/variables/colors";
+import resize_image from "../../utils/resize_image";
+import FoodIconList from "./FoodIconList";
+import FormattedText from "./FormattedText";
 
 export default ({ name, amount, icon, grayIcon, multiIcon }) => {
   const imageSize = resize_image(amount);
@@ -11,16 +11,17 @@ export default ({ name, amount, icon, grayIcon, multiIcon }) => {
     width: imageSize,
     height: imageSize,
     margin: 4
-  })
+  });
   return (
     <View style={{ width: "100%" }}>
       <FormattedText
         category={name}
         fontSize={24}
-        value={amount.single === 0 && amount.multi === 0 ?
-          "--"
-          :
-          `${amount.multi * 10 + amount.single}個`}
+        value={
+          amount.single === 0 && amount.multi === 0
+            ? "--"
+            : `${amount.multi * 10 + amount.single}個`
+        }
       />
       <FoodIconList
         amount={amount}
