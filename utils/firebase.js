@@ -49,14 +49,20 @@ export const wishListActions = {
       .then(() => {
         Alert.alert("ほしいものリストに追加しました！");
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+        Alert.alert("追加失敗");
+      });
   },
   delete: async id => {
     return await getWishListCollection()
       .doc(id)
       .delete()
       .then(() => Alert.alert("ほしいものリストから削除しました"))
-      .catch(e => console.log(e));
+      .catch(e => {
+        console.log(e);
+        Alert.alert("削除失敗");
+      });
   }
 };
 
@@ -113,7 +119,6 @@ export const userActions = {
     const uid = await AsyncStorage.getItem("uid");
     const userEmail = await AsyncStorage.getItem("userEmail");
 
-    console.log("return ", userEmail);
     return { uid, userEmail };
   }
 };
