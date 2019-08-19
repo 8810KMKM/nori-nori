@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
 import Button from "../../libs/components/Button";
 import { Actions } from "react-native-router-flux";
 import FormattedText from "../../libs/components/FormattedText";
 import HeadLine from "../../libs/components/HeadLine";
 import DistanceMap from "../../libs/components/DistanceMap";
+import RefreshContainer from "../../libs/components/RefreshContainer";
 
 export default class extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ export default class extends Component {
     const { region, start_latLng, end_latLng, details } = this.props.detailData;
 
     return (
-      <View style={globalStyles.container} ref={this.detailImgRef}>
+      <RefreshContainer ref={this.detailImgRef}>
         <HeadLine pageName="Drive Info" />
         <View style={styles.text}>
           <DistanceMap
@@ -89,7 +89,7 @@ export default class extends Component {
           <Button text="ホーム" onPress={() => Actions.top()} />
           <Button text="共有" onPress={this.onShare} />
         </View>
-      </View>
+      </RefreshContainer>
     );
   }
 }

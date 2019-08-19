@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, AsyncStorage, StyleSheet, Alert } from "react-native";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
-
 import Button from "../../libs/components/Button";
 import Form from "../../libs/components/Form";
 import HeadLine from "../../libs/components/HeadLine";
+import RefreshContainer from "../../libs/components/RefreshContainer";
 
 export default class extends Component {
   state = {
@@ -71,7 +70,7 @@ export default class extends Component {
   render() {
     const { fuel, cost, errorMessage } = this.state;
     return (
-      <View style={globalStyles.container}>
+      <RefreshContainer>
         <HeadLine pageName="Setting" />
         <View style={styles.formWrapper}>
           <Form
@@ -94,14 +93,14 @@ export default class extends Component {
             <Button text="保存" onPress={this.save} />
           </View>
         </View>
-      </View>
+      </RefreshContainer>
     );
   }
 }
 
 const styles = StyleSheet.create({
   formWrapper: {
-    flex: 4,
+    flex: 4
   },
   buttonWrapper: {
     flex: 1,

@@ -3,6 +3,8 @@ import { View, StyleSheet, Alert, Text, Modal } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 
 import firebase, { wishListActions } from "../../utils/firebase";
+import colors from "../../assets/variables/colors";
+import omit_text from "../../utils/omit_text";
 
 import Loading from "../../libs/components/Loading";
 import Form from "../../libs/components/Form";
@@ -10,9 +12,6 @@ import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import HeadLine from "../../libs/components/HeadLine";
 import FormattedText from "../../libs/components/FormattedText";
-import colors from "../../assets/variables/colors";
-import omit_text from "../../utils/omit_text";
-import globalStyles from "../../assets/styleSheets/globalStyles";
 
 export default class extends Component {
   state = {
@@ -97,60 +96,58 @@ export default class extends Component {
     const { wishLists, title, price, refreshing, errorMessage } = this.state;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-        <View style={globalStyles.container}>
-          <HeadLine pageName="Wish List" />
-          <View style={{ flex: 5 }}>
-            {wishLists.map((d, index) => (
-              <View style={styles.wishList} key={index}>
-                <View style={styles.wish}>
-                  <FormattedText
-                    key={index}
-                    category={omit_text(d.title)}
-                    value={`¥${d.price}`}
-                  />
-                  <Icon
-                    name="closecircleo"
-                    color={colors.gray}
-                    onPress={() => this.deleteWishItem(d.id)}
-                    style={styles.closeIcon}
-                  />
-                </View>
-              </View>
-            ))}
-          </View>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}>
-            <View style={globalStyles.container}>
-              <View style={styles.addWishContainer}>
-                <Form
-                  label="ほしいもの"
-                  value={title}
-                  handleChange={text => this.setState({ title: text })}
-                  errorMessage={errorMessage.title}
-                  placeholder="例）本、もみじ饅頭"
+        <HeadLine pageName="Wish List" />
+        <View style={{ flex: 5 }}>
+          {wishLists.map((d, index) => (
+            <View style={styles.wishList} key={index}>
+              <View style={styles.wish}>
+                <FormattedText
+                  key={index}
+                  category={omit_text(d.title)}
+                  value={`¥${d.price}`}
                 />
-                <Form
-                  label="値段"
-                  value={price}
-                  handleChange={text => this.setState({ price: text })}
-                  errorMessage={errorMessage.price}
-                  placeholder="例）1200, 100"
-                  keyboardType="number-pad"
+                <Icon
+                  name="closecircleo"
+                  color={colors.gray}
+                  onPress={() => this.deleteWishItem(d.id)}
+                  style={styles.closeIcon}
                 />
               </View>
-              <Button onPress={this.createWishItem} text="追加" />
-              <Button text="閉じる" onPress={this.toggleModalVisible} />
             </View>
-          </Modal>
-
-          <Icon
-            name="pluscircleo"
-            style={styles.modalIcon}
-            onPress={this.toggleModalVisible}
-          />
+          ))}
         </View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}>
+          <View style={styles.modalContainer}>
+            <View style={styles.addWishContainer}>
+              <Form
+                label="ほしいもの"
+                value={title}
+                handleChange={text => this.setState({ title: text })}
+                errorMessage={errorMessage.title}
+                placeholder="例）本、もみじ饅頭"
+              />
+              <Form
+                label="値段"
+                value={price}
+                handleChange={text => this.setState({ price: text })}
+                errorMessage={errorMessage.price}
+                placeholder="例）1200, 100"
+                keyboardType="number-pad"
+              />
+            </View>
+            <Button onPress={this.createWishItem} text="追加" />
+            <Button text="閉じる" onPress={this.toggleModalVisible} />
+          </View>
+        </Modal>
+
+        <Icon
+          name="pluscircleo"
+          style={styles.modalIcon}
+          onPress={this.toggleModalVisible}
+        />
       </RefreshContainer>
     );
   }
@@ -201,5 +198,13 @@ const styles = StyleSheet.create({
     width: 48,
     fontSize: 48,
     color: colors.accent
+  },
+  modalContainer: {
+    flex: 1,
+    fontFamily: "mplus-1p-r",
+    justifyContent: "center",
+    alignItems: "center",
+    color: colors.white,
+    backgroundColor: colors.main
   }
 });

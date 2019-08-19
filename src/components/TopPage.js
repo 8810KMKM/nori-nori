@@ -130,8 +130,5 @@ const styles = StyleSheet.create({
     width: 280,
     height: 80,
     marginBottom: 16
-  },
-  loading: {
-    position: "absolute"
   }
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
+import colors from "../../assets/variables/colors";
 
 export default ({ refreshing, onRefresh, children, offset }) => {
   return (
@@ -10,7 +10,7 @@ export default ({ refreshing, onRefresh, children, offset }) => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
-      <View style={globalStyles.container}>
+      <View style={styles.container}>
         <View style={{ height: offset }} />
         {children}
       </View>
@@ -19,6 +19,14 @@ export default ({ refreshing, onRefresh, children, offset }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    fontFamily: "mplus-1p-r",
+    justifyContent: "center",
+    alignItems: "center",
+    color: colors.white,
+    backgroundColor: colors.main
+  },
   contentContainer: {
     flex: 1,
     borderWidth: 2,
