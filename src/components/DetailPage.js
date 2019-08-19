@@ -10,39 +10,64 @@ import { Actions } from "react-native-router-flux";
 import FormattedText from "../../libs/components/FormattedText";
 import HeadLine from "../../libs/components/HeadLine";
 
-import originFlagIcon from '../../assets/images/flags/flag-origin.png';
-import destinationFlagIcon from '../../assets/images/flags/flag-destination.png';
+import originFlagIcon from "../../assets/images/flags/flag-origin.png";
+import destinationFlagIcon from "../../assets/images/flags/flag-destination.png";
 import omit_text from "../../utils/omit_text";
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.shareImgRef = React.createRef();
+    this.detailImgRef = React.createRef();
   }
 
   state = {
+    selectedShareImg: "",
     loading: false
   };
 
-  onShare = async () => {
-    this.setState({ loading: true });
+  captureDetailImg = async () => {
     const options = {
       format: "png",
       quality: 1
     };
-    const shareImgSource = await takeSnapshotAsync(
-      this.shareImgRef.current,
+    const detailImgSource = await takeSnapshotAsync(
+      this.detailImgRef.current,
       options
     );
 
-    const shareImgSourcePath = shareImgSource.match("file://")
-      ? shareImgSource
-      : `file://${shareImgSource}`;
+    const detailImgSourcePath = detailImgSource.match("file://")
+      ? detailImgSource
+      : `file://${detailImgSource}`;
 
-    Sharing.shareAsync(shareImgSourcePath).catch(() =>
-      Alert.alert("共有に失敗しました")
-    );
+    return detailImgSourcePath;
+  };
+
+  onShare = async () => {
+    const { resultImgSourcePath } = this.props;
+    const { selectedShareImg } = this.state;
+
+    this.setState({ loading: true });
+    Alert.alert("選択", "共有する画像を選択してください", [
+      {
+        text: "結果",
+        onPress: () => this._share(resultImgSourcePath)
+      },
+      {
+        text: "詳細",
+        onPress: () => {
+          this.captureDetailImg().then(uri => this._share(uri));
+        }
+      }
+    ]);
+
     this.setState({ loading: false });
+  };
+
+  _share = uri => {
+    Sharing.shareAsync(uri).catch(e => {
+      console.log(e);
+      Alert.alert("共有に失敗しました");
+    });
   };
 
   render() {
@@ -63,11 +88,11 @@ export default class extends Component {
     const details = [
       {
         category: "出発地",
-        value: omit_text(responseOrigin),
+        value: omit_text(responseOrigin)
       },
       {
         category: "到着地",
-        value: omit_text(responseDestination),
+        value: omit_text(responseDestination)
       },
       {
         category: "走行距離",
@@ -89,10 +114,10 @@ export default class extends Component {
         category: "一人あたりの支払い",
         value: `${Math.round(payPerPerson)}円`
       }
-    ]
+    ];
 
     return (
-      <View style={globalStyles.container} ref={this.shareImgRef}>
+      <View style={globalStyles.container} ref={this.detailImgRef}>
         <HeadLine pageName="Drive Info" />
         <MapView region={region} style={styles.map}>
           <Marker
@@ -116,10 +141,7 @@ export default class extends Component {
           ))}
         </View>
         <View style={styles.buttonWrapper}>
-          <Button
-            text="top"
-            onPress={() => Actions.top()}
-          />
+          <Button text="top" onPress={() => Actions.top()} />
           <Button text="共有" onPress={this.onShare} />
         </View>
       </View>
