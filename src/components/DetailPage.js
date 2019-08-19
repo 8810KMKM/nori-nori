@@ -12,6 +12,7 @@ import HeadLine from "../../libs/components/HeadLine";
 
 import originFlagIcon from '../../assets/images/flags/flag-origin.png';
 import destinationFlagIcon from '../../assets/images/flags/flag-destination.png';
+import omit_text from "../../utils/omit_text";
 
 export default class extends Component {
   constructor(props) {
@@ -58,6 +59,38 @@ export default class extends Component {
       feeOfFuel,
       payPerPerson
     } = this.props.detailData;
+
+    const details = [
+      {
+        category: "出発地",
+        value: omit_text(responseOrigin),
+      },
+      {
+        category: "到着地",
+        value: omit_text(responseDestination),
+      },
+      {
+        category: "走行距離",
+        value: duration
+      },
+      {
+        category: "運転時間",
+        value: distance
+      },
+      {
+        category: "ガソリン消費量",
+        value: `${Math.round(useFuelAmount * 10) / 10}リットル`
+      },
+      {
+        category: "ガソリン代",
+        value: `${Math.round(feeOfFuel)}円`
+      },
+      {
+        category: "一人あたりの支払い",
+        value: `${Math.round(payPerPerson)}円`
+      }
+    ]
+
     return (
       <View style={globalStyles.container} ref={this.shareImgRef}>
         <HeadLine pageName="Drive Info" />
@@ -74,39 +107,18 @@ export default class extends Component {
           />
         </MapView>
         <View style={styles.text}>
-          <FormattedText
-            category="出発地"
-            value={responseOrigin}
-          />
-          <FormattedText
-            category="到着地"
-            value={responseDestination}
-          />
-          <FormattedText
-            category="走行距離"
-            value={distance}
-          />
-          <FormattedText
-            category="運転時間"
-            value={duration}
-          />
-          <FormattedText
-            category="ガソリン消費量"
-            value={`${Math.round(useFuelAmount * 10) / 10}リットル`}
-          />
-          <FormattedText
-            category="ガソリン代"
-            value={`${Math.round(feeOfFuel)}円`}
-          />
-          <FormattedText
-            category="一人あたりの支払い"
-            value={`${Math.round(payPerPerson)}円`}
-          />
+          {details.map((detail, i) => (
+            <FormattedText
+              key={i}
+              category={detail.category}
+              value={detail.value}
+            />
+          ))}
         </View>
         <View style={styles.buttonWrapper}>
           <Button
-            text="戻る"
-            onPress={() => Actions.pop()}
+            text="top"
+            onPress={() => Actions.top()}
           />
           <Button text="共有" onPress={this.onShare} />
         </View>

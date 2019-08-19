@@ -16,7 +16,8 @@ import colors from "../assets/variables/colors";
 const styles = StyleSheet.create({
   tabIconContainer: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    color: colors.main
   },
   tabIcon: {
     width: 24,
