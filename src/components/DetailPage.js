@@ -21,7 +21,6 @@ export default class extends Component {
   }
 
   state = {
-    selectedShareImg: "",
     loading: false
   };
 
@@ -44,7 +43,6 @@ export default class extends Component {
 
   onShare = async () => {
     const { resultImgSourcePath } = this.props;
-    const { selectedShareImg } = this.state;
 
     this.setState({ loading: true });
     Alert.alert("選択", "共有する画像を選択してください", [
