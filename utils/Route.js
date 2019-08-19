@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   tabIconContainer: {
     justifyContent: "center",
     alignItems: "center",
+    color: colors.main
   },
   tabIcon: {
     width: 24,
