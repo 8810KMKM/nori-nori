@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native'
 
 export default ({ category, value, fontSize = 16 }) => {
+
   const styles = StyleSheet.create({
     textWrapper: {
       borderBottomWidth: 2,
