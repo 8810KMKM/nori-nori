@@ -3,16 +3,19 @@ import { AsyncStorage, Alert } from "react-native";
 
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import SettingForm from "../../libs/components/SettingForm";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
     fuel: "15",
     cost: "140",
     errorMessage: { fuel: "", cost: "" },
-    refreshing: false
+    refreshing: false,
+    loading: false
   };
 
   componentDidMount = async () => {
+    this.setState({ loading: true });
     try {
       const data = await AsyncStorage.multiGet(["fuel", "cost"]);
       data.map(d => {
@@ -24,6 +27,7 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage get error");
     }
+    this.setState({ loading: false });
 
     const { fuel, cost } = this.state;
   };
@@ -60,6 +64,7 @@ export default class extends Component {
         errorMessage: { cost: "100~170の数字を入力してください" }
       });
     }
+    this.setState({ loading: true });
 
     try {
       await AsyncStorage.multiRemove(["fuel", "cost"]);
@@ -67,14 +72,16 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
+    this.setState({ loading: false });
 
     Alert.alert("設定を更新しました!");
   };
 
   render() {
-    const { refreshing } = this.state;
+    const { loading, refreshing } = this.state;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {loading && <Loading />}
         <SettingForm
           {...this.state}
           handleChange={this.handleChange}

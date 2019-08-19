@@ -5,6 +5,7 @@ import firebase, { wishListActions } from "../../utils/firebase";
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import AddWithModal from "../../libs/components/AddWithModal";
 import WishList from "../../libs/components/WishList";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
@@ -90,9 +91,10 @@ export default class extends Component {
   };
 
   render() {
-    const { refreshing } = this.state;
+    const { loading, refreshing } = this.state;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {loading && <Loading />}
         <AddWithModal
           {...this.state}
           handleChange={this.handleChange}

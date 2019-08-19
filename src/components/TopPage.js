@@ -111,8 +111,8 @@ export default class extends Component {
         refreshing={refreshing}
         onRefresh={this.onRefresh}
         offset="15%">
-        <Image source={logoImage} style={styles.logo} />
         {loading && <Loading />}
+        <Image source={logoImage} style={styles.logo} />
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
