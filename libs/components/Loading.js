@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import React from "react";
+import { ActivityIndicator, StyleSheet, Dimensions } from "react-native";
 
 import colors from "../../assets/variables/colors";
 
@@ -13,8 +13,12 @@ export default ({}) => {
   );
 };
 
+const { width, height } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   loading: {
-    position: "absolute"
+    position: "absolute",
+    top: height / 2 - 20,
+    left: width / 2 - 20
   }
 });
