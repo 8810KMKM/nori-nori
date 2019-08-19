@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Alert, Text } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import firebase, { wishListActions } from "../../utils/firebase";
 
@@ -7,6 +8,11 @@ import Loading from "../../libs/components/Loading";
 import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
+import HeadLine from "../../libs/components/HeadLine";
+import FormattedText from "../../libs/components/FormattedText";
+import colors from "../../assets/variables/colors";
+import omit_text from "../../utils/omit_text";
+import globalStyles from "../../assets/styleSheets/globalStyles";
 
 // TODO: 追加するときにuidをfieldに入れたい 自分の端末（アカウント）で追加したものを取得するため。
 
@@ -88,13 +94,24 @@ export default class extends Component {
     const { wishLists, title, price, refreshing, errorMessage } = this.state;
     console.log(wishLists);
     return (
-      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh} styles={{ width: "100%" }}>
+        <HeadLine pageName="Wish List" />
         {/* ここから */}
         {wishLists.map((d, index) => (
-          <View style={{ flex: 1 }} key={index}>
-            <Text>{d.title}</Text>
-            <Text>{d.price}</Text>
-            <Text onPress={() => this.deleteWishItem(d.id)}>削除</Text>
+          <View style={styles.wishList} key={index}>
+            <View style={styles.wish}>
+              <FormattedText
+                key={index}
+                category={omit_text(d.title)}
+                value={`¥${d.price}`}
+              />
+              <Icon
+                name="closecircleo"
+                color={colors.gray}
+                onPress={() => this.deleteWishItem(d.id)}
+                style={styles.closeIcon}
+              />
+            </View>
           </View>
         ))}
         {/* ここまで詳細画面みたいな感じでリスト表示したい */}
@@ -117,6 +134,36 @@ export default class extends Component {
         <Button onPress={this.createWishItem} text="追加" />
         {/* ここまでモーダルにしたい */}
       </RefreshContainer>
+      
     );
   }
 }
+
+const styles = StyleSheet.create({
+  wishListContainer: {
+    flex: 1,
+    justifyContent: "flex-start"
+  },
+  wishList: {
+    flex: 1,
+    width: "90%",
+  },
+  wish: {
+    flex: 3,
+    flexDirection: "row",
+    alignItems: "center",
+    height: 40,
+    marginBottom: 8,
+    width: "90%"
+  },
+  iconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closeIcon: {
+    height: 24,
+    width: 24,
+    fontSize: 24,
+    marginLeft: 8
+  }
+})
