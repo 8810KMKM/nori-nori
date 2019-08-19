@@ -4,7 +4,7 @@ import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";
 import HeadLine from "../../libs/components/HeadLine";
 
-// TODO: キーボードでてきたらフォーム動くのやめたいお
+// TODO: キーボードでてきたらフォーム動くのやめたい
 
 export default ({
   title,
@@ -35,8 +35,10 @@ export default ({
             placeholder="例）1200, 100"
             keyboardType="number-pad"
           />
-          <Button onPress={createWishItem} text="追加" />
-          <Button text="閉じる" onPress={toggleModalVisible} />
+          <View style={styles.actions}>
+            <Button text="閉じる" onPress={toggleModalVisible} />
+            <Button onPress={createWishItem} text="追加" />
+          </View>
         </View>
       </View>
     </Modal>
@@ -53,7 +55,14 @@ const styles = StyleSheet.create({
   },
   addWishForm: {
     height: "80%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center"
+  },
+  actions: {
+    height: "15%",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });

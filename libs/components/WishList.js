@@ -16,6 +16,7 @@ export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
       <View style={styles.wishListContainer}>
         <View style={styles.wishListWrapper}>
           {wishList.map((d, index) => (
+            // TODO:スクロール
             <View style={styles.wishItem} key={index}>
               <FormattedText
                 fontSize={20}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
@@ -80,6 +80,7 @@ export default class extends Component {
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
+        {/* TODO:スクロールでok ボタンは見える必要なし */}
         <View ref={this.detailImgRef} collapsable={false} style={styles.detail}>
           <HeadLine pageName="Drive Info" />
           <View style={styles.detailContainer}>
@@ -113,15 +114,15 @@ const styles = StyleSheet.create({
   detail: {
     backgroundColor: colors.main,
     alignItems: "center",
-    width: "100%"
+    width: "100%",
+    height: "80%"
   },
   detailContainer: {
-    height: "70%",
+    height: "100%",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between"
   },
-  // TODO: detailListの要素幅広げたいけどわからん！
   detailList: {
     flex: 1,
     width: "100%",
