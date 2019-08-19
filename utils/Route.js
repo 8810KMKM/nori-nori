@@ -8,6 +8,7 @@ import ResultPage from "../src/components/ResultPage";
 import DetailPage from "../src/components/DetailPage";
 import Setting from "../src/components/Setting";
 import WishListPage from "../src/components/WishListPage";
+import AccountPage from "../src/components/AccountPage";
 
 import topIcon from "../assets/icon.png";
 import colors from "../assets/variables/colors";
@@ -70,7 +71,7 @@ export default ({}) => {
           <Scene
             key="account"
             component={AccountPage}
-            iconName="setting"
+            iconName="user"
             icon={TabBarIcon}
             hideNavBar={true}
           />
