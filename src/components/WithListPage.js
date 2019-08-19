@@ -50,6 +50,28 @@ export default class extends Component {
 
   createWishItem = async () => {
     const { title, price } = this.state;
+
+    if (!title) {
+      return this.setState({
+        errorMessage: {
+          title: "入力してください"
+        }
+      });
+    }
+    if (!price) {
+      return this.setState({
+        errorMessage: {
+          price: "入力してください"
+        }
+      });
+    }
+
+    const filterInt = /^([1-9]\d*|0)$/;
+    if (!filterInt.test(price)) {
+      const errorMessage = "数字以外を入力しないでください";
+      return this.setState({ errorMessage: { price: errorMessage } });
+    }
+
     this.setState({ loading: true, title: "", price: "" });
     wishListActions.create(title, parseInt(price));
     this.fetchWishLists();
@@ -66,6 +88,7 @@ export default class extends Component {
     console.log(wishLists);
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {/* ここから */}
         {wishLists.map((d, index) => (
           <View style={{ flex: 1 }} key={index}>
             <Text>{d.title}</Text>
@@ -73,6 +96,8 @@ export default class extends Component {
             <Text onPress={() => this.deleteWishItem(d.id)}>削除</Text>
           </View>
         ))}
+        {/* ここまで詳細画面みたいな感じでリスト表示したい */}
+        {/* ここから */}
         <Form
           label="ほしいもの"
           value={title}
@@ -89,6 +114,7 @@ export default class extends Component {
           keyboardType="number-pad"
         />
         <Button onPress={this.createWishItem} text="追加" />
+        {/* ここまでモーダルにしたい */}
       </RefreshContainer>
     );
   }
