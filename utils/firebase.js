@@ -1,4 +1,4 @@
-import { Alert } from "react-native";
+import { Alert, AsyncStorage } from "react-native";
 import firebase from "firebase";
 import "firebase/firestore";
 import {
@@ -62,19 +62,29 @@ export const wishListActions = {
 
 export const userActions = {
   login: async (email, password) => {
-    firebase
+    await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(res => Alert.alert("ログインしました！"))
+      .then(async res => {
+        if (res.user) {
+          await AsyncStorage.multiSet([
+            ["uid", res.user.uid],
+            ["userEmail", res.user.email]
+          ]);
+          Alert.alert("ログインしました！");
+          return res.user.email;
+        }
+      })
       .catch(e => {
         console.log(e);
       });
   },
   logout: async () => {
-    firebase
+    await firebase
       .auth()
       .signOut()
-      .then(() => {
+      .then(async () => {
+        await AsyncStorage.multiRemove(["uid", "userEmail"]);
         Alert.alert("ログアウトしました");
       })
       .catch(e => {
@@ -82,12 +92,17 @@ export const userActions = {
       });
   },
   signup: async (email, password) => {
-    firebase
+    await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        if (user) {
+      .then(async res => {
+        if (res.user) {
+          await AsyncStorage.multiSet([
+            ["uid", res.user.uid],
+            ["userEmail", res.user.email]
+          ]);
           Alert.alert("登録しました！");
+          return res.user.email;
         }
       })
       .catch(e => {
@@ -95,7 +110,10 @@ export const userActions = {
       });
   },
   current: async () => {
-    // 取得してuidと名前返したい
+    const uid = await AsyncStorage.getItem("uid");
+    const userEmail = await AsyncStorage.getItem("userEmail");
+
+    return { uid, userEmail };
   }
 };
 
