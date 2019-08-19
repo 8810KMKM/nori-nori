@@ -72,8 +72,9 @@ export default class extends Component {
       return this.setState({ errorMessage: { price: errorMessage } });
     }
 
-    this.setState({ loading: true, title: "", price: "" });
+    this.setState({ loading: true });
     wishListActions.create(title, parseInt(price));
+    this.setState({ ...this.getInitialState() });
     this.fetchWishLists();
   };
 
@@ -110,7 +111,7 @@ export default class extends Component {
           value={price}
           handleChange={text => this.setState({ price: text })}
           errorMessage={errorMessage.price}
-          placeholder="例）1000, 100"
+          placeholder="例）1200, 100"
           keyboardType="number-pad"
         />
         <Button onPress={this.createWishItem} text="追加" />
