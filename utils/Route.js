@@ -54,9 +54,9 @@ export default ({}) => {
             hideNavBar={true}
           />
           <Scene
-            key="withList"
+            key="wish list"
             component={WishListPage}
-            iconName="car"
+            iconName="profile"
             icon={TabBarIcon}
             hideNavBar={true}
           />
