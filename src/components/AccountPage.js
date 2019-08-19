@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Alert, AsyncStorage } from "react-native";
+import { Actions } from "react-native-router-flux";
 
 import { userActions } from "../../utils/firebase";
 
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import AccountTemplate from "../../libs/components/AccountTemplate";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
@@ -17,13 +19,14 @@ export default class extends Component {
     refreshing: false
   };
 
-  handleChange = (target, text) => {
-    this.setState({ [target]: text });
+  componentDidMount = async () => {
+    this.setState({ loading: true });
+    const { userEmail } = await userActions.current();
+    this.setState({ userEmail, mode: "logout", loading: false });
   };
 
-  componentDidMount = async () => {
-    const { userEmail } = await userActions.current();
-    userEmail && this.setState({ userEmail, mode: "logout" });
+  handleChange = (target, text) => {
+    this.setState({ [target]: text });
   };
 
   onPress = async () => {
@@ -59,6 +62,7 @@ export default class extends Component {
       password: "",
       passwordConfirmation: ""
     });
+    Actions.accunt();
   };
 
   toggleMode = () => {
@@ -69,14 +73,19 @@ export default class extends Component {
   };
 
   render() {
+    const { loading } = this.state;
     return (
       <RefreshContainer>
-        <AccountTemplate
-          {...this.state}
-          handleChange={this.handleChange}
-          onPress={this.onPress}
-          toggleMode={this.toggleMode}
-        />
+        {loading ? (
+          <Loading />
+        ) : (
+          <AccountTemplate
+            {...this.state}
+            handleChange={this.handleChange}
+            onPress={this.onPress}
+            toggleMode={this.toggleMode}
+          />
+        )}
       </RefreshContainer>
     );
   }
