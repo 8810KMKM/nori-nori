@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
@@ -9,9 +8,7 @@ import Button from "../../libs/components/Button";
 import { Actions } from "react-native-router-flux";
 import FormattedText from "../../libs/components/FormattedText";
 import HeadLine from "../../libs/components/HeadLine";
-
-import originFlagIcon from "../../assets/images/flags/flag-origin.png";
-import destinationFlagIcon from "../../assets/images/flags/flag-destination.png";
+import DistanceMap from "../../libs/components/DistanceMap";
 
 export default class extends Component {
   constructor(props) {
@@ -74,19 +71,12 @@ export default class extends Component {
     return (
       <View style={globalStyles.container} ref={this.detailImgRef}>
         <HeadLine pageName="Drive Info" />
-        <MapView region={region} style={styles.map}>
-          <Marker
-            coordinate={start_latLng}
-            title="origin"
-            image={originFlagIcon}
-          />
-          <Marker
-            coordinate={end_latLng}
-            title="destination"
-            image={destinationFlagIcon}
-          />
-        </MapView>
         <View style={styles.text}>
+          <DistanceMap
+            region={region}
+            start_latLng={start_latLng}
+            end_latLng={end_latLng}
+          />
           {details.map((detail, i) => (
             <FormattedText
               key={i}
@@ -109,12 +99,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     width: "100%"
-  },
-  map: {
-    flex: 3,
-    position: "relative",
-    width: "90%",
-    marginBottom: 4
   },
   text: {
     flex: 3,
