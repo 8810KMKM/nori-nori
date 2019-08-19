@@ -6,6 +6,17 @@ import { Recorded } from "rx";
 import Route from "./utils/Route";
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    global.__old_console_warn = global.__old_console_warn || console.warn;
+    global.console.warn = (...args) => {
+      let tst = (args[0] || "") + "";
+      if (tst.startsWith("Setting a timer")) {
+        return;
+      }
+      return global.__old_console_warn.apply(console, args);
+    };
+  }
   state = {
     fontLoaded: false
   };
