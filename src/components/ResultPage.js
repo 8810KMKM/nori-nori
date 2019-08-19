@@ -36,16 +36,18 @@ export default class ResultPage extends Component {
   render() {
     const { foodAmounts } = this.props;
     return (
-      <RefreshContainer ref={this.resultImgRef}>
-        <ConvertedFoodCollection
-          style={styles.foodList}
-          foodAmounts={foodAmounts}
-        />
-        <View style={styles.buttonWrapper}>
-          <Button text="戻る" onPress={Actions.pop} />
-          <Button text="詳細" onPress={this.moveDetailPage} />
-        </View>
-      </RefreshContainer>
+      <View style={{ flex: 1 }} ref={this.resultImgRef}>
+        <RefreshContainer>
+          <ConvertedFoodCollection
+            style={styles.foodList}
+            foodAmounts={foodAmounts}
+          />
+          <View style={styles.buttonWrapper}>
+            <Button text="戻る" onPress={Actions.pop} />
+            <Button text="詳細" onPress={this.moveDetailPage} />
+          </View>
+        </RefreshContainer>
+      </View>
     );
   }
 }

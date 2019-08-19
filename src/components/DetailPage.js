@@ -69,27 +69,29 @@ export default class extends Component {
     const { region, start_latLng, end_latLng, details } = this.props.detailData;
 
     return (
-      <RefreshContainer ref={this.detailImgRef}>
-        <HeadLine pageName="Drive Info" />
-        <View style={styles.text}>
-          <DistanceMap
-            region={region}
-            start_latLng={start_latLng}
-            end_latLng={end_latLng}
-          />
-          {details.map((detail, i) => (
-            <FormattedText
-              key={i}
-              category={detail.category}
-              value={detail.value}
+      <View style={{ flex: 1 }} ref={this.detailImgRef}>
+        <RefreshContainer>
+          <HeadLine pageName="Drive Info" />
+          <View style={styles.text}>
+            <DistanceMap
+              region={region}
+              start_latLng={start_latLng}
+              end_latLng={end_latLng}
             />
-          ))}
-        </View>
-        <View style={styles.buttonWrapper}>
-          <Button text="ホーム" onPress={() => Actions.top()} />
-          <Button text="共有" onPress={this.onShare} />
-        </View>
-      </RefreshContainer>
+            {details.map((detail, i) => (
+              <FormattedText
+                key={i}
+                category={detail.category}
+                value={detail.value}
+              />
+            ))}
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button text="ホーム" onPress={() => Actions.top()} />
+            <Button text="共有" onPress={this.onShare} />
+          </View>
+        </RefreshContainer>
+      </View>
     );
   }
 }
