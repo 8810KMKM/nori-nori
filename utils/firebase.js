@@ -1,4 +1,5 @@
 import { Alert, AsyncStorage } from "react-native";
+import { Actions } from "react-native-router-flux";
 import firebase from "firebase";
 import "firebase/firestore";
 import {
@@ -86,6 +87,8 @@ export const userActions = {
       })
       .catch(e => {
         console.log(e);
+        Alert.alert("ログインに失敗しました");
+        throw new Error();
       });
   },
   logout: async () => {
@@ -95,6 +98,7 @@ export const userActions = {
       .then(async () => {
         await AsyncStorage.multiRemove(["uid", "userEmail"]);
         Alert.alert("ログアウトしました");
+        Actions.top();
       })
       .catch(e => {
         console.log(e);
@@ -115,14 +119,16 @@ export const userActions = {
         }
       })
       .catch(e => {
-        Alert.alert(e);
+        console.log(e);
+        Alert.alert("登録に失敗しました");
+        throw new Error();
       });
   },
   current: async () => {
     const uid = await AsyncStorage.getItem("uid");
-    const userEmail = await AsyncStorage.getItem("userEmail");
+    const email = await AsyncStorage.getItem("userEmail");
 
-    return { uid, userEmail };
+    return { uid, email };
   }
 };
 
