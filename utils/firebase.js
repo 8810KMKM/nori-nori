@@ -34,6 +34,9 @@ export const wishListActions = {
         querySnapshot.forEach(doc =>
           result.push({ id: doc.id, ...doc.data() })
         );
+      })
+      .catch(e => {
+        Alert.alert("取得失敗");
       });
     return result;
   },
@@ -50,7 +53,7 @@ export const wishListActions = {
         Alert.alert("ほしいものリストに追加しました！");
       })
       .catch(e => {
-        console.log(e);
+        // console.log(e);
         Alert.alert("追加失敗");
       });
   },
@@ -60,7 +63,7 @@ export const wishListActions = {
       .delete()
       .then(() => Alert.alert("ほしいものリストから削除しました"))
       .catch(e => {
-        console.log(e);
+        // console.log(e);
         Alert.alert("削除失敗");
       });
   }

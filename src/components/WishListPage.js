@@ -25,23 +25,15 @@ export default class extends Component {
     modalVisible: false
   };
 
-  getInitialState = () => {
-    return {
-      wishLists: [],
+  onRefresh = async () => {
+    this.setState({ refreshing: true });
+    this.fetchWishLists();
+    this.setState({
       title: "",
       price: "",
       errorMessage: { title: "", price: "" },
-      refreshing: false,
-      loading: false,
-      modalVisible: false
-    };
-  };
-
-  onRefresh = async () => {
-    const initialState = this.getInitialState();
-    const wishLists = await wishListActions.index();
-    this.setState({ ...initialState, wishLists, refreshing: true });
-    this.setState({ refreshing: false });
+      refreshing: false
+    });
   };
 
   fetchWishLists = async () => {
@@ -80,10 +72,14 @@ export default class extends Component {
 
     this.setState({ loading: true });
     wishListActions.create(title, parseInt(price));
-    this.setState({ ...this.getInitialState() });
     this.fetchWishLists();
-
-    this.setModalVisible(false);
+    this.setState({
+      title: "",
+      price: "",
+      errorMessage: { title: "", price: "" },
+      loading: false,
+      modalVisible: false
+    });
   };
 
   deleteWishItem = async id => {
@@ -92,13 +88,13 @@ export default class extends Component {
     this.fetchWishLists();
   };
 
-  setModalVisible = visible => {
-    this.setState({ modalVisible: visible });
+  toggleModalVisible = () => {
+    const { modalVisible } = this.state;
+    this.setState({ modalVisible: !modalVisible });
   };
 
   render() {
     const { wishLists, title, price, refreshing, errorMessage } = this.state;
-    console.log(wishLists);
     return (
       <View style={globalStyles.container}>
         <HeadLine pageName="Wish List" />
@@ -149,7 +145,7 @@ export default class extends Component {
               />
             </View>
             <Button onPress={this.createWishItem} text="追加" />
-            <Button text="閉じる" onPress={() => this.setModalVisible(false)} />
+            <Button text="閉じる" onPress={this.toggleModalVisible} />
           </View>
         </Modal>
         {/* ここまでモーダルにしたい */}
@@ -157,7 +153,7 @@ export default class extends Component {
         <Icon
           name="pluscircleo"
           style={styles.modalIcon}
-          onPress={() => this.setModalVisible(true)}
+          onPress={this.toggleModalVisible}
         />
       </View>
     );
