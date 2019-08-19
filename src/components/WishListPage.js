@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Alert, Text } from "react-native";
+import { View, StyleSheet, Alert, Text, Modal } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 
 import firebase, { wishListActions } from "../../utils/firebase";
@@ -23,7 +23,8 @@ export default class extends Component {
     price: "",
     errorMessage: { title: "", price: "" },
     refreshing: false,
-    loading: false
+    loading: false,
+    modalVisible: false
   };
 
   getInitialState = () => {
@@ -33,7 +34,8 @@ export default class extends Component {
       price: "",
       errorMessage: { title: "", price: "" },
       refreshing: false,
-      loading: false
+      loading: false,
+      modalVisible: false
     };
   };
 
@@ -70,7 +72,7 @@ export default class extends Component {
           price: "入力してください"
         }
       });
-    }
+    };
 
     const filterInt = /^([1-9]\d*|0)$/;
     if (!filterInt.test(price)) {
@@ -82,6 +84,8 @@ export default class extends Component {
     wishListActions.create(title, parseInt(price));
     this.setState({ ...this.getInitialState() });
     this.fetchWishLists();
+
+    this.setModalVisible(false);
   };
 
   deleteWishItem = async id => {
@@ -90,51 +94,85 @@ export default class extends Component {
     this.fetchWishLists();
   };
 
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible });
+  };
+
   render() {
     const { wishLists, title, price, refreshing, errorMessage } = this.state;
     console.log(wishLists);
     return (
-      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh} styles={{ width: "100%" }}>
+      <View style={globalStyles.container}>
         <HeadLine pageName="Wish List" />
-        {/* ここから */}
-        {wishLists.map((d, index) => (
-          <View style={styles.wishList} key={index}>
-            <View style={styles.wish}>
-              <FormattedText
-                key={index}
-                category={omit_text(d.title)}
-                value={`¥${d.price}`}
-              />
-              <Icon
-                name="closecircleo"
-                color={colors.gray}
-                onPress={() => this.deleteWishItem(d.id)}
-                style={styles.closeIcon}
-              />
-            </View>
-          </View>
-        ))}
+        <View style={{ flex: 5 }}>
+          <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+            {/* ここから */}
+            {wishLists.map((d, index) => (
+              <View style={styles.wishList} key={index}>
+                <View style={styles.wish}>
+                  <FormattedText
+                    key={index}
+                    category={omit_text(d.title)}
+                    value={`¥${d.price}`}
+                  />
+                  <Icon
+                    name="closecircleo"
+                    color={colors.gray}
+                    onPress={() => this.deleteWishItem(d.id)}
+                    style={styles.closeIcon}
+                  />
+                </View>
+              </View>
+            ))}
+          </RefreshContainer>
+        </View>
         {/* ここまで詳細画面みたいな感じでリスト表示したい */}
         {/* ここから */}
-        <Form
-          label="ほしいもの"
-          value={title}
-          handleChange={text => this.setState({ title: text })}
-          errorMessage={errorMessage.title}
-          placeholder="例）本、もみじ饅頭"
-        />
-        <Form
-          label="値段"
-          value={price}
-          handleChange={text => this.setState({ price: text })}
-          errorMessage={errorMessage.price}
-          placeholder="例）1200, 100"
-          keyboardType="number-pad"
-        />
-        <Button onPress={this.createWishItem} text="追加" />
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+        >
+          
+          <View style={globalStyles.container}>
+            <View style={styles.modalIconContainer}>
+              <Icon
+                name="closecircleo"
+                style={styles.modalIcon}
+                onPress={() => this.setModalVisible(false)}
+              />
+            </View>
+            <View style={styles.addWishContainer}>
+              <Form
+                label="ほしいもの"
+                value={title}
+                handleChange={text => this.setState({ title: text })}
+                errorMessage={errorMessage.title}
+                placeholder="例）本、もみじ饅頭"
+              />
+              <Form
+                label="値段"
+                value={price}
+                handleChange={text => this.setState({ price: text })}
+                errorMessage={errorMessage.price}
+                placeholder="例）1200, 100"
+                keyboardType="number-pad"
+              />
+            </View>
+            <Button
+              onPress={this.createWishItem}
+              text="追加"
+            />
+          </View>
+        </Modal>
         {/* ここまでモーダルにしたい */}
-      </RefreshContainer>
-      
+        
+        <Icon
+          name="pluscircleo"
+          style={styles.modalIcon}
+          onPress={() => this.setModalVisible(true)}
+        />
+      </View>
     );
   }
 }
@@ -165,5 +203,24 @@ const styles = StyleSheet.create({
     width: 24,
     fontSize: 24,
     marginLeft: 8
+  },
+  addWishContainer: {
+    height: 160,
+    justifyContent: "center",
+    marginBottom: 40,
+  },
+  modalIconContainer: {
+    position: "absolute",
+    top: 40,
+    right: 24,
+    height: 80,
+    justifyContent: "center"
+  },
+  modalIcon: {
+    flex: 1,
+    height: 48,
+    width: 48,
+    fontSize: 48,
+    color: colors.accent
   }
 })
