@@ -135,13 +135,6 @@ export default class extends Component {
         >
           
           <View style={globalStyles.container}>
-            <View style={styles.modalIconContainer}>
-              <Icon
-                name="closecircleo"
-                style={styles.modalIcon}
-                onPress={() => this.setModalVisible(false)}
-              />
-            </View>
             <View style={styles.addWishContainer}>
               <Form
                 label="ほしいもの"
@@ -163,6 +156,7 @@ export default class extends Component {
               onPress={this.createWishItem}
               text="追加"
             />
+            <Button text="閉じる" onPress={() => this.setModalVisible(false)} />
           </View>
         </Modal>
         {/* ここまでモーダルにしたい */}
