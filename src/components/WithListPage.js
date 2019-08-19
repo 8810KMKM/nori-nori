@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Alert, Text } from "react-native";
+import { Actions } from "react-native-router-flux";
 
-import firebase, { wishListActions } from "../../utils/firebase";
+import { wishListActions, userActions } from "../../utils/firebase";
 
 import Loading from "../../libs/components/Loading";
 import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
-
-// TODO: 追加するときにuidをfieldに入れたい 自分の端末（アカウント）で追加したものを取得するため。
 
 export default class extends Component {
   state = {
@@ -17,24 +16,19 @@ export default class extends Component {
     price: "",
     errorMessage: { title: "", price: "" },
     refreshing: false,
-    loading: false
-  };
-
-  getInitialState = () => {
-    return {
-      wishLists: [],
-      title: "",
-      price: "",
-      errorMessage: { title: "", price: "" },
-      refreshing: false,
-      loading: false
-    };
+    loading: false,
+    uid: ""
   };
 
   onRefresh = async () => {
-    const initialState = this.getInitialState();
     const wishLists = await wishListActions.index();
-    this.setState({ ...initialState, wishLists, refreshing: true });
+    this.setState({
+      title: "",
+      price: "",
+      errorMessage: { title: "", price: "" },
+      wishLists,
+      refreshing: true
+    });
     this.setState({ refreshing: false });
   };
 
@@ -44,8 +38,14 @@ export default class extends Component {
     this.setState({ wishLists, loading: false });
   };
 
+  setUid = async () => {
+    const { uid } = await userActions.current();
+    this.setState({ uid });
+  };
+
   componentDidMount() {
     this.fetchWishLists();
+    this.setUid();
   }
 
   createWishItem = async () => {
@@ -74,7 +74,11 @@ export default class extends Component {
 
     this.setState({ loading: true });
     wishListActions.create(title, parseInt(price));
-    this.setState({ ...this.getInitialState() });
+    this.setState({
+      title: "",
+      price: "",
+      errorMessage: { title: "", price: "" }
+    });
     this.fetchWishLists();
   };
 
@@ -85,37 +89,46 @@ export default class extends Component {
   };
 
   render() {
-    const { wishLists, title, price, refreshing, errorMessage } = this.state;
-    console.log(wishLists);
+    const {
+      wishLists,
+      title,
+      price,
+      refreshing,
+      errorMessage,
+      uid
+    } = this.state;
+    console.log(uid);
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-        {/* ここから */}
-        {wishLists.map((d, index) => (
-          <View style={{ flex: 1 }} key={index}>
-            <Text>{d.title}</Text>
-            <Text>{d.price}</Text>
-            <Text onPress={() => this.deleteWishItem(d.id)}>削除</Text>
-          </View>
-        ))}
-        {/* ここまで詳細画面みたいな感じでリスト表示したい */}
-        {/* ここから */}
-        <Form
-          label="ほしいもの"
-          value={title}
-          handleChange={text => this.setState({ title: text })}
-          errorMessage={errorMessage.title}
-          placeholder="例）本、もみじ饅頭"
-        />
-        <Form
-          label="値段"
-          value={price}
-          handleChange={text => this.setState({ price: text })}
-          errorMessage={errorMessage.price}
-          placeholder="例）1200, 100"
-          keyboardType="number-pad"
-        />
-        <Button onPress={this.createWishItem} text="追加" />
-        {/* ここまでモーダルにしたい */}
+        {uid ? (
+          <>
+            {wishLists.map((d, index) => (
+              <View style={{ flex: 1 }} key={index}>
+                <Text>{d.title}</Text>
+                <Text>{d.price}</Text>
+                <Text onPress={() => this.deleteWishItem(d.id)}>削除</Text>
+              </View>
+            ))}
+            <Form
+              label="ほしいもの"
+              value={title}
+              handleChange={text => this.setState({ title: text })}
+              errorMessage={errorMessage.title}
+              placeholder="例）本、もみじ饅頭"
+            />
+            <Form
+              label="値段"
+              value={price}
+              handleChange={text => this.setState({ price: text })}
+              errorMessage={errorMessage.price}
+              placeholder="例）1200, 100"
+              keyboardType="number-pad"
+            />
+            <Button onPress={this.createWishItem} text="追加" />
+          </>
+        ) : (
+          <Button text="アカウント情報" onPress={Actions.account} />
+        )}
       </RefreshContainer>
     );
   }

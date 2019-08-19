@@ -25,10 +25,10 @@ const getWishListCollection = () =>
 
 export const wishListActions = {
   index: async () => {
-    // const uid = user.current().uid;
+    const { uid } = await userActions.current();
     const result = [];
     const res = await getWishListCollection()
-      // .where("uid", "==", uid)
+      .where("uid", "==", uid)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc =>
@@ -38,11 +38,11 @@ export const wishListActions = {
     return result;
   },
   create: async (title, price) => {
-    // const uid = user.current().uid;
+    const { uid } = await userActions.current();
     return await getWishListCollection()
       .doc()
       .set({
-        // uid,
+        uid,
         title,
         price
       })
@@ -113,6 +113,7 @@ export const userActions = {
     const uid = await AsyncStorage.getItem("uid");
     const userEmail = await AsyncStorage.getItem("userEmail");
 
+    console.log("return ", userEmail);
     return { uid, userEmail };
   }
 };
