@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginBottom: 8
   },
   selectBoxContainer: {
-    height: 56,
+    height: 48,
     width: "90%",
     paddingLeft: 8,
     backgroundColor: colors.white,

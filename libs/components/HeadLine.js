@@ -10,7 +10,9 @@ export default ({pageName}) => (
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 24
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 4
   },
   headline: {
     fontSize: 40,

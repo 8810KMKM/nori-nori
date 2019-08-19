@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
 import globalStyles from "../../assets/styleSheets/globalStyles";
+import Button from "../../libs/components/Button";
+import { Actions } from "react-native-router-flux";
+import FormattedText from "../../libs/components/FormattedText";
+import HeadLine from "../../libs/components/HeadLine";
 
-import Loading from "../../libs/components/Loading";
+import originFlagIcon from '../../assets/images/flags/flag-origin.png';
+import destinationFlagIcon from '../../assets/images/flags/flag-destination.png';
 
 export default class extends Component {
   constructor(props) {
@@ -55,30 +60,83 @@ export default class extends Component {
     } = this.props.detailData;
     return (
       <View style={globalStyles.container} ref={this.shareImgRef}>
+        <HeadLine pageName="Drive Info" />
         <MapView region={region} style={styles.map}>
-          <Marker coordinate={start_latLng} title="origin" />
-          <Marker coordinate={end_latLng} title="destination" />
+          <Marker
+            coordinate={start_latLng}
+            title="origin"
+            image={originFlagIcon}
+          />
+          <Marker
+            coordinate={end_latLng}
+            title="destination"
+            image={destinationFlagIcon}
+          />
         </MapView>
-        {loading && <Loading />}
-        <Text>出発地:{responseOrigin}</Text>
-        <Text>到着地:{responseDestination}</Text>
-        <Text>走行距離:{distance}</Text>
-        <Text>運転時間:{duration}</Text>
-        <Text>
-          ガソリン消費量:{Math.round(useFuelAmount * 10) / 10}リットル
-        </Text>
-        <Text>ガソリン代:{Math.round(feeOfFuel)}円</Text>
-        <Text>一人あたりの支払い:{Math.round(payPerPerson)}円</Text>
-        <Button title="share" onPress={this.onShare} />
+        <View style={styles.text}>
+          <FormattedText
+            category="出発地"
+            value={responseOrigin}
+          />
+          <FormattedText
+            category="到着地"
+            value={responseDestination}
+          />
+          <FormattedText
+            category="走行距離"
+            value={distance}
+          />
+          <FormattedText
+            category="運転時間"
+            value={duration}
+          />
+          <FormattedText
+            category="ガソリン消費量"
+            value={`${Math.round(useFuelAmount * 10) / 10}リットル`}
+          />
+          <FormattedText
+            category="ガソリン代"
+            value={`${Math.round(feeOfFuel)}円`}
+          />
+          <FormattedText
+            category="一人あたりの支払い"
+            value={`${Math.round(payPerPerson)}円`}
+          />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <Button
+            text="戻る"
+            onPress={() => Actions.pop()}
+          />
+          <Button text="共有" onPress={this.onShare} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  detail: {
+    flex: 1,
+    justifyContent: "flex-start",
+    width: "100%"
+  },
   map: {
+    flex: 3,
     position: "relative",
-    height: "60%",
-    width: "90%"
+    width: "90%",
+    marginBottom: 4
+  },
+  text: {
+    flex: 3,
+    width: "90%",
+    marginBottom: 24
+  },
+  buttonWrapper: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "flex-start"
   }
 });

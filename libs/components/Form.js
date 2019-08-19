@@ -73,7 +73,7 @@ const defaultStyles = setCurrentLocation =>
     },
     input: {
       flex: 1,
-      height: 56,
+      height: 48,
       paddingLeft: 8,
       fontSize: 20,
       backgroundColor: colors.white,
@@ -91,8 +91,8 @@ const defaultStyles = setCurrentLocation =>
       color: colors.accent
     },
     currentLocationIconContainer: {
-      width: 56,
-      height: 56,
+      width: 48,
+      height: 48,
       borderLeftWidth: 2,
       borderLeftColor: "gray",
       justifyContent: "center",
@@ -102,7 +102,7 @@ const defaultStyles = setCurrentLocation =>
       borderBottomRightRadius: 8
     },
     currentLocationIcon: {
-      width: 36,
-      height: 36
+      width: 32,
+      height: 32
     }
   });

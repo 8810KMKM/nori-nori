@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   contentContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   }
