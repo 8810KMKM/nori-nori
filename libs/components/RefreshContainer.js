@@ -22,14 +22,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     fontFamily: "mplus-1p-r",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     color: colors.white,
     backgroundColor: colors.main
   },
   contentContainer: {
-    flex: 1,
-    borderWidth: 2,
     width: "100%",
     height: "100%"
   }

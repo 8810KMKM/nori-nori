@@ -1,22 +1,17 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import colors from '../../assets/variables/colors';
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+import colors from "../../assets/variables/colors";
 
-export default ({pageName}) => (
-  <View style={styles.wrapper}>
-    <Text style={styles.headline}>{pageName}</Text>
-  </View>
+export default ({ pageName }) => (
+  <Text style={styles.headline}>{pageName}</Text>
 );
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: "flex-end",
-    marginBottom: 4
-  },
   headline: {
     fontSize: 40,
     fontFamily: "erica",
-    color: colors.accent
+    color: colors.accent,
+    height: "10%",
+    marginTop: "10%"
   }
-})
+});

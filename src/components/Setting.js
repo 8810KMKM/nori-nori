@@ -100,10 +100,10 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   formWrapper: {
-    flex: 4
+    height: "80%",
+    justifyContent: "space-around"
   },
   buttonWrapper: {
-    flex: 1,
     alignItems: "center"
   }
 });
