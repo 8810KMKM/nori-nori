@@ -69,49 +69,49 @@ export default class extends Component {
     const { region, start_latLng, end_latLng, details } = this.props.detailData;
 
     return (
-      <View style={{ flex: 1 }} ref={this.detailImgRef}>
-        <RefreshContainer>
-          <HeadLine pageName="Drive Info" />
-          <View style={styles.text}>
-            <DistanceMap
-              region={region}
-              start_latLng={start_latLng}
-              end_latLng={end_latLng}
-            />
+      <RefreshContainer>
+        <HeadLine pageName="Drive Info" />
+        <View style={styles.detailContainer}>
+          <DistanceMap
+            region={region}
+            start_latLng={start_latLng}
+            end_latLng={end_latLng}
+          />
+          <View style={styles.detailList}>
             {details.map((detail, i) => (
               <FormattedText
                 key={i}
                 category={detail.category}
                 value={detail.value}
+                fontSize={16}
               />
             ))}
           </View>
-          <View style={styles.buttonWrapper}>
-            <Button text="ホーム" onPress={() => Actions.top()} />
-            <Button text="共有" onPress={this.onShare} />
-          </View>
-        </RefreshContainer>
-      </View>
+        </View>
+        <View style={styles.actions}>
+          <Button text="ホーム" onPress={() => Actions.top()} />
+          <Button text="共有" onPress={this.onShare} />
+        </View>
+      </RefreshContainer>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  detail: {
-    flex: 1,
-    justifyContent: "flex-start",
-    width: "100%"
+  detailContainer: {
+    height: "70%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
-  text: {
-    flex: 3,
-    width: "90%",
-    marginBottom: 24
-  },
-  buttonWrapper: {
+  detailList: {
     flex: 1,
+    width: "90%"
+  },
+  actions: {
+    height: "10%",
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "flex-start"
+    justifyContent: "space-around"
   }
 });
