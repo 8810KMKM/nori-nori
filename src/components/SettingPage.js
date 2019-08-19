@@ -74,7 +74,7 @@ export default class extends Component {
     }
     this.setState({ loading: false });
 
-    Alert.alert("設定を更新しました!");
+    Alert.alert("", "設定を更新しました!");
   };
 
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Alert, Text, Modal } from "react-native";
+import { View, StyleSheet, Modal } from "react-native";
 
 import colors from "../../assets/variables/colors";
 import omit_text from "../../utils/omit_text";

@@ -42,11 +42,11 @@ export default class extends Component {
     }
 
     if (!email || !password) {
-      return Alert.alert("値を入力してください");
+      return Alert.alert("", "値を入力してください");
     }
     if (mode === "signup") {
       if (password !== passwordConfirmation) {
-        return Alert.alert("パスワードが一致していません");
+        return Alert.alert("", "パスワードが一致していません");
       }
     }
 

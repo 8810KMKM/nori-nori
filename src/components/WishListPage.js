@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from "react-native";
 
 import firebase, { wishListActions } from "../../utils/firebase";
 
@@ -75,10 +76,22 @@ export default class extends Component {
     });
   };
 
-  deleteWishItem = async id => {
+  deleteWishItem = id => {
+    const confirmedDelete = async id => {
+      await wishListActions.delete(id);
+      this.fetchWishLists();
+    };
     this.setState({ loading: true });
-    await wishListActions.delete(id);
-    this.fetchWishLists();
+    Alert.alert("", "削除してもよろしいですか？", [
+      {
+        text: "削除",
+        onPress: () => confirmedDelete(id)
+      },
+      {
+        text: "キャンセル",
+        onPress: () => console.log("cancel")
+      }
+    ]);
   };
 
   toggleModalVisible = () => {
