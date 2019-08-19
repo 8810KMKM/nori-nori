@@ -1,20 +1,10 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Alert,
-  Dimensions,
-  AsyncStorage
-} from "react-native";
-import { Actions } from "react-native-router-flux";
+import { Alert, AsyncStorage } from "react-native";
 
 import { userActions } from "../../utils/firebase";
 
-import Form from "../../libs/components/Form";
-import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
+import AccountTemplate from "../../libs/components/AccountTemplate";
 
 export default class extends Component {
   state = {
@@ -81,7 +71,7 @@ export default class extends Component {
   render() {
     return (
       <RefreshContainer>
-        <LoginForm
+        <AccountTemplate
           {...this.state}
           handleChange={this.handleChange}
           onPress={this.onPress}
@@ -91,55 +81,3 @@ export default class extends Component {
     );
   }
 }
-
-const LoginForm = ({
-  userEmail,
-  email,
-  password,
-  passwordConfirmation,
-  handleChange,
-  onPress,
-  toggleMode,
-  mode
-}) => {
-  return (
-    <>
-      {mode === "logout" ? (
-        <>
-          <Text>{userEmail}でログインしています</Text>
-          <Button text="ログアウト" onPress={onPress} />
-        </>
-      ) : (
-        <>
-          <Form
-            label="メールアドレス"
-            value={email}
-            handleChange={text => handleChange("email", text)}
-            placeholder="nori-nori@email.com"
-          />
-          <Form
-            label="パスワード"
-            value={password}
-            handleChange={text => handleChange("password", text)}
-            placeholder=""
-          />
-          {mode === "signup" && (
-            <Form
-              label="パスワード（確認）"
-              value={passwordConfirmation}
-              handleChange={text => handleChange("passwordConfirmation", text)}
-              placeholder=""
-            />
-          )}
-          <Button
-            text={mode === "login" ? "ログイン" : "新規登録"}
-            onPress={onPress}
-          />
-          <Text onPress={toggleMode}>
-            {mode === "login" ? "新規登録" : "ログイン"}はこちら
-          </Text>
-        </>
-      )}
-    </>
-  );
-};
