@@ -14,8 +14,6 @@ import colors from "../../assets/variables/colors";
 import omit_text from "../../utils/omit_text";
 import globalStyles from "../../assets/styleSheets/globalStyles";
 
-// TODO: 追加するときにuidをfieldに入れたい 自分の端末（アカウント）で追加したものを取得するため。
-
 export default class extends Component {
   state = {
     wishLists: [],
@@ -72,7 +70,7 @@ export default class extends Component {
           price: "入力してください"
         }
       });
-    };
+    }
 
     const filterInt = /^([1-9]\d*|0)$/;
     if (!filterInt.test(price)) {
@@ -131,9 +129,7 @@ export default class extends Component {
         <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.modalVisible}
-        >
-          
+          visible={this.state.modalVisible}>
           <View style={globalStyles.container}>
             <View style={styles.addWishContainer}>
               <Form
@@ -152,15 +148,12 @@ export default class extends Component {
                 keyboardType="number-pad"
               />
             </View>
-            <Button
-              onPress={this.createWishItem}
-              text="追加"
-            />
+            <Button onPress={this.createWishItem} text="追加" />
             <Button text="閉じる" onPress={() => this.setModalVisible(false)} />
           </View>
         </Modal>
         {/* ここまでモーダルにしたい */}
-        
+
         <Icon
           name="pluscircleo"
           style={styles.modalIcon}
@@ -178,7 +171,7 @@ const styles = StyleSheet.create({
   },
   wishList: {
     flex: 1,
-    width: "90%",
+    width: "90%"
   },
   wish: {
     flex: 3,
@@ -190,7 +183,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   closeIcon: {
     height: 24,
@@ -201,7 +194,7 @@ const styles = StyleSheet.create({
   addWishContainer: {
     height: 160,
     justifyContent: "center",
-    marginBottom: 40,
+    marginBottom: 40
   },
   modalIconContainer: {
     position: "absolute",
@@ -217,4 +210,4 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: colors.accent
   }
-})
+});
