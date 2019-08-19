@@ -21,20 +21,14 @@ export default class extends Component {
     refreshing: false
   };
 
-  getInitialState = () => {
-    return {
+  onRefresh = () => {
+    this.setState({
       origin: { label: "", value: "" },
       destination: "",
       people: 2,
       errorMessage: { origin: "", destination: "" },
-      loading: false,
-      refreshing: false
-    };
-  };
-
-  onRefresh = () => {
-    const initialState = this.getInitialState();
-    this.setState({ ...initialState, refreshing: true });
+      refreshing: true
+    });
     this.setState({ refreshing: false });
   };
 
@@ -130,9 +124,9 @@ export default class extends Component {
 const styles = StyleSheet.create({
   logo: {
     flex: 1,
-    width: 280 ,
+    width: 280,
     height: 80,
-    marginBottom: 16,
+    marginBottom: 16
   },
   loading: {
     position: "absolute"

@@ -67,6 +67,13 @@ export default ({}) => {
             icon={TabBarIcon}
             hideNavBar={true}
           />
+          <Scene
+            key="account"
+            component={AccountPage}
+            iconName="setting"
+            icon={TabBarIcon}
+            hideNavBar={true}
+          />
         </Tabs>
         <Scene key="result" component={ResultPage} title="結果" />
         <Scene key="detail" component={DetailPage} title="詳細" />
