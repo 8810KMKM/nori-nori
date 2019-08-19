@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, AsyncStorage, StyleSheet, Alert } from "react-native";
+import { AsyncStorage, Alert } from "react-native";
 
-import Button from "../../libs/components/Button";
-import Form from "../../libs/components/Form";
-import HeadLine from "../../libs/components/HeadLine";
 import RefreshContainer from "../../libs/components/RefreshContainer";
+import SettingForm from "../../libs/components/SettingForm";
 
 export default class extends Component {
   state = {
     fuel: "15",
     cost: "140",
-    errorMessage: { fuel: "", cost: "" }
+    errorMessage: { fuel: "", cost: "" },
+    refreshing: false
   };
 
   componentDidMount = async () => {
@@ -27,6 +26,11 @@ export default class extends Component {
     }
 
     const { fuel, cost } = this.state;
+  };
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.setState({ refreshing: false });
   };
 
   handleChange = (target, text) => {
@@ -68,42 +72,15 @@ export default class extends Component {
   };
 
   render() {
-    const { fuel, cost, errorMessage } = this.state;
+    const { refreshing } = this.state;
     return (
-      <RefreshContainer>
-        <HeadLine pageName="Setting" />
-        <View style={styles.formWrapper}>
-          <Form
-            label="燃費 [km/l]"
-            value={fuel}
-            handleChange={text => this.handleChange("fuel", text)}
-            placeholder="ex）15km/l→15"
-            errorMessage={errorMessage.fuel}
-            keyboardType="number-pad"
-          />
-          <Form
-            label="ガソリン相場 [円/l]"
-            value={cost}
-            handleChange={text => this.handleChange("cost", text)}
-            placeholder="ex）140円/l→140"
-            errorMessage={errorMessage.cost}
-            keyboardType="number-pad"
-          />
-          <View style={styles.buttonWrapper}>
-            <Button text="保存" onPress={this.save} />
-          </View>
-        </View>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        <SettingForm
+          {...this.state}
+          handleChange={this.handleChange}
+          save={this.save}
+        />
       </RefreshContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  formWrapper: {
-    height: "80%",
-    justifyContent: "space-around"
-  },
-  buttonWrapper: {
-    alignItems: "center"
-  }
-});
