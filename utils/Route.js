@@ -7,7 +7,7 @@ import TopPage from "../src/components/TopPage";
 import ResultPage from "../src/components/ResultPage";
 import DetailPage from "../src/components/DetailPage";
 import Setting from "../src/components/Setting";
-import WishListPage from "../src/components/WithListPage";
+import WishListPage from "../src/components/WishListPage";
 
 import topIcon from "../assets/icon.png";
 import colors from "../assets/variables/colors";
