@@ -82,28 +82,30 @@ export default class extends Component {
         {loading && <Loading />}
         {/* TODO:スクロールでok ボタンは見える必要なし */}
         <View ref={this.detailImgRef} collapsable={false} style={styles.detail}>
-          <HeadLine pageName="Drive Info" />
-          <View style={styles.detailContainer}>
-            <DistanceMap
-              region={region}
-              start_latLng={start_latLng}
-              end_latLng={end_latLng}
-            />
-            <View style={styles.detailList}>
-              {details.map((detail, i) => (
-                <FormattedText
-                  key={i}
-                  category={detail.category}
-                  value={detail.value}
-                  fontSize={16}
-                />
-              ))}
+            <HeadLine pageName="Drive Info" />
+            <ScrollView contentContainerStyle={{alignItems: "center"}}>
+            <View style={styles.detailContainer}>
+              <DistanceMap
+                region={region}
+                start_latLng={start_latLng}
+                end_latLng={end_latLng}
+              />
+              <View style={styles.detailList}>
+                {details.map((detail, i) => (
+                  <FormattedText
+                    key={i}
+                    category={detail.category}
+                    value={detail.value}
+                    fontSize={16}
+                  />
+                ))}
+              </View>
             </View>
-          </View>
-        </View>
-        <View style={styles.actions}>
-          <Button text="ホーム" onPress={() => Actions.top()} />
-          <Button text="共有" onPress={this.onShare} />
+            <View style={styles.actions}>
+              <Button text="ホーム" onPress={() => Actions.top()} />
+              <Button text="共有" onPress={this.onShare} />
+            </View>
+            </ScrollView>
         </View>
       </RefreshContainer>
     );
@@ -115,10 +117,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.main,
     alignItems: "center",
     width: "100%",
-    height: "80%"
+    height: "90%"
   },
   detailContainer: {
-    height: "100%",
+    height: "80%",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between"
@@ -129,8 +131,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%"
   },
   actions: {
-    height: "10%",
-    width: "100%",
+    // height: "10%",
+    marginTop: 16,
+    width: "90%",
     flexDirection: "row",
     justifyContent: "space-around"
   }

@@ -111,8 +111,8 @@ export default class extends Component {
         refreshing={refreshing}
         onRefresh={this.onRefresh}
         offset="15%">
-        {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
+        {loading && <Loading />}
         <DestinationForm
           {...this.state}
           handleChange={this.handleChange}
@@ -126,9 +126,9 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   logo: {
-    flex: 1,
     width: 280,
     height: 80,
-    marginBottom: 16
+    marginBottom: 16,
+
   }
 });

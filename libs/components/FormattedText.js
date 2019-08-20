@@ -7,7 +7,7 @@ export default ({ category, value, fontSize = 16 }) => {
       borderBottomWidth: 2,
       borderBottomColor: colors.gray,
       marginVertical: 8,
-      flex: 1,
+      // flex: 1,
       flexDirection: "row",
       justifyContent: "space-between"
     },
