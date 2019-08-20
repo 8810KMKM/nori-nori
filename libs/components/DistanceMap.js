@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 import originFlagIcon from "../../assets/images/flags/flag-origin.png";
@@ -20,9 +20,9 @@ export default ({ region, start_latLng, end_latLng }) => {
 
 const styles = StyleSheet.create({
   map: {
-    flex: 3,
     position: "relative",
-    width: "90%",
-    marginBottom: 4
+    marginBottom: 12,
+    height: Dimensions.get("window").height * 0.21,
+    width: Dimensions.get("window").width
   }
 });

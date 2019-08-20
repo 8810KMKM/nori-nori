@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { View, Text, AsyncStorage, StyleSheet, Alert } from "react-native";
+import { AsyncStorage, Alert } from "react-native";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
-
-import Button from "../../libs/components/Button";
-import Form from "../../libs/components/Form";
-import HeadLine from "../../libs/components/HeadLine";
+import RefreshContainer from "../../libs/components/RefreshContainer";
+import SettingForm from "../../libs/components/SettingForm";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
     fuel: "15",
     cost: "140",
-    errorMessage: { fuel: "", cost: "" }
+    errorMessage: { fuel: "", cost: "" },
+    refreshing: false,
+    loading: false
   };
 
   componentDidMount = async () => {
+    this.setState({ loading: true });
     try {
       const data = await AsyncStorage.multiGet(["fuel", "cost"]);
       data.map(d => {
@@ -26,8 +27,14 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage get error");
     }
+    this.setState({ loading: false });
 
     const { fuel, cost } = this.state;
+  };
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.setState({ refreshing: false });
   };
 
   handleChange = (target, text) => {
@@ -57,6 +64,7 @@ export default class extends Component {
         errorMessage: { cost: "100~170の数字を入力してください" }
       });
     }
+    this.setState({ loading: true });
 
     try {
       await AsyncStorage.multiRemove(["fuel", "cost"]);
@@ -64,47 +72,22 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
+    this.setState({ loading: false });
 
-    Alert.alert("設定を更新しました!");
+    Alert.alert("", "設定を更新しました!");
   };
 
   render() {
-    const { fuel, cost, errorMessage } = this.state;
+    const { loading, refreshing } = this.state;
     return (
-      <View style={globalStyles.container}>
-        <HeadLine pageName="Setting" />
-        <View style={styles.formWrapper}>
-          <Form
-            label="燃費 [km/l]"
-            value={fuel}
-            handleChange={text => this.handleChange("fuel", text)}
-            placeholder="ex）15km/l→15"
-            errorMessage={errorMessage.fuel}
-            keyboardType="number-pad"
-          />
-          <Form
-            label="ガソリン相場 [円/l]"
-            value={cost}
-            handleChange={text => this.handleChange("cost", text)}
-            placeholder="ex）140円/l→140"
-            errorMessage={errorMessage.cost}
-            keyboardType="number-pad"
-          />
-          <View style={styles.buttonWrapper}>
-            <Button text="保存" onPress={this.save} />
-          </View>
-        </View>
-      </View>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {loading && <Loading />}
+        <SettingForm
+          {...this.state}
+          handleChange={this.handleChange}
+          save={this.save}
+        />
+      </RefreshContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  formWrapper: {
-    flex: 4,
-  },
-  buttonWrapper: {
-    flex: 1,
-    alignItems: "center"
-  }
-});

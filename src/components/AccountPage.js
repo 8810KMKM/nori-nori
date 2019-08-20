@@ -36,19 +36,17 @@ export default class extends Component {
   onPress = async () => {
     const { mode, email, password, passwordConfirmation } = this.state;
 
-    // logout
     if (mode === "logout") {
       await userActions.logout();
       return this.setState({ mode: "login" });
     }
 
-    // login signup
     if (!email || !password) {
-      return Alert.alert("値を入力してください");
+      return Alert.alert("", "値を入力してください");
     }
     if (mode === "signup") {
       if (password !== passwordConfirmation) {
-        return Alert.alert("パスワードが一致していません");
+        return Alert.alert("", "パスワードが一致していません");
       }
     }
 
@@ -80,7 +78,6 @@ export default class extends Component {
   };
 
   render() {
-    console.log(this.state.mode);
     const { loading } = this.state;
     return (
       <RefreshContainer>

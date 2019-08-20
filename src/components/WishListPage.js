@@ -1,22 +1,16 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Alert, Text, Modal } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
+import { Alert } from "react-native";
 
 import firebase, { wishListActions } from "../../utils/firebase";
 
-import Loading from "../../libs/components/Loading";
-import Form from "../../libs/components/Form";
-import Button from "../../libs/components/Button";
 import RefreshContainer from "../../libs/components/RefreshContainer";
-import HeadLine from "../../libs/components/HeadLine";
-import FormattedText from "../../libs/components/FormattedText";
-import colors from "../../assets/variables/colors";
-import omit_text from "../../utils/omit_text";
-import globalStyles from "../../assets/styleSheets/globalStyles";
+import AddWithModal from "../../libs/components/AddWithModal";
+import WishList from "../../libs/components/WishList";
+import Loading from "../../libs/components/Loading";
 
 export default class extends Component {
   state = {
-    wishLists: [],
+    wishList: [],
     title: "",
     price: "",
     errorMessage: { title: "", price: "" },
@@ -38,8 +32,8 @@ export default class extends Component {
 
   fetchWishLists = async () => {
     this.setState({ loading: true });
-    const wishLists = await wishListActions.index();
-    this.setState({ wishLists, loading: false });
+    const wishList = await wishListActions.index();
+    this.setState({ wishList, loading: false });
   };
 
   componentDidMount() {
@@ -82,10 +76,22 @@ export default class extends Component {
     });
   };
 
-  deleteWishItem = async id => {
+  deleteWishItem = id => {
+    const confirmedDelete = async id => {
+      await wishListActions.delete(id);
+      this.fetchWishLists();
+    };
     this.setState({ loading: true });
-    await wishListActions.delete(id);
-    this.fetchWishLists();
+    Alert.alert("", "削除してもよろしいですか？", [
+      {
+        text: "削除",
+        onPress: () => confirmedDelete(id)
+      },
+      {
+        text: "キャンセル",
+        onPress: () => console.log("cancel")
+      }
+    ]);
   };
 
   toggleModalVisible = () => {
@@ -93,117 +99,27 @@ export default class extends Component {
     this.setState({ modalVisible: !modalVisible });
   };
 
-  render() {
-    const { wishLists, title, price, refreshing, errorMessage } = this.state;
-    return (
-      <View style={globalStyles.container}>
-        <HeadLine pageName="Wish List" />
-        <View style={{ flex: 5 }}>
-          <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-            {/* ここから */}
-            {wishLists.map((d, index) => (
-              <View style={styles.wishList} key={index}>
-                <View style={styles.wish}>
-                  <FormattedText
-                    key={index}
-                    category={omit_text(d.title)}
-                    value={`¥${d.price}`}
-                  />
-                  <Icon
-                    name="closecircleo"
-                    color={colors.gray}
-                    onPress={() => this.deleteWishItem(d.id)}
-                    style={styles.closeIcon}
-                  />
-                </View>
-              </View>
-            ))}
-          </RefreshContainer>
-        </View>
-        {/* ここまで詳細画面みたいな感じでリスト表示したい */}
-        {/* ここから */}
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}>
-          <View style={globalStyles.container}>
-            <View style={styles.addWishContainer}>
-              <Form
-                label="ほしいもの"
-                value={title}
-                handleChange={text => this.setState({ title: text })}
-                errorMessage={errorMessage.title}
-                placeholder="例）本、もみじ饅頭"
-              />
-              <Form
-                label="値段"
-                value={price}
-                handleChange={text => this.setState({ price: text })}
-                errorMessage={errorMessage.price}
-                placeholder="例）1200, 100"
-                keyboardType="number-pad"
-              />
-            </View>
-            <Button onPress={this.createWishItem} text="追加" />
-            <Button text="閉じる" onPress={this.toggleModalVisible} />
-          </View>
-        </Modal>
-        {/* ここまでモーダルにしたい */}
+  handleChange = (target, text) => {
+    this.setState({ [target]: text });
+  };
 
-        <Icon
-          name="pluscircleo"
-          style={styles.modalIcon}
-          onPress={this.toggleModalVisible}
+  render() {
+    const { loading, refreshing } = this.state;
+    return (
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+        {loading && <Loading />}
+        <AddWithModal
+          {...this.state}
+          handleChange={this.handleChange}
+          createWishItem={this.createWishItem}
+          toggleModalVisible={this.toggleModalVisible}
         />
-      </View>
+        <WishList
+          {...this.state}
+          deleteWishItem={this.deleteWishItem}
+          toggleModalVisible={this.toggleModalVisible}
+        />
+      </RefreshContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wishListContainer: {
-    flex: 1,
-    justifyContent: "flex-start"
-  },
-  wishList: {
-    flex: 1,
-    width: "90%"
-  },
-  wish: {
-    flex: 3,
-    flexDirection: "row",
-    alignItems: "center",
-    height: 40,
-    marginBottom: 8,
-    width: "90%"
-  },
-  iconContainer: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  closeIcon: {
-    height: 24,
-    width: 24,
-    fontSize: 24,
-    marginLeft: 8
-  },
-  addWishContainer: {
-    height: 160,
-    justifyContent: "center",
-    marginBottom: 40
-  },
-  modalIconContainer: {
-    position: "absolute",
-    top: 40,
-    right: 24,
-    height: 80,
-    justifyContent: "center"
-  },
-  modalIcon: {
-    flex: 1,
-    height: 48,
-    width: 48,
-    fontSize: 48,
-    color: colors.accent
-  }
-});

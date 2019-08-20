@@ -37,7 +37,7 @@ export const wishListActions = {
         );
       })
       .catch(e => {
-        Alert.alert("取得失敗");
+        Alert.alert("取得失敗", "ログイン状況を確認してください");
       });
     return result;
   },
@@ -51,21 +51,21 @@ export const wishListActions = {
         price
       })
       .then(() => {
-        Alert.alert("ほしいものリストに追加しました！");
+        Alert.alert("", "ほしいものリストに追加しました！");
       })
       .catch(e => {
         // console.log(e);
-        Alert.alert("追加失敗");
+        Alert.alert("追加失敗", "ログイン状況を確認してください");
       });
   },
   delete: async id => {
     return await getWishListCollection()
       .doc(id)
       .delete()
-      .then(() => Alert.alert("ほしいものリストから削除しました"))
+      .then(() => Alert.alert("", "ほしいものリストから削除しました"))
       .catch(e => {
         // console.log(e);
-        Alert.alert("削除失敗");
+        Alert.alert("削除失敗", "ログイン状況を確認してください");
       });
   }
 };
@@ -81,7 +81,7 @@ export const userActions = {
             ["uid", res.user.uid],
             ["userEmail", res.user.email]
           ]);
-          Alert.alert("ログインしました！");
+          Alert.alert("", `${res.user.email} でログインしました!`);
           return res.user.email;
         }
       })
@@ -97,7 +97,7 @@ export const userActions = {
       .signOut()
       .then(async () => {
         await AsyncStorage.multiRemove(["uid", "userEmail"]);
-        Alert.alert("ログアウトしました");
+        Alert.alert("", "ログアウトしました");
         Actions.top();
       })
       .catch(e => {
@@ -114,13 +114,16 @@ export const userActions = {
             ["uid", res.user.uid],
             ["userEmail", res.user.email]
           ]);
-          Alert.alert("登録しました！");
+          Alert.alert("登録成功!", "nori-noriへようこそ");
           return res.user.email;
         }
       })
       .catch(e => {
         console.log(e);
-        Alert.alert("登録に失敗しました");
+        Alert.alert(
+          "登録失敗",
+          "メールアドレスはすでに使用されている可能性があります"
+        );
         throw new Error();
       });
   },

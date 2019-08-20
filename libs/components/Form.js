@@ -24,7 +24,7 @@ export default ({
 }) => {
   const styles = defaultStyles(setCurrentLocation);
   return (
-    <>
+    <View>
       <View style={styles.labelContainer}>
         <Text style={styles.label}>{label}</Text>
       </View>
@@ -52,7 +52,7 @@ export default ({
       </View>
 
       <Text style={styles.error}>{errorMessage}</Text>
-    </>
+    </View>
   );
 };
 

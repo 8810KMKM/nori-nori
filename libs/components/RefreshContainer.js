@@ -1,30 +1,34 @@
 import React from "react";
 import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 
-import globalStyles from "../../assets/styleSheets/globalStyles";
+import colors from "../../assets/variables/colors";
 
-export default ({ refreshing, onRefresh, children }) => {
+export default ({ refreshing, onRefresh, children, offset }) => {
   return (
-    <View style={globalStyles.container}>
-      <View style={styles.scrollViewContainer}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <View style={styles.contentContainer}>{children}</View>
-        </ScrollView>
+    <ScrollView
+      contentContainerStyle={styles.contentContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={styles.container}>
+        <View style={{ height: offset }} />
+        {children}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
-    width: "100%"
+  container: {
+    flex: 1,
+    fontFamily: "mplus-1p-r",
+    // justifyContent: "center",
+    alignItems: "center",
+    color: colors.white,
+    backgroundColor: colors.main
   },
   contentContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    width: "100%",
+    height: "100%"
   }
 });

@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import TopPage from "../src/components/TopPage";
 import ResultPage from "../src/components/ResultPage";
 import DetailPage from "../src/components/DetailPage";
-import Setting from "../src/components/Setting";
+import SettingPage from "../src/components/SettingPage";
 import WishListPage from "../src/components/WishListPage";
 import AccountPage from "../src/components/AccountPage";
 
@@ -44,7 +44,7 @@ const TabBarIcon = props => {
 export default ({}) => {
   return (
     <Router>
-      <Scene key="root" hideNavBar={true}>
+      <Scene key="root" hideNavBar>
         <Tabs key="tabBar" swipeEnabled={true} animationEnabled={true}>
           <Scene
             key="top"
@@ -52,28 +52,28 @@ export default ({}) => {
             component={TopPage}
             iconName="car"
             icon={TabBarIcon}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="wish list"
             component={WishListPage}
             iconName="profile"
             icon={TabBarIcon}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="setting"
-            component={Setting}
+            component={SettingPage}
             iconName="setting"
             icon={TabBarIcon}
-            hideNavBar={true}
+            hideNavBar
           />
           <Scene
             key="account"
             component={AccountPage}
             iconName="user"
             icon={TabBarIcon}
-            hideNavBar={true}
+            hideNavBar
           />
         </Tabs>
         <Scene key="result" component={ResultPage} title="結果" />

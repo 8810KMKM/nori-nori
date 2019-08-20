@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert, Dimensions } from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -74,11 +74,11 @@ export default class extends Component {
 
     if (response.status === "NOT_FOUND") {
       this.setState({ loading: false });
-      return Alert.alert("正しい地名が入力されているか確認してください");
+      return Alert.alert("", "正しい地名が入力されているか確認してください");
     }
     if (response.status === "ZERO_RESULTS") {
       this.setState({ loading: false });
-      return Alert.alert("車のみのルートでは移動できない可能性があります");
+      return Alert.alert("", "車のみのルートでは移動できない可能性があります");
     }
 
     const data = response.routes[0].legs[0];
@@ -107,7 +107,10 @@ export default class extends Component {
   render() {
     const { loading, refreshing } = this.state;
     return (
-      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
+      <RefreshContainer
+        refreshing={refreshing}
+        onRefresh={this.onRefresh}
+        offset="15%">
         {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
         <DestinationForm
@@ -127,8 +130,5 @@ const styles = StyleSheet.create({
     width: 280,
     height: 80,
     marginBottom: 16
-  },
-  loading: {
-    position: "absolute"
   }
 });
