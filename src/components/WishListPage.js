@@ -92,6 +92,7 @@ export default class extends Component {
         onPress: () => console.log("cancel")
       }
     ]);
+    this.setState({ loading: false });
   };
 
   toggleModalVisible = () => {
