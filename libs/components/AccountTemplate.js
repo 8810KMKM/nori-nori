@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: fonts.small,
     color: colors.white,
-    lineHeight: fonts.small,
+    lineHeight: fonts.small * 2,
     fontFamily: "mplus-1p-r"
   },
   account: {
@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: fonts.small,
     lineHeight: fonts.small * 2,
-    fontFamily: "mplus-1p-b"
+    fontFamily: "mplus-1p-r"
   }
 })

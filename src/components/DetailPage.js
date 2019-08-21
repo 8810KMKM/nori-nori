@@ -81,9 +81,9 @@ export default class extends Component {
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
         {/* TODO:スクロールでok ボタンは見える必要なし */}
-        <View ref={this.detailImgRef} collapsable={false} style={styles.detail}>
+        <View ref={this.detailImgRef} collapsable={false}　style={{alignItems: "center"}}>
             <HeadLine pageName="Drive Info" />
-            <ScrollView contentContainerStyle={{alignItems: "center"}}>
+          <ScrollView contentContainerStyle={styles.detail}>
             <View style={styles.detailContainer}>
               <DistanceMap
                 region={region}
@@ -116,8 +116,7 @@ const styles = StyleSheet.create({
   detail: {
     backgroundColor: colors.main,
     alignItems: "center",
-    width: "100%",
-    height: "90%"
+    width: Dimensions.get('window').width * 0.9
   },
   detailContainer: {
     height: "80%",
@@ -126,9 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   detailList: {
-    flex: 1,
-    width: "100%",
-    paddingHorizontal: "5%"
+    width: "100%"
   },
   actions: {
     // height: "10%",

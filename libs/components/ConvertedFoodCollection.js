@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 
 import juiceImage from "../../assets/images/foods/soda.png";
 import burgerImage from "../../assets/images/foods/burger.png";
@@ -18,7 +18,7 @@ import fonts from "../../assets/variables/fonts";
 export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
     <Text style={styles.message}>お礼は一人あたり...</Text>
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.foodsWrapper}>
       <ConvertedFood
         name="ジュース"
         amount={divide_amount(foodAmounts.juice)}
@@ -48,8 +48,9 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "space-between",
     height: "70%",
-    width: "100%",
-    paddingHorizontal: "5%"
+  },
+  foodsWrapper: {
+    width: Dimensions.get('window').width * 0.9
   },
   message: {
     fontSize: fonts.small,
