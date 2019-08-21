@@ -72,7 +72,8 @@ export default class ResultPage extends Component {
 const styles = StyleSheet.create({
   result: {
     backgroundColor: colors.main,
-    alignItems: "center"
+    alignItems: "center",
+    width: "100%"
   },
   actions: {
     height: "10%",
