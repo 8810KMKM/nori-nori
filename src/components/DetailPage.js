@@ -89,12 +89,12 @@ export default class extends Component {
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
         <View style={styles.detailContainer}>
-          <View
-            ref={this.detailImgRef}
-            collapsable={false}
-            style={styles.detail}>
-            <HeadLine pageName="Drive Info" />
-            <ScrollView showsVerticalScrollIndicator>
+          <ScrollView>
+            <View
+              ref={this.detailImgRef}
+              collapsable={false}
+              style={styles.detail}>
+              <HeadLine pageName="Drive Info" />
               <DistanceMap
                 region={region}
                 start_latLng={start_latLng}
@@ -110,12 +110,12 @@ export default class extends Component {
                   />
                 ))}
               </View>
-            </ScrollView>
-          </View>
-          <View style={styles.actions}>
-            <Button text="ホーム" onPress={Actions.top} />
-            <Button text="共有" onPress={this.onShare} />
-          </View>
+            </View>
+            <View style={styles.actions}>
+              <Button text="ホーム" onPress={Actions.top} />
+              <Button text="共有" onPress={this.onShare} />
+            </View>
+          </ScrollView>
         </View>
       </RefreshContainer>
     );
@@ -124,22 +124,23 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   detailContainer: {
-    height: "100%",
-    width: "100%"
+    width: "100%",
+    flex: 1
   },
   detail: {
+    flex: 1,
     backgroundColor: colors.main,
-    height: "80%",
     paddingHorizontal: "5%"
   },
   detailList: {
-    width: "100%"
+    width: "100%",
+    flex: 1
   },
   actions: {
-    height: "20%",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    marginVertical: 20
   }
 });

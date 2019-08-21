@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
   account: {
     width: "100%",
     height: "70%",
-    alignItems: "center",
-    marginTop: 40
+    alignItems: "center"
   },
   actions: {
     height: "30%",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   },
   mail: {
     fontSize: fonts.small,
