@@ -94,23 +94,21 @@ export default class extends Component {
             collapsable={false}
             style={styles.detail}>
             <HeadLine pageName="Drive Info" />
-            <ScrollView showsVerticalScrollIndicator>
-              <DistanceMap
-                region={region}
-                start_latLng={start_latLng}
-                end_latLng={end_latLng}
-              />
-              <View style={styles.detailList}>
-                {details.map((detail, i) => (
-                  <ListLabel
-                    key={i}
-                    title={detail.title}
-                    text={detail.text}
-                    fontSize={16}
-                  />
-                ))}
-              </View>
-            </ScrollView>
+            <DistanceMap
+              region={region}
+              start_latLng={start_latLng}
+              end_latLng={end_latLng}
+            />
+            <View style={styles.detailList}>
+              {details.map((detail, i) => (
+                <ListLabel
+                  key={i}
+                  title={detail.title}
+                  text={detail.text}
+                  fontSize={16}
+                />
+              ))}
+            </View>
           </View>
           <View style={styles.actions}>
             <Button text="ホーム" onPress={Actions.top} />

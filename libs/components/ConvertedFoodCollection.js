@@ -17,29 +17,27 @@ export default ({ foodAmounts }) => {
   return (
     <>
       <Text style={styles.message}>お礼は一人あたり...</Text>
-      <ScrollView showsVerticalScrollIndicator>
-        <ConvertedFood
-          name="ジュース"
-          amount={foodAmounts.juice}
-          icon={juiceImage}
-          grayFoodIcon={grayJuiceImage}
-          multiIcon={multiJuiceImage}
-        />
-        <ConvertedFood
-          name="ハンバーガー"
-          amount={foodAmounts.burger}
-          icon={burgerImage}
-          grayIcon={grayBurgerImage}
-          multiIcon={multiJuiceImage}
-        />
-        <ConvertedFood
-          name="ラーメン"
-          amount={foodAmounts.ramen}
-          icon={ramenImage}
-          grayIcon={grayRamenImage}
-          multiIcon={multiJuiceImage}
-        />
-      </ScrollView>
+      <ConvertedFood
+        name="ジュース"
+        amount={foodAmounts.juice}
+        icon={juiceImage}
+        grayFoodIcon={grayJuiceImage}
+        multiIcon={multiJuiceImage}
+      />
+      <ConvertedFood
+        name="ハンバーガー"
+        amount={foodAmounts.burger}
+        icon={burgerImage}
+        grayIcon={grayBurgerImage}
+        multiIcon={multiJuiceImage}
+      />
+      <ConvertedFood
+        name="ラーメン"
+        amount={foodAmounts.ramen}
+        icon={ramenImage}
+        grayIcon={grayRamenImage}
+        multiIcon={multiJuiceImage}
+      />
     </>
   );
 };

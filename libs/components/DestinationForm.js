@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  KeyboardAvoidingView
-} from "react-native";
+import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
@@ -37,7 +32,7 @@ export default ({
   };
 
   return (
-    <View style={{ height: height - 280 }}>
+    <>
       <View style={styles.formContainer}>
         <Form
           label="出発地"
@@ -66,21 +61,19 @@ export default ({
       <View style={styles.actions}>
         <Button text="決定!!" onPress={submit} />
       </View>
-    </View>
+    </>
   );
 };
-
-const { height, width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
-    height: "80%",
     alignItems: "center"
   },
   actions: {
     height: "20%",
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
