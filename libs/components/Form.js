@@ -39,6 +39,7 @@ export default ({
           placeholder={placeholder}
           editable={editable}
           keyboardType={keyboardType}
+          secureTextEntry={label.match(/パスワード/) ? true : false}
         />
         {setCurrentLocation && (
           <TouchableOpacity
