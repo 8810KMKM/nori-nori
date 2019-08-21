@@ -10,6 +10,7 @@ import {
 
 import colors from "../../assets/variables/colors";
 import currentLocationIcon from "../../assets/images/currentLocation.png";
+import fonts from "../../assets/variables/fonts";
 
 export default ({
   label,
@@ -64,7 +65,7 @@ const defaultStyles = setCurrentLocation =>
     label: {
       fontWeight: "bold",
       color: colors.white,
-      fontSize: 20,
+      fontSize: fonts.small,
       marginBottom: 8
     },
     inputContainer: {
@@ -73,9 +74,9 @@ const defaultStyles = setCurrentLocation =>
     },
     input: {
       flex: 1,
-      height: 48,
+      height: fonts.small * 2.2,
       paddingLeft: 8,
-      fontSize: 20,
+      fontSize: fonts.small,
       backgroundColor: colors.white,
       color: colors.black,
       fontWeight: "bold",
@@ -86,13 +87,13 @@ const defaultStyles = setCurrentLocation =>
     error: {
       marginTop: 8,
       marginBottom: 16,
-      fontSize: 16,
+      fontSize: fonts.small,
       fontWeight: "bold",
       color: colors.accent
     },
     currentLocationIconContainer: {
-      width: 48,
-      height: 48,
+      width: fonts.small * 2.2,
+      height: fonts.small * 2.2,
       borderLeftWidth: 2,
       borderLeftColor: "gray",
       justifyContent: "center",
@@ -102,7 +103,7 @@ const defaultStyles = setCurrentLocation =>
       borderBottomRightRadius: 8
     },
     currentLocationIcon: {
-      width: 32,
-      height: 32
+      width: fonts.small * 1.5,
+      height: fonts.small * 1.5
     }
   });

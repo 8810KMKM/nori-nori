@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import fonts from "../../assets/variables/fonts";
 
 export default ({ label, onValueChange, items, value, placeholder }) => {
   return (
@@ -29,22 +30,22 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     color: colors.white,
-    fontSize: 20,
+    fontSize: fonts.small,
     marginBottom: 8
   },
   selectBoxContainer: {
-    height: 48,
+    height: fonts.small * 2.2,
     width: "90%",
     paddingLeft: 8,
     backgroundColor: colors.white,
     borderRadius: 8,
-    marginBottom: 32
+    marginBottom: 24
   }
 });
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
-    fontSize: 20,
+    fontSize: fonts.small,
     fontWeight: "bold",
     borderRadius: 8,
     color: "black",

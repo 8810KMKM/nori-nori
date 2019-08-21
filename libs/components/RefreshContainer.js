@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     fontFamily: "mplus-1p-r",
-    // justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     color: colors.white,
     backgroundColor: colors.main

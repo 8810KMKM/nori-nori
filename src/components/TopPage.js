@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 280,
     height: 80,
-    marginBottom: 16,
-
+    marginBottom: 24,
   }
 });

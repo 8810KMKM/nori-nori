@@ -13,6 +13,7 @@ import colors from "../../assets/variables/colors";
 import divide_amount from "../../utils/divide_amount";
 
 import ConvertedFood from "./ConvertedFood";
+import fonts from "../../assets/variables/fonts";
 
 export default ({ foodAmounts }) => (
   <View style={styles.wrapper}>
@@ -51,9 +52,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%"
   },
   message: {
-    fontSize: 20,
+    fontSize: fonts.small,
     fontFamily: "mplus-1p-b",
     color: colors.white,
-    marginBottom: 8
+    marginVertical: 8 
   }
 });

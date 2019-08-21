@@ -66,7 +66,7 @@ const { height, width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   formContainer: {
     width: "100%",
-    // justifyContent: "flex-start",
+    height: "80%",
     alignItems: "center",
   }
 });

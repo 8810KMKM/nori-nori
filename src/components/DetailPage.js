@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Alert, ScrollView, Dimensions } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
   },
   actions: {
     // height: "10%",
-    marginTop: 16,
+    height: Dimensions.get('window').height / 10,
+    marginTop: 24,
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-around"
