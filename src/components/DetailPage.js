@@ -7,7 +7,7 @@ import colors from "../../assets/variables/colors";
 
 import Button from "../../libs/components/Button";
 import { Actions } from "react-native-router-flux";
-import FormattedText from "../../libs/components/FormattedText";
+import ListLabel from "../../libs/components/ListLabel";
 import HeadLine from "../../libs/components/HeadLine";
 import DistanceMap from "../../libs/components/DistanceMap";
 import RefreshContainer from "../../libs/components/RefreshContainer";
@@ -91,10 +91,10 @@ export default class extends Component {
             />
             <View style={styles.detailList}>
               {details.map((detail, i) => (
-                <FormattedText
+                <ListLabel
                   key={i}
-                  category={detail.category}
-                  value={detail.value}
+                  title={detail.title}
+                  text={detail.text}
                   fontSize={16}
                 />
               ))}

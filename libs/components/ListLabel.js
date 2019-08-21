@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default ({ category, value, fontSize = 16 }) => {
+export default ({ title, text, fontSize = 16 }) => {
   const styles = StyleSheet.create({
     textWrapper: {
       borderBottomWidth: 2,
@@ -11,12 +11,12 @@ export default ({ category, value, fontSize = 16 }) => {
       flexDirection: "row",
       justifyContent: "space-between"
     },
-    category: {
+    title: {
       color: colors.white,
       fontSize: fontSize,
       paddingLeft: 1
     },
-    value: {
+    text: {
       color: colors.accent,
       fontWeight: "bold",
       fontSize: fontSize,
@@ -26,8 +26,8 @@ export default ({ category, value, fontSize = 16 }) => {
 
   return (
     <View style={styles.textWrapper}>
-      <Text style={styles.category}>{category}</Text>
-      <Text style={styles.value}>{value}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.text}>{text}</Text>
     </View>
   );
 };

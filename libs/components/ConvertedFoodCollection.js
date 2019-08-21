@@ -12,34 +12,36 @@ import colors from "../../assets/variables/colors";
 
 import ConvertedFood from "./ConvertedFood";
 
-export default ({ foodAmounts }) => (
-  <View style={styles.wrapper}>
-    <Text style={styles.message}>お礼は一人あたり...</Text>
-    <ScrollView>
-      <ConvertedFood
-        name="ジュース"
-        amount={foodAmounts.juice}
-        icon={juiceImage}
-        grayFoodIcon={grayJuiceImage}
-        multiIcon={multiJuiceImage}
-      />
-      <ConvertedFood
-        name="ハンバーガー"
-        amount={foodAmounts.burger}
-        icon={burgerImage}
-        grayIcon={grayBurgerImage}
-        multiIcon={multiJuiceImage}
-      />
-      <ConvertedFood
-        name="ラーメン"
-        amount={foodAmounts.ramen}
-        icon={ramenImage}
-        grayIcon={grayRamenImage}
-        multiIcon={multiJuiceImage}
-      />
-    </ScrollView>
-  </View>
-);
+export default ({ foodAmounts }) => {
+  return (
+    <View style={styles.wrapper}>
+      <Text style={styles.message}>お礼は一人あたり...</Text>
+      <ScrollView>
+        <ConvertedFood
+          name="ジュース"
+          amount={foodAmounts.juice}
+          icon={juiceImage}
+          grayFoodIcon={grayJuiceImage}
+          multiIcon={multiJuiceImage}
+        />
+        <ConvertedFood
+          name="ハンバーガー"
+          amount={foodAmounts.burger}
+          icon={burgerImage}
+          grayIcon={grayBurgerImage}
+          multiIcon={multiJuiceImage}
+        />
+        <ConvertedFood
+          name="ラーメン"
+          amount={foodAmounts.ramen}
+          icon={ramenImage}
+          grayIcon={grayRamenImage}
+          multiIcon={multiJuiceImage}
+        />
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   wrapper: {

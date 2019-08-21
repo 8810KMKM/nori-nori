@@ -34,16 +34,16 @@ export const detailFormat = (data, calcData) => {
     latitudeDelta: mapScale
   };
   const details = [
-    { category: "出発地", value: omni_text(responseOrigin) },
-    { category: "到着地", value: omni_text(responseDestination) },
-    { category: "距離", value: distance },
-    { category: "時間", value: duration },
+    { title: "出発地", text: omni_text(responseOrigin) },
+    { title: "到着地", text: omni_text(responseDestination) },
+    { title: "距離", text: distance },
+    { title: "時間", text: duration },
     {
-      category: "ガソリン消費量",
-      value: `${Math.round(useFuelAmount * 10) / 10}リットル`
+      title: "ガソリン消費量",
+      text: `${Math.round(useFuelAmount * 10) / 10}リットル`
     },
-    { category: "ガソリン代", value: `${Math.round(feeOfFuel)}円` },
-    { category: "一人あたりのお礼", value: `${Math.round(payPerPerson)}円` }
+    { title: "ガソリン代", text: `${Math.round(feeOfFuel)}円` },
+    { title: "一人あたりのお礼", text: `${Math.round(payPerPerson)}円` }
   ];
 
   return { region, start_latLng, end_latLng, details };
