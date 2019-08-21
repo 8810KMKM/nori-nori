@@ -10,25 +10,19 @@ export default ({ refreshing, onRefresh, children, offset }) => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
-      <View style={styles.container}>
-        <View style={{ height: offset }} />
-        {children}
-      </View>
+      <View style={{ height: offset }} />
+      {children}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
     fontFamily: "mplus-1p-r",
     justifyContent: "center",
     alignItems: "center",
     color: colors.white,
     backgroundColor: colors.main
-  },
-  contentContainer: {
-    width: "100%",
-    height: "100%"
   }
 });

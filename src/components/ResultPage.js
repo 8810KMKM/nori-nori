@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 
@@ -53,20 +53,22 @@ export default class ResultPage extends Component {
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         <View style={styles.resultContainer}>
-          <View
-            ref={this.resultImgRef}
-            collapsable={false}
-            style={styles.result}>
-            <HeadLine pageName="Result" />
-            <ConvertedFoodCollection
-              style={styles.foodList}
-              foodAmounts={foodAmounts}
-            />
-          </View>
-          <View style={styles.actions}>
-            <Button text="戻る" onPress={Actions.pop} />
-            <Button text="詳細" onPress={this.moveDetailPage} />
-          </View>
+          <ScrollView>
+            <View
+              ref={this.resultImgRef}
+              collapsable={false}
+              style={styles.result}>
+              <HeadLine pageName="Result" />
+              <ConvertedFoodCollection
+                style={styles.foodList}
+                foodAmounts={foodAmounts}
+              />
+            </View>
+            <View style={styles.actions}>
+              <Button text="戻る" onPress={Actions.pop} />
+              <Button text="詳細" onPress={this.moveDetailPage} />
+            </View>
+          </ScrollView>
         </View>
       </RefreshContainer>
     );
@@ -75,19 +77,19 @@ export default class ResultPage extends Component {
 
 const styles = StyleSheet.create({
   resultContainer: {
-    height: "100%",
-    width: "100%"
+    width: "100%",
+    flex: 1
   },
   result: {
+    flex: 1,
     backgroundColor: colors.main,
-    height: "80%",
     paddingHorizontal: "5%"
   },
   actions: {
-    height: "20%",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    marginVertical: 20
   }
 });
