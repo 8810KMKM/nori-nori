@@ -9,8 +9,8 @@ import {
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
-import defaultFormat, { detailFormat } from "../../utils/format_result";
-import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
+import defaultFormat, { detailFormat, placesFormat } from "../../utils/format_result";
+import { getCurrentLocation, fetchDirections, fetchPlaceAutocomplete } from "../../utils/google_api";
 
 import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
@@ -22,6 +22,7 @@ export default class extends Component {
     origin: { label: "", value: "" },
     destination: "",
     people: 2,
+    autoCompletedPlaces: { origin: [], destination: []},
     errorMessage: { origin: "", destination: "" },
     loading: false,
     refreshing: false
@@ -50,13 +51,43 @@ export default class extends Component {
     });
   };
 
+
+
   handleChange = (target, text) => {
-    if (target === "origin") {
-      this.setState({ origin: { label: text, value: text } });
-    } else {
-      this.setState({ [target]: text });
+    const response = text.length > 2
+      ? fetchPlaceAutocomplete(text)
+      : [];
+    switch (target) {
+      case "origin":
+        this.setState({
+          origin: { label: text, value: text },
+          autoCompletedPlaces: { origin: placesFormat(response) }
+        });
+        break;
+      case "destination":
+        this.setState({
+          [target]: text,
+          autoCompletedPlaces: { destination: placesFormat(response) }
+        });
+        break;
+      default:
+        this.setState({ [target]: text });
     }
   };
+
+  handleClick = (target, text) => {
+    if (target === "origin") {
+      this.setState({
+        origin: { label: text, value: text },
+        autoCompletedPlaces: {origin: []}
+      });
+    } else {
+      this.setState({
+        [target]: text,
+        autoCompletedPlaces: {destination: []}
+      });
+    }
+  }
 
   submit = async () => {
     const { origin, destination, people } = this.state;
@@ -124,6 +155,7 @@ export default class extends Component {
             <DestinationForm
               {...this.state}
               handleChange={this.handleChange}
+              handleClick={this.handleClick}
               submit={this.submit}
               setCurrentLocation={this.setCurrentLocation}
             />

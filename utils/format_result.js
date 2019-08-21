@@ -48,3 +48,7 @@ export const detailFormat = (data, calcData) => {
 
   return { region, start_latLng, end_latLng, details };
 };
+
+export const placesFormat = data => {
+  return data.map(d => d.structured_formatting.main_text);
+};
