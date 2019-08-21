@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { View, StyleSheet, Image, Alert, KeyboardAvoidingView } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -107,18 +107,22 @@ export default class extends Component {
   render() {
     const { loading, refreshing } = this.state;
     return (
+      
       <RefreshContainer
         refreshing={refreshing}
         onRefresh={this.onRefresh}
         offset="15%">
         <Image source={logoImage} style={styles.logo} />
         {loading && <Loading />}
-        <DestinationForm
-          {...this.state}
-          handleChange={this.handleChange}
-          submit={this.submit}
-          setCurrentLocation={this.setCurrentLocation}
-        />
+        <KeyboardAvoidingView behavior="padding" style={{width: "100%"}}>
+          <DestinationForm
+            {...this.state}
+            handleChange={this.handleChange}
+            submit={this.submit}
+            setCurrentLocation={this.setCurrentLocation}
+          />
+        </KeyboardAvoidingView>
+        
       </RefreshContainer>
     );
   }

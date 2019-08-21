@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, KeyboardAvoidingView } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
@@ -32,7 +32,7 @@ export default ({
   };
 
   return (
-    <View style={styles.formContainer}>
+    <View style={styles.formContainer} >
       <Form
         label="出発地"
         value={origin.label}

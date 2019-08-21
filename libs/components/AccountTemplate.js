@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
 
 import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";
@@ -24,7 +24,7 @@ export default ({
       {mode === "logout" ? (
         <View style={styles.account}>
           <View style={styles.userInfo}>
-            <Text style={styles.mail}>{user.email}</Text>  
+            <Text style={styles.mail}>{user.email}</Text>
             <Text style={styles.message}>でログインしています</Text>
           </View>
           <Button
@@ -34,7 +34,7 @@ export default ({
           />
         </View>
       ) : (
-          <View style={styles.account}>
+          <KeyboardAvoidingView behavior="padding" style={styles.account}>
             <Form
               label="メールアドレス"
               value={email}
@@ -65,7 +65,7 @@ export default ({
             >
               {`${mode === "login" ? "新規登録" : "ログイン"}はこちら`}
             </Text>
-          </View>
+          </KeyboardAvoidingView>
         )}
     </>
   );
