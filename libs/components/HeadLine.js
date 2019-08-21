@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 import colors from "../../assets/variables/colors";
+import fonts from "../../assets/variables/fonts";
 
 export default ({ pageName }) => (
   <Text style={styles.headline}>{pageName}</Text>
@@ -8,7 +9,7 @@ export default ({ pageName }) => (
 
 const styles = StyleSheet.create({
   headline: {
-    fontSize: 40,
+    fontSize: fonts.large,
     fontFamily: "erica",
     color: colors.accent,
     height: "10%",

@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import fonts from "../../assets/variables/fonts";
 
-export default ({ category, value, fontSize = 16 }) => {
+export default ({ category, value, fontSize = fonts.small }) => {
   const styles = StyleSheet.create({
     textWrapper: {
+      width: "100%",
       borderBottomWidth: 2,
       borderBottomColor: colors.gray,
       marginVertical: 8,
-      flex: 1,
       flexDirection: "row",
       justifyContent: "space-between"
     },

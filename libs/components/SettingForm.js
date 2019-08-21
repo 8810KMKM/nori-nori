@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
 
 import Button from "../../libs/components/Button";
 import Form from "../../libs/components/Form";
@@ -9,7 +9,7 @@ export default ({ fuel, cost, errorMessage, handleChange, save }) => {
   return (
     <>
       <HeadLine pageName="Setting" />
-      <View style={styles.formWrapper}>
+      <KeyboardAvoidingView behavior="padding" style={styles.formWrapper}>
         <Form
           label="燃費 [km/l]"
           value={fuel}
@@ -27,7 +27,7 @@ export default ({ fuel, cost, errorMessage, handleChange, save }) => {
           keyboardType="number-pad"
         />
         <Button text="保存" onPress={save} />
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

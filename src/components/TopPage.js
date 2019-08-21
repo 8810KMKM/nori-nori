@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { View, StyleSheet, Image, Alert, KeyboardAvoidingView } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
@@ -107,18 +107,22 @@ export default class extends Component {
   render() {
     const { loading, refreshing } = this.state;
     return (
+      
       <RefreshContainer
         refreshing={refreshing}
         onRefresh={this.onRefresh}
         offset="15%">
-        {loading && <Loading />}
         <Image source={logoImage} style={styles.logo} />
-        <DestinationForm
-          {...this.state}
-          handleChange={this.handleChange}
-          submit={this.submit}
-          setCurrentLocation={this.setCurrentLocation}
-        />
+        {loading && <Loading />}
+        <KeyboardAvoidingView behavior="padding" style={{width: "100%"}}>
+          <DestinationForm
+            {...this.state}
+            handleChange={this.handleChange}
+            submit={this.submit}
+            setCurrentLocation={this.setCurrentLocation}
+          />
+        </KeyboardAvoidingView>
+        
       </RefreshContainer>
     );
   }
@@ -126,9 +130,8 @@ export default class extends Component {
 
 const styles = StyleSheet.create({
   logo: {
-    flex: 1,
     width: 280,
     height: 80,
-    marginBottom: 16
+    marginBottom: 24,
   }
 });

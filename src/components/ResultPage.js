@@ -59,10 +59,10 @@ export default class ResultPage extends Component {
             style={styles.foodList}
             foodAmounts={foodAmounts}
           />
-        </View>
-        <View style={styles.actions}>
-          <Button text="戻る" onPress={Actions.pop} />
-          <Button text="詳細" onPress={this.moveDetailPage} />
+          <View style={styles.actions}>
+            <Button text="戻る" onPress={Actions.pop} />
+            <Button text="詳細" onPress={this.moveDetailPage} />
+          </View>
         </View>
       </RefreshContainer>
     );
@@ -72,6 +72,7 @@ export default class ResultPage extends Component {
 const styles = StyleSheet.create({
   result: {
     backgroundColor: colors.main,
+    width: "100%",
     alignItems: "center"
   },
   actions: {

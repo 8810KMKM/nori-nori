@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 import firebase, { wishListActions } from "../../utils/firebase";
 
 import RefreshContainer from "../../libs/components/RefreshContainer";
-import AddWithModal from "../../libs/components/AddWithModal";
+import AddWishModal from "../../libs/components/AddWishModal";
 import WishList from "../../libs/components/WishList";
 import Loading from "../../libs/components/Loading";
 
@@ -108,7 +108,7 @@ export default class extends Component {
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
-        <AddWithModal
+        <AddWishModal
           {...this.state}
           handleChange={this.handleChange}
           createWishItem={this.createWishItem}

@@ -21,8 +21,9 @@ export default ({ region, start_latLng, end_latLng }) => {
 const styles = StyleSheet.create({
   map: {
     position: "relative",
-    marginBottom: 12,
-    height: Dimensions.get("window").height * 0.21,
+    marginBottom: 8,
+    marginTop: 8,
+    height: Dimensions.get("window").height * 0.3,
     width: Dimensions.get("window").width
   }
 });
