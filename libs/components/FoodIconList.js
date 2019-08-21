@@ -1,17 +1,17 @@
-import React from 'react';
-import { Image, View, StyleSheet } from 'react-native';
-import resize_image from '../../utils/resize_image';
+import React from "react";
+import { _ } from "underscore";
+import { Image, View, StyleSheet } from "react-native";
+import resize_image from "../../utils/resize_image";
+import colors from "../../assets/variables/colors";
 
 export default ({ amount, icon, grayIcon, multiIcon }) => {
-  const singleSize = resize_image(amount.single);
-  const multiSize = resize_image(amount.multi);
+  const singleSize = resize_image(amount);
+  const multiSize = resize_image(amount);
 
   const styles = StyleSheet.create({
     icons: {
-      display: "flex",
       flexWrap: "wrap",
       flexDirection: "row",
-      justifyContent: "flex-start",
       marginBottom: 16
     },
     singleIcon: {
@@ -23,46 +23,44 @@ export default ({ amount, icon, grayIcon, multiIcon }) => {
       width: multiSize,
       height: multiSize,
       margin: 4
+    },
+    mask: {
+      backgroundColor: colors.blue,
+      position: "relative",
+      width: singleSize,
+      height: singleSize,
+      borderWidth: 3,
+      marginRight: 10,
+      zIndex: 100
     }
   });
 
-  const SingleIcons = () => amount.single === 0 ?
-    <Image
-      style={styles.singleIcon}
-      source={grayIcon}
-    />
-    :
-    <View style={styles.icons}>
-      {
-        [...Array(amount.single)].map((_, i) => (
-          <Image
-            key={i}
-            style={styles.singleIcon}
-            source={icon}
-          />
-        ))
-      }
-    </View> 
-  
-  const MultiIcons = () => amount.multi === 0 ?
-    <></>
-    :
-    <View style={styles.icons}>
-      {
-        [...Array(amount.multi)].map((_, i) => (
-          <Image
-            key={i}
-            style={styles.multiIcon}
-            source={multiIcon}
-          />
-        ))
-      }
-    </View>
-  
+  const multiAmount = Math.floor(amount / 10);
+  const singleAmount = amount - Math.floor(amount / 10) * 10;
+
   return (
-    <View>
-      <MultiIcons />
-      <SingleIcons />
-    </View>
+    <>
+      {amount === 0 ? (
+        <Image style={styles.singleIcon} source={grayIcon} />
+      ) : (
+        <>
+          <View style={styles.icons}>
+            {multiAmount !== 0 &&
+              _.times(multiAmount, i => (
+                <Image key={i} style={styles.multiIcon} source={multiIcon} />
+              ))}
+          </View>
+          <View style={styles.icons}>
+            {_.times(singleAmount + 1, i => (
+              <Image
+                key={i}
+                style={i === singleAmount ? styles.mask : styles.singleIcon}
+                source={icon}
+              />
+            ))}
+          </View>
+        </>
+      )}
+    </>
   );
 };

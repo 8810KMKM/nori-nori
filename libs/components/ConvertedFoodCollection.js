@@ -10,8 +10,6 @@ import grayRamenImage from "../../assets/images/foods/ramen-gray.png";
 import multiJuiceImage from "../../assets/images/foods/soda-x10.png";
 import colors from "../../assets/variables/colors";
 
-import divide_amount from "../../utils/divide_amount";
-
 import ConvertedFood from "./ConvertedFood";
 
 export default ({ foodAmounts }) => (
@@ -20,21 +18,21 @@ export default ({ foodAmounts }) => (
     <ScrollView>
       <ConvertedFood
         name="ジュース"
-        amount={divide_amount(foodAmounts.juice)}
+        amount={foodAmounts.juice}
         icon={juiceImage}
         grayFoodIcon={grayJuiceImage}
         multiIcon={multiJuiceImage}
       />
       <ConvertedFood
         name="ハンバーガー"
-        amount={divide_amount(foodAmounts.burger)}
+        amount={foodAmounts.burger}
         icon={burgerImage}
         grayIcon={grayBurgerImage}
         multiIcon={multiJuiceImage}
       />
       <ConvertedFood
         name="ラーメン"
-        amount={divide_amount(foodAmounts.ramen)}
+        amount={foodAmounts.ramen}
         icon={ramenImage}
         grayIcon={grayRamenImage}
         multiIcon={multiJuiceImage}
