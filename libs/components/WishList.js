@@ -6,7 +6,7 @@ import omit_text from "../../utils/omit_text";
 
 import Loading from "../../libs/components/Loading";
 import HeadLine from "../../libs/components/HeadLine";
-import FormattedText from "../../libs/components/FormattedText";
+import ListLabel from "../../libs/components/ListLabel";
 import Icon from "react-native-vector-icons/AntDesign";
 
 export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
@@ -17,10 +17,11 @@ export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
         <ScrollView contentContainerStyle={styles.wishListWrapper}>
           {wishList.map((d, index) => (
             <View style={styles.wishItem} key={index}>
-              <FormattedText
+              <ListLabel
+                fontSize={20}
                 key={index}
-                category={omit_text(d.title)}
-                value={`¥${d.price}`}
+                title={omit_text(d.title)}
+                text={`¥${d.price}`}
               />
               <Icon
                 name="closecircleo"
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   wishListWrapper: {
-    width: Dimensions.get('window').width * 0.9,
+    width: Dimensions.get("window").width * 0.9
   },
   addIcon: {
     height: 48,

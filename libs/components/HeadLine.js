@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontFamily: "erica",
     color: colors.accent,
     height: "10%",
-    marginTop: "10%"
+    marginTop: "10%",
+    textAlign: "center"
   }
 });

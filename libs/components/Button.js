@@ -5,17 +5,18 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import fonts from "../../assets/variables/fonts";
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 
-export default ({ onPress, text, size = (width / 3) }) => (
+export default ({ onPress, text, width = 120, height = 60 }) => (
   <View style={styles.wrapper}>
     <AwesomeButtonCartman
       backgroundColor={colors.accent}
-      textSize={fonts.middle}
+      textSize={28}
+      textLineHeight={0}
       textColor={colors.main}
       textFontFamily="mplus-1p-b"
-      width={size}
-      height={size / 2}
+      height={height}
+      width={width}
       onPress={onPress}>
       {text}
     </AwesomeButtonCartman>
@@ -23,7 +24,5 @@ export default ({ onPress, text, size = (width / 3) }) => (
 );
 
 const styles = StyleSheet.create({
-  wrapper: {
-    marginVertical: 8
-  }
-})
+  wrapper: {}
+});

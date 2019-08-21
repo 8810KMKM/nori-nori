@@ -18,6 +18,18 @@ export default class extends Component {
     refreshing: false
   };
 
+  onRefresh = () => {
+    this.setState({
+      refreshing: true
+    });
+    this.setState({
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      refreshing: false
+    });
+  };
+
   setUser = async () => {
     const user = await userActions.current();
     user.uid && this.setState({ user, mode: "logout" });
@@ -78,9 +90,9 @@ export default class extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, refreshing } = this.state;
     return (
-      <RefreshContainer>
+      <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading ? (
           <Loading />
         ) : (

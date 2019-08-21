@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView, Dimensions, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  Dimensions,
+  KeyboardAvoidingView
+} from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 
@@ -7,7 +15,7 @@ import colors from "../../assets/variables/colors";
 
 import Button from "../../libs/components/Button";
 import { Actions } from "react-native-router-flux";
-import FormattedText from "../../libs/components/FormattedText";
+import ListLabel from "../../libs/components/ListLabel";
 import HeadLine from "../../libs/components/HeadLine";
 import DistanceMap from "../../libs/components/DistanceMap";
 import RefreshContainer from "../../libs/components/RefreshContainer";
@@ -80,11 +88,13 @@ export default class extends Component {
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         {loading && <Loading />}
-        {/* TODO:スクロールでok ボタンは見える必要なし */}
-        <View ref={this.detailImgRef} collapsable={false}　style={{alignItems: "center"}}>
-            <HeadLine pageName="Drive Info" />
-          <ScrollView contentContainerStyle={styles.detail}>
-            <View style={styles.detailContainer}>
+        <View style={styles.detailContainer}>
+          <ScrollView>
+            <View
+              ref={this.detailImgRef}
+              collapsable={false}
+              style={styles.detail}>
+              <HeadLine pageName="Drive Info" />
               <DistanceMap
                 region={region}
                 start_latLng={start_latLng}
@@ -92,20 +102,20 @@ export default class extends Component {
               />
               <View style={styles.detailList}>
                 {details.map((detail, i) => (
-                  <FormattedText
+                  <ListLabel
                     key={i}
-                    category={detail.category}
-                    value={detail.value}
+                    title={detail.title}
+                    text={detail.text}
                     fontSize={16}
                   />
                 ))}
               </View>
             </View>
             <View style={styles.actions}>
-              <Button text="ホーム" onPress={() => Actions.top()} />
+              <Button text="ホーム" onPress={Actions.top} />
               <Button text="共有" onPress={this.onShare} />
             </View>
-            </ScrollView>
+          </ScrollView>
         </View>
       </RefreshContainer>
     );
@@ -113,26 +123,24 @@ export default class extends Component {
 }
 
 const styles = StyleSheet.create({
-  detail: {
-    backgroundColor: colors.main,
-    alignItems: "center",
-    width: Dimensions.get('window').width * 0.9
-  },
   detailContainer: {
-    height: "80%",
     width: "100%",
-    alignItems: "center",
-    justifyContent: "space-between"
+    flex: 1
+  },
+  detail: {
+    flex: 1,
+    backgroundColor: colors.main,
+    paddingHorizontal: "5%"
   },
   detailList: {
-    width: "100%"
+    width: "100%",
+    flex: 1
   },
   actions: {
-    // height: "10%",
-    height: Dimensions.get('window').height / 10,
-    marginTop: 24,
-    width: "90%",
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginVertical: 20
   }
 });

@@ -1,29 +1,77 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
-import colors from "../../assets/variables/colors";
+import { _ } from "underscore";
+import { View, Image, StyleSheet } from "react-native";
+
 import resize_image from "../../utils/resize_image";
-import FoodIconList from "./FoodIconList";
-import FormattedText from "./FormattedText";
-import fonts from "../../assets/variables/fonts";
+import colors from "../../assets/variables/colors";
+
+import ListLabel from "./ListLabel";
 
 export default ({ name, amount, icon, grayIcon, multiIcon }) => {
+  const multiAmount = Math.floor(amount / 10);
+  const singleAmount = Math.floor(amount) - Math.floor(amount / 10) * 10;
+  const singleLastScale = Math.sqrt(amount % 1);
+
+  const multiSize = resize_image(multiAmount);
+  const singleSize = resize_image(singleAmount);
+
+  const styles = StyleSheet.create({
+    resultContainer: {
+      width: "100%"
+    },
+    icons: {
+      flexWrap: "wrap",
+      flexDirection: "row",
+      marginBottom: 16,
+      alignItems: "center"
+    },
+    multiIcon: {
+      width: multiSize,
+      height: multiSize,
+      margin: 4
+    },
+    singleIcon: {
+      width: singleSize,
+      height: singleSize,
+      margin: 4
+    },
+    singleIconLast: {
+      width: singleSize * singleLastScale,
+      height: singleSize * singleLastScale,
+      margin: 4
+    }
+  });
+
   return (
-    <View style={{ width: "100%" }}>
-      <FormattedText
-        category={name}
-        fontSize={fonts.middle}
-        value={
-          amount.single === 0 && amount.multi === 0
-            ? "--"
-            : `${amount.multi * 10 + amount.single}個`
-        }
+    <View style={styles.resultContainer}>
+      <ListLabel
+        title={name}
+        text={amount === 0 ? "--" : `${amount}個`}
+        fontSize={24}
       />
-      <FoodIconList
-        amount={amount}
-        icon={icon}
-        grayIcon={grayIcon}
-        multiIcon={multiIcon}
-      />
+      {amount === 0 ? (
+        <Image style={styles.singleIcon} source={grayIcon} />
+      ) : (
+        <>
+          <View style={styles.icons}>
+            {multiAmount !== 0 &&
+              _.times(multiAmount, i => (
+                <Image key={i} style={styles.multiIcon} source={multiIcon} />
+              ))}
+          </View>
+          <View style={styles.icons}>
+            {_.times(singleAmount + 1, i => (
+              <Image
+                key={i}
+                style={
+                  i === singleAmount ? styles.singleIconLast : styles.singleIcon
+                }
+                source={icon}
+              />
+            ))}
+          </View>
+        </>
+      )}
     </View>
   );
 };
