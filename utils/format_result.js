@@ -1,9 +1,9 @@
 import omni_text from "./omit_text";
 
 export default fee => {
-  const juice = Math.floor(fee / 100);
-  const burger = Math.floor(fee / 500);
-  const ramen = Math.floor(fee / 1000);
+  const juice = Math.round((fee / 100) * 10) / 10;
+  const burger = Math.round((fee / 500) * 10) / 10;
+  const ramen = Math.round((fee / 1000) * 10) / 10;
 
   return { juice, burger, ramen };
 };

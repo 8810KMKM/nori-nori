@@ -1,6 +1,6 @@
 import React from "react";
 import { _ } from "underscore";
-import { View, Image, StyleSheet, Svg } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 
 import resize_image from "../../utils/resize_image";
 import colors from "../../assets/variables/colors";
@@ -8,8 +8,13 @@ import colors from "../../assets/variables/colors";
 import ListLabel from "./ListLabel";
 
 export default ({ name, amount, icon, grayIcon, multiIcon }) => {
-  const singleSize = resize_image(amount);
-  const multiSize = resize_image(amount);
+  const multiAmount = Math.floor(amount / 10);
+  const singleAmount = Math.floor(amount) - Math.floor(amount / 10) * 10;
+  const singleLastScale = Math.sqrt(amount % 1);
+
+  const multiSize = resize_image(multiAmount);
+  const singleSize = resize_image(singleAmount);
+
   const styles = StyleSheet.create({
     resultContainer: {
       width: "100%"
@@ -17,22 +22,25 @@ export default ({ name, amount, icon, grayIcon, multiIcon }) => {
     icons: {
       flexWrap: "wrap",
       flexDirection: "row",
-      marginBottom: 16
+      marginBottom: 16,
+      alignItems: "center"
+    },
+    multiIcon: {
+      width: multiSize,
+      height: multiSize,
+      margin: 4
     },
     singleIcon: {
       width: singleSize,
       height: singleSize,
       margin: 4
     },
-    multiIcon: {
-      width: multiSize,
-      height: multiSize,
+    singleIconLast: {
+      width: singleSize * singleLastScale,
+      height: singleSize * singleLastScale,
       margin: 4
     }
   });
-
-  const multiAmount = Math.floor(amount / 10);
-  const singleAmount = amount - Math.floor(amount / 10) * 10;
 
   return (
     <View style={styles.resultContainer}>
@@ -52,8 +60,14 @@ export default ({ name, amount, icon, grayIcon, multiIcon }) => {
               ))}
           </View>
           <View style={styles.icons}>
-            {_.times(singleAmount, i => (
-              <Image key={i} style={styles.singleIcon} source={icon} />
+            {_.times(singleAmount + 1, i => (
+              <Image
+                key={i}
+                style={
+                  i === singleAmount ? styles.singleIconLast : styles.singleIcon
+                }
+                source={icon}
+              />
             ))}
           </View>
         </>
