@@ -11,12 +11,13 @@ import multiJuiceImage from "../../assets/images/foods/soda-x10.png";
 import colors from "../../assets/variables/colors";
 
 import ConvertedFood from "./ConvertedFood";
+import fonts from "../../assets/variables/fonts";
 
 export default ({ foodAmounts }) => {
   return (
-    <View style={styles.wrapper}>
+    <>
       <Text style={styles.message}>お礼は一人あたり...</Text>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator>
         <ConvertedFood
           name="ジュース"
           amount={foodAmounts.juice}
@@ -39,21 +40,15 @@ export default ({ foodAmounts }) => {
           multiIcon={multiJuiceImage}
         />
       </ScrollView>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    justifyContent: "space-between",
-    height: "70%",
-    width: "100%",
-    paddingHorizontal: "5%"
-  },
   message: {
-    fontSize: 20,
+    fontSize: fonts.small,
     fontFamily: "mplus-1p-b",
     color: colors.white,
-    marginBottom: 8
+    marginVertical: 8
   }
 });

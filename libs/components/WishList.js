@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Modal } from "react-native";
+import { View, StyleSheet, Modal, Dimensions, ScrollView } from "react-native";
 
 import colors from "../../assets/variables/colors";
 import omit_text from "../../utils/omit_text";
@@ -14,9 +14,8 @@ export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
     <>
       <HeadLine pageName="Wish List" />
       <View style={styles.wishListContainer}>
-        <View style={styles.wishListWrapper}>
+        <ScrollView contentContainerStyle={styles.wishListWrapper}>
           {wishList.map((d, index) => (
-            // TODO:スクロール
             <View style={styles.wishItem} key={index}>
               <ListLabel
                 fontSize={20}
@@ -32,7 +31,7 @@ export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
               />
             </View>
           ))}
-        </View>
+        </ScrollView>
         <Icon
           name="pluscircleo"
           style={styles.addIcon}
@@ -46,15 +45,17 @@ export default ({ wishList, deleteWishItem, toggleModalVisible }) => {
 const styles = StyleSheet.create({
   wishListContainer: {
     height: "80%",
-    width: "90%",
     alignItems: "center",
     justifyContent: "space-between"
   },
-  wishListWrapper: {},
+  wishListWrapper: {
+    width: Dimensions.get("window").width * 0.9
+  },
   addIcon: {
     height: 48,
     width: 48,
     fontSize: 48,
+    marginVertical: 8,
     color: colors.accent
   },
   wishItem: {

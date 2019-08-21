@@ -18,11 +18,13 @@ export default ({ region, start_latLng, end_latLng }) => {
   );
 };
 
+const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   map: {
     position: "relative",
-    marginBottom: 12,
-    height: Dimensions.get("window").height * 0.21,
-    width: Dimensions.get("window").width
+    marginBottom: 8,
+    marginTop: 8,
+    height: height * 0.3,
+    width: width * 0.9
   }
 });

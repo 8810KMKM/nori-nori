@@ -52,17 +52,21 @@ export default class ResultPage extends Component {
     const { foodAmounts } = this.props;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
-        {loading && <Loading />}
-        <View ref={this.resultImgRef} collapsable={false} style={styles.result}>
-          <HeadLine pageName="Result" />
-          <ConvertedFoodCollection
-            style={styles.foodList}
-            foodAmounts={foodAmounts}
-          />
-        </View>
-        <View style={styles.actions}>
-          <Button text="戻る" onPress={Actions.pop} />
-          <Button text="詳細" onPress={this.moveDetailPage} />
+        <View style={styles.resultContainer}>
+          <View
+            ref={this.resultImgRef}
+            collapsable={false}
+            style={styles.result}>
+            <HeadLine pageName="Result" />
+            <ConvertedFoodCollection
+              style={styles.foodList}
+              foodAmounts={foodAmounts}
+            />
+          </View>
+          <View style={styles.actions}>
+            <Button text="戻る" onPress={Actions.pop} />
+            <Button text="詳細" onPress={this.moveDetailPage} />
+          </View>
         </View>
       </RefreshContainer>
     );
@@ -70,15 +74,20 @@ export default class ResultPage extends Component {
 }
 
 const styles = StyleSheet.create({
-  result: {
-    backgroundColor: colors.main,
-    alignItems: "center",
+  resultContainer: {
+    height: "100%",
     width: "100%"
   },
+  result: {
+    backgroundColor: colors.main,
+    height: "80%",
+    paddingHorizontal: "5%"
+  },
   actions: {
-    height: "10%",
+    height: "20%",
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "center"
   }
 });
