@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, AsyncStorage } from "react-native";
+import { Alert } from "react-native";
 
 import { userActions } from "../../utils/firebase";
 

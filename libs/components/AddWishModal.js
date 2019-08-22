@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, StyleSheet, Modal } from "react-native";
 import Form from "../../libs/components/Form";
 import Button from "../../libs/components/Button";

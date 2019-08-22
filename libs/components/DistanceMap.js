@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 import originFlagIcon from "../../assets/images/flags/flag-origin.png";

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import juiceImage from "../../assets/images/foods/soda.png";
 import burgerImage from "../../assets/images/foods/burger.png";
@@ -15,7 +15,7 @@ import fonts from "../../assets/variables/fonts";
 
 export default ({ foodAmounts }) => {
   return (
-    <>
+    <View style={styles.wrapper}>
       <Text style={styles.message}>お礼は一人あたり...</Text>
       <ConvertedFood
         name="ジュース"
@@ -38,15 +38,22 @@ export default ({ foodAmounts }) => {
         grayIcon={grayRamenImage}
         multiIcon={multiJuiceImage}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "space-between",
+    height: "70%",
+  },
+  foodsWrapper: {
+    width: Dimensions.get('window').width * 0.9
+  },
   message: {
     fontSize: fonts.small,
     fontFamily: "mplus-1p-b",
     color: colors.white,
-    marginVertical: 8
+    marginVertical: 8 
   }
 });

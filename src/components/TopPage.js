@@ -4,13 +4,12 @@ import {
   StyleSheet,
   Image,
   Alert,
-  KeyboardAvoidingView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople } from "../../utils/calculation";
-import defaultFormat, { detailFormat } from "../../utils/format_result";
-import { getCurrentLocation, fetchDirections } from "../../utils/google_api";
+import defaultFormat, { detailFormat, placesFormat } from "../../utils/format_result";
+import { getCurrentLocation, fetchDirections, fetchPlaceAutocomplete } from "../../utils/google_api";
 
 import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
@@ -20,8 +19,12 @@ import logoImage from "../../assets/images/nori-nori-logo.png";
 export default class extends Component {
   state = {
     origin: { label: "", value: "" },
+    inputCount: 0,
+    inputInterval: 0,
+    isMeasuring: false,
     destination: "",
     people: 2,
+    autoCompletedPlaces: { origin: [], destination: []},
     errorMessage: { origin: "", destination: "" },
     loading: false,
     refreshing: false
@@ -50,13 +53,69 @@ export default class extends Component {
     });
   };
 
-  handleChange = (target, text) => {
-    if (target === "origin") {
-      this.setState({ origin: { label: text, value: text } });
-    } else {
-      this.setState({ [target]: text });
+  controlAutoComplete = text => {
+    let autoCompleteResult = [];
+    const interval = this.stopTimer();
+    if (this.state.isMeasuring && 500 < interval && interval < 5000 ) {
+      autoCompleteResult = fetchPlaceAutocomplete(text);
+    }
+    this.startTimer();
+    return autoCompleteResult;
+  }
+
+  startTimer = () => {
+    const start = Date.now();
+    this.setState({
+      isMeasuring: true,
+      inputInterval: start
+    });
+  }
+
+  stopTimer = () => {
+    const end = Date.now();
+    this.setState({
+      isMeasuring: false,
+      inputInterval: (end - this.state.inputInterval)
+    });
+    return (end - this.state.inputInterval);
+  }
+
+  handleChange = async (target, text) => {
+    let response = [];
+    
+    switch (target) {
+      case "origin":
+        response = await this.controlAutoComplete(text);
+        this.setState({
+          origin: { label: text, value: text },
+          autoCompletedPlaces: { origin: placesFormat(response) }
+        });
+        break;
+      case "destination":
+        response = await this.controlAutoComplete(text);
+        this.setState({
+          [target]: text,
+          autoCompletedPlaces: { destination: placesFormat(response) }
+        });
+        break;
+      default:
+        this.setState({ [target]: text });
     }
   };
+
+  handleClick = (target, text) => {
+    if (target === "origin") {
+      this.setState({
+        origin: { label: text, value: text },
+        autoCompletedPlaces: {origin: []}
+      });
+    } else {
+      this.setState({
+        [target]: text,
+        autoCompletedPlaces: {destination: []}
+      });
+    }
+  }
 
   submit = async () => {
     const { origin, destination, people } = this.state;
@@ -120,14 +179,13 @@ export default class extends Component {
         {loading && <Loading />}
         <View style={styles.container}>
           <Image source={logoImage} style={styles.logo} />
-          <KeyboardAvoidingView behavior="padding" style={{ width: "100%" }}>
             <DestinationForm
               {...this.state}
               handleChange={this.handleChange}
+              handleClick={this.handleClick}
               submit={this.submit}
               setCurrentLocation={this.setCurrentLocation}
             />
-          </KeyboardAvoidingView>
         </View>
       </RefreshContainer>
     );

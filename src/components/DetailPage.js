@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Alert,
-  ScrollView,
-  Dimensions,
-  KeyboardAvoidingView
+  ScrollView
 } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";

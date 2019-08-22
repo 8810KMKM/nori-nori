@@ -3,8 +3,11 @@ import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import {
   GOOGLE_API_KEY,
+  GOOGLE_API_KEY_2,
   GOOGLE_MAP_DIRECTIONS_URL,
-  GOOGLE_MAP_GEOCODING_URL
+  GOOGLE_MAP_GEOCODING_URL,
+  GOOGLE_MAP_PLACE_AUTOCOMPLETE_URL
+  
 } from "react-native-dotenv";
 
 export const getCurrentLocation = async () => {
@@ -31,4 +34,17 @@ export const fetchDirections = async (origin, destination) => {
   )
     .then(res => res.json())
     .catch(e => e.json().then(err => console.log(err)));
+};
+
+export const fetchPlaceAutocomplete = async (keyword) => {
+  const uuidv1 = require('uuid/v1');
+  return await fetch(
+    `${GOOGLE_MAP_PLACE_AUTOCOMPLETE_URL}?input=${keyword}&types=establishment&key=${GOOGLE_API_KEY_2}&language=ja&sessiontoken=${uuidv1()}`
+  )
+    .then(response =>
+      response.json().then(res => {
+        return res.predictions;
+      })
+    )
+    .catch(err => Alert.alert(err));
 };

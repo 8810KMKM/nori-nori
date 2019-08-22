@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import fonts from "../../assets/variables/fonts";
 
-export default ({ title, text, fontSize = 16 }) => {
+export default ({ title, text, fontSize = fonts.small }) => {
   const styles = StyleSheet.create({
     textWrapper: {
       width: "100%",

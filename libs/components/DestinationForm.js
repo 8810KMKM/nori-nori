@@ -1,16 +1,19 @@
 import React from "react";
-import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
 import SelectBox from "./SelectBox";
+import PlaceList from "./PlaceList";
 
 export default ({
   origin,
   destination,
   people,
+  autoCompletedPlaces,
   errorMessage,
   handleChange,
+  handleClick,
   submit,
   setCurrentLocation
 }) => {
@@ -42,14 +45,25 @@ export default ({
           placeholder="例）福岡県, 警固公園"
           setCurrentLocation={setCurrentLocation}
           editable={origin.label !== "現在地"}
+          onValueChange
         />
-        <Form
-          label="到着地"
-          value={destination}
-          handleChange={text => handleChange("destination", text)}
-          errorMessage={errorMessage.destination}
-          placeholder="例）北九州市, 門司港レトロ"
+        <PlaceList
+          places={autoCompletedPlaces.origin}
+          target="origin"
+          handleClick={handleClick}
         />
+          <Form
+            label="到着地"
+            value={destination}
+            handleChange={text => handleChange("destination", text)}
+            errorMessage={errorMessage.destination}
+            placeholder="例）北九州市, 門司港レトロ"
+          />
+          <PlaceList
+            places={autoCompletedPlaces.destination}
+            target="destination"
+            handleClick={handleClick}
+          />
         <SelectBox
           label="人数"
           onValueChange={value => handleChange("people", value)}
