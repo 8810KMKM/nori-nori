@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Alert,
-  ScrollView
-} from "react-native";
+import { View, StyleSheet, Alert, ScrollView, Text } from "react-native";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
+import { wishListFormat } from "../../utils/format_result";
 
 import colors from "../../assets/variables/colors";
 
@@ -26,7 +22,14 @@ export default class extends Component {
 
   state = {
     loading: false,
-    refreshing: false
+    refreshing: false,
+    wishItem: { title: "", price: 0 }
+  };
+
+  componentDidMount = async () => {
+    const { fee } = this.props;
+    const wishItem = await wishListFormat(fee);
+    this.setState({ wishItem });
   };
 
   onRefresh = () => {
@@ -79,8 +82,9 @@ export default class extends Component {
   };
 
   render() {
-    const { loading, refreshing } = this.state;
+    const { loading, refreshing, wishItem } = this.state;
     const { region, start_latLng, end_latLng, details } = this.props.detailData;
+    const { fee } = this.props;
 
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
@@ -97,6 +101,20 @@ export default class extends Component {
                 start_latLng={start_latLng}
                 end_latLng={end_latLng}
               />
+              {wishItem && (
+                <View style={styles.wishItemContainer}>
+                  <Text style={styles.message}>
+                    ドライバーが欲しいものはコレ！！
+                  </Text>
+                  <ListLabel
+                    title={wishItem.title}
+                    text={`${wishItem.price}円...${Math.floor(
+                      fee / wishItem.price
+                    )}個`}
+                  />
+                </View>
+              )}
+
               <View style={styles.detailList}>
                 {details.map((detail, i) => (
                   <ListLabel
@@ -139,5 +157,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginVertical: 20
+  },
+  message: {
+    fontSize: fonts.small,
+    fontFamily: "mplus-1p-b",
+    color: colors.white,
+    marginVertical: 8
+  },
+  wishItemContainer: {
+    borderTopWidth: 2,
+    borderTopColor: colors.white,
+    marginVertical: 16
   }
 });

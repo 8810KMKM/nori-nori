@@ -16,7 +16,7 @@ import fonts from "../../assets/variables/fonts";
 export default ({ foodAmounts }) => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.message}>一人あたり...</Text>
+      <Text style={styles.message}>お礼は一人あたり...</Text>
       <ConvertedFood
         name="ジュース"
         amount={foodAmounts.juice}
