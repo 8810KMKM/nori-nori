@@ -28,9 +28,7 @@ export default ({
               <Text style={styles.mail}>{user.email}</Text>
               <Text style={styles.message}>でログインしています</Text>
             </View>
-            <View style={styles.actions}>
-              <Button text="ログアウト" onPress={onPress} width={200} />
-            </View>
+            <Button text="ログアウト" onPress={onPress} width={200} />
           </>
         ) : (
           <>
