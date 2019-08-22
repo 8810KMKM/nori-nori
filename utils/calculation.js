@@ -5,7 +5,7 @@ const rateForReward = distance => {
   switch (true) {
     case distance < 1500:
       return 100;
-    case distance < 3000:
+    case distance < 5000:
       return 200;
     case distance < 10000:
       return 500;

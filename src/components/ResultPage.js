@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { captureRef as takeSnapshotAsync } from "react-native-view-shot";
 
 import colors from "../../assets/variables/colors";
-import { wishListFormat } from "../../utils/format_result";
 
 import Button from "../../libs/components/Button";
 import ConvertedFoodCollection from "../../libs/components/ConvertedFoodCollection";
@@ -20,14 +19,7 @@ export default class ResultPage extends Component {
 
   state = {
     loading: false,
-    refreshing: false,
-    wishItem: { title: "", price: 0 }
-  };
-
-  componentDidMount = async () => {
-    const { fee } = this.props;
-    const wishItem = await wishListFormat(fee);
-    this.setState({ wishItem });
+    refreshing: false
   };
 
   onRefresh = () => {
@@ -56,9 +48,8 @@ export default class ResultPage extends Component {
   };
 
   render() {
-    const { loading, refreshing, wishItem } = this.state;
-    const { foodAmounts, fee } = this.props;
-    const wishItemCount = Math.floor(fee / wishItem.price);
+    const { loading, refreshing } = this.state;
+    const { foodAmounts } = this.props;
     return (
       <RefreshContainer refreshing={refreshing} onRefresh={this.onRefresh}>
         <View style={styles.resultContainer}>
@@ -68,15 +59,6 @@ export default class ResultPage extends Component {
               collapsable={false}
               style={styles.result}>
               <HeadLine pageName="Result" />
-              {wishItem.title !== "" && (
-                <>
-                  <Text style={styles.message}>みんなで...</Text>
-                  <ListLabel
-                    title={wishItem.title}
-                    text={`${wishItem.price}円...${wishItemCount}個`}
-                  />
-                </>
-              )}
               <ConvertedFoodCollection
                 style={styles.foodList}
                 foodAmounts={foodAmounts}
@@ -109,11 +91,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     marginVertical: 20
-  },
-  message: {
-    fontSize: fonts.small,
-    fontFamily: "mplus-1p-b",
-    color: colors.white,
-    marginVertical: 8
   }
 });
