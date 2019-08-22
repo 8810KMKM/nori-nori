@@ -11,6 +11,7 @@ import {
 import colors from "../../assets/variables/colors";
 import currentLocationIcon from "../../assets/images/currentLocation.png";
 import fonts from "../../assets/variables/fonts";
+import AwesomeButton from "react-native-really-awesome-button";
 
 export default ({
   label,
@@ -42,14 +43,17 @@ export default ({
           secureTextEntry={label.match(/パスワード/) ? true : false}
         />
         {setCurrentLocation && (
-          <TouchableOpacity
-            style={styles.currentLocationIconContainer}
-            onPress={setCurrentLocation}>
+          <AwesomeButton
+            //style={styles.currentLocationIconContainer}
+            onPress={setCurrentLocation}
+            backgroundColor={colors.accent}
+            width={60}
+            height={60}>
             <Image
               style={styles.currentLocationIcon}
               source={currentLocationIcon}
             />
-          </TouchableOpacity>
+          </AwesomeButton>
         )}
       </View>
 
@@ -75,15 +79,16 @@ const defaultStyles = setCurrentLocation =>
     },
     input: {
       flex: 1,
-      height: fonts.small * 2.2,
+      // height: fonts.small * 2.2,
+      height: 60,
       paddingLeft: 8,
       fontSize: fonts.small,
       backgroundColor: colors.white,
       color: colors.black,
       fontWeight: "bold",
-      borderRadius: 8,
-      borderTopRightRadius: setCurrentLocation && 0,
-      borderBottomRightRadius: setCurrentLocation && 0
+      borderRadius: 8
+      // borderTopRightRadius: setCurrentLocation && 0,
+      // borderBottomRightRadius: setCurrentLocation && 0
     },
     error: {
       marginTop: 8,
