@@ -16,7 +16,7 @@ import fonts from "../../assets/variables/fonts";
 export default ({ foodAmounts }) => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.message}>お礼は一人あたり...</Text>
+      <Text style={styles.message}>一人あたり...</Text>
       <ConvertedFood
         name="ジュース"
         amount={foodAmounts.juice}
@@ -45,15 +45,15 @@ export default ({ foodAmounts }) => {
 const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "space-between",
-    height: "70%",
+    height: "70%"
   },
   foodsWrapper: {
-    width: Dimensions.get('window').width * 0.9
+    width: Dimensions.get("window").width * 0.9
   },
   message: {
     fontSize: fonts.small,
     fontFamily: "mplus-1p-b",
     color: colors.white,
-    marginVertical: 8 
+    marginVertical: 8
   }
 });

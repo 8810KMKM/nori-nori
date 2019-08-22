@@ -39,7 +39,10 @@ export const wishListActions = {
       .catch(e => {
         Alert.alert("取得失敗", "ログイン状況を確認してください");
       });
-    return result;
+    const sorted_result = result.sort((a, b) => {
+      return a.price - b.price;
+    });
+    return sorted_result;
   },
   create: async (title, price) => {
     const { uid } = await userActions.current();

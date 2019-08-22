@@ -28,6 +28,19 @@ const rateForPeople = people => {
   }
 };
 
+export const feeAll = async (distance, people) => {
+  const fuel = (await AsyncStorage.getItem("fuel")) || 15;
+  const cost = (await AsyncStorage.getItem("cost")) || 140;
+
+  const useFuelAmount = distance / (fuel * 1000);
+  // ドライバー抜き
+  const feeOfFuel = useFuelAmount * cost * ((people - 1) / people);
+
+  const reward = rateForReward(distance);
+
+  return Math.floor(reward * (people - 1) * rateForPeople(people) + feeOfFuel);
+};
+
 export const feePerPeople = async (distance, people) => {
   const fuel = (await AsyncStorage.getItem("fuel")) || 15;
   const cost = (await AsyncStorage.getItem("cost")) || 140;

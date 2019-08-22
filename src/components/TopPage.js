@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Alert,
-} from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import { Actions } from "react-native-router-flux";
 
-import { feePerPeople } from "../../utils/calculation";
-import defaultFormat, { detailFormat, placesFormat } from "../../utils/format_result";
-import { getCurrentLocation, fetchDirections, fetchPlaceAutocomplete } from "../../utils/google_api";
+import { feePerPeople, feeAll } from "../../utils/calculation";
+import defaultFormat, {
+  detailFormat,
+  placesFormat
+} from "../../utils/format_result";
+import {
+  getCurrentLocation,
+  fetchDirections,
+  fetchPlaceAutocomplete
+} from "../../utils/google_api";
 
 import Loading from "../../libs/components/Loading";
 import DestinationForm from "../../libs/components/DestinationForm";
@@ -24,7 +26,7 @@ export default class extends Component {
     isMeasuring: false,
     destination: "",
     people: 2,
-    autoCompletedPlaces: { origin: [], destination: []},
+    autoCompletedPlaces: { origin: [], destination: [] },
     errorMessage: { origin: "", destination: "" },
     loading: false,
     refreshing: false
@@ -56,12 +58,12 @@ export default class extends Component {
   controlAutoComplete = text => {
     let autoCompleteResult = [];
     const interval = this.stopTimer();
-    if (this.state.isMeasuring && 500 < interval && interval < 5000 ) {
+    if (this.state.isMeasuring && 500 < interval && interval < 5000) {
       autoCompleteResult = fetchPlaceAutocomplete(text);
     }
     this.startTimer();
     return autoCompleteResult;
-  }
+  };
 
   startTimer = () => {
     const start = Date.now();
@@ -69,20 +71,20 @@ export default class extends Component {
       isMeasuring: true,
       inputInterval: start
     });
-  }
+  };
 
   stopTimer = () => {
     const end = Date.now();
     this.setState({
       isMeasuring: false,
-      inputInterval: (end - this.state.inputInterval)
+      inputInterval: end - this.state.inputInterval
     });
-    return (end - this.state.inputInterval);
-  }
+    return end - this.state.inputInterval;
+  };
 
   handleChange = async (target, text) => {
     let response = [];
-    
+
     switch (target) {
       case "origin":
         response = await this.controlAutoComplete(text);
@@ -107,15 +109,15 @@ export default class extends Component {
     if (target === "origin") {
       this.setState({
         origin: { label: text, value: text },
-        autoCompletedPlaces: {origin: []}
+        autoCompletedPlaces: { origin: [] }
       });
     } else {
       this.setState({
         [target]: text,
-        autoCompletedPlaces: {destination: []}
+        autoCompletedPlaces: { destination: [] }
       });
     }
-  }
+  };
 
   submit = async () => {
     const { origin, destination, people } = this.state;
@@ -148,6 +150,7 @@ export default class extends Component {
 
     const data = response.routes[0].legs[0];
     const result = await feePerPeople(data.distance.value, people);
+    const fee = await feeAll(data.distance.value, people);
 
     this.setState({
       origin: {
@@ -161,11 +164,12 @@ export default class extends Component {
 
     // データ整形
     const formattedResult = defaultFormat(result.payPerPerson);
-    const formattedDetail = detailFormat(data, result);
+    const formattedDetail = detailFormat(data, result, fee);
 
     Actions.result({
       foodAmounts: formattedResult,
-      detailData: formattedDetail
+      detailData: formattedDetail,
+      fee
     });
   };
 
@@ -179,13 +183,13 @@ export default class extends Component {
         {loading && <Loading />}
         <View style={styles.container}>
           <Image source={logoImage} style={styles.logo} />
-            <DestinationForm
-              {...this.state}
-              handleChange={this.handleChange}
-              handleClick={this.handleClick}
-              submit={this.submit}
-              setCurrentLocation={this.setCurrentLocation}
-            />
+          <DestinationForm
+            {...this.state}
+            handleChange={this.handleChange}
+            handleClick={this.handleClick}
+            submit={this.submit}
+            setCurrentLocation={this.setCurrentLocation}
+          />
         </View>
       </RefreshContainer>
     );
