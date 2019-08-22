@@ -17,7 +17,10 @@ export const getCurrentLocation = async () => {
     );
     throw new Error();
   } else {
+    // ここの取得のデータがandroidと違う可能性,もしくは本当に取れていない
     const currentLocation = await Location.getCurrentPositionAsync({});
+    console.log(currentLocation);
+    // APIを叩けていない可能性よりはパラメータのミスの可能性が高いからcatchの内容みる
     return await fetch(
       `${GOOGLE_MAP_GEOCODING_URL}?language=ja&latlng=${currentLocation.coords.latitude},${currentLocation.coords.longitude}&key=${GOOGLE_API_KEY}`
     )
@@ -27,6 +30,8 @@ export const getCurrentLocation = async () => {
         })
       )
       .catch(e => {
+        // これ
+        // console.log(e)
         Alert.alert("現在地の取得に失敗しました");
         throw new Error();
       });
