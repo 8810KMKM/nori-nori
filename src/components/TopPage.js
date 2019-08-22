@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Image, Alert, ScrollView} from "react-native";
+import { View, StyleSheet, Image, Alert, ScrollView } from "react-native";
 import { Actions } from "react-native-router-flux";
 
 import { feePerPeople, feeAll } from "../../utils/calculation";
@@ -45,14 +45,23 @@ export default class extends Component {
 
   setCurrentLocation = async () => {
     this.setState({ loading: true });
-    this.setState({
-      origin: {
-        label: "現在地",
-        value: await getCurrentLocation()
-      },
-      loading: false,
-      errorMessage: { origin: "" }
-    });
+    try {
+      const currentLocation = await getCurrentLocation();
+      this.setState({
+        origin: {
+          label: "現在地",
+          value: currentLocation
+        }
+      });
+    } catch (e) {
+      this.setState({
+        origin: {
+          label: "",
+          value: ""
+        }
+      });
+    }
+    this.setState({ loading: false, errorMessage: { origin: "" } });
   };
 
   controlAutoComplete = text => {
@@ -89,14 +98,14 @@ export default class extends Component {
       case "origin":
         // response = await this.controlAutoComplete(text);
         this.setState({
-          origin: { label: text, value: text },
+          origin: { label: text, value: text }
           // autoCompletedPlaces: { origin: placesFormat(response) }
         });
         break;
       case "destination":
         // response = await this.controlAutoComplete(text);
         this.setState({
-          [target]: text,
+          [target]: text
           // autoCompletedPlaces: { destination: placesFormat(response) }
         });
         break;
@@ -183,18 +192,18 @@ export default class extends Component {
         {loading && <Loading />}
         <View style={styles.container}>
           <Image source={logoImage} style={styles.logo} />
-            <DestinationForm
-              {...this.state}
-              handleChange={this.handleChange}
-              handleClick={this.handleClick}
-              submit={this.submit}
-              setCurrentLocation={this.setCurrentLocation}
-            />
+          <DestinationForm
+            {...this.state}
+            handleChange={this.handleChange}
+            handleClick={this.handleClick}
+            submit={this.submit}
+            setCurrentLocation={this.setCurrentLocation}
+          />
         </View>
       </RefreshContainer>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
