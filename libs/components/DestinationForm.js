@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import Button from "./Button";
 import Form from "./Form";
@@ -52,18 +52,18 @@ export default ({
           target="origin"
           handleClick={handleClick}
         />
-        <Form
-          label="到着地"
-          value={destination}
-          handleChange={text => handleChange("destination", text)}
-          errorMessage={errorMessage.destination}
-          placeholder="例）北九州市, 門司港レトロ"
-        />
-        <PlaceList
-          places={autoCompletedPlaces.destination}
-          target="destination"
-          handleClick={handleClick}
-        />
+          <Form
+            label="到着地"
+            value={destination}
+            handleChange={text => handleChange("destination", text)}
+            errorMessage={errorMessage.destination}
+            placeholder="例）北九州市, 門司港レトロ"
+          />
+          <PlaceList
+            places={autoCompletedPlaces.destination}
+            target="destination"
+            handleClick={handleClick}
+          />
         <SelectBox
           label="人数"
           onValueChange={value => handleChange("people", value)}

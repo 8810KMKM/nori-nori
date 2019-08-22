@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Image,
   Alert,
-  KeyboardAvoidingView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 
@@ -20,6 +19,9 @@ import logoImage from "../../assets/images/nori-nori-logo.png";
 export default class extends Component {
   state = {
     origin: { label: "", value: "" },
+    inputCount: 0,
+    inputInterval: 0,
+    isMeasuring: false,
     destination: "",
     people: 2,
     autoCompletedPlaces: { origin: [], destination: []},
@@ -51,20 +53,46 @@ export default class extends Component {
     });
   };
 
+  controlAutoComplete = text => {
+    let autoCompleteResult = [];
+    const interval = this.stopTimer();
+    if (this.state.isMeasuring && 1000 < interval && interval < 5000 ) {
+      autoCompleteResult = fetchPlaceAutocomplete(text);
+    }
+    this.startTimer();
+    return autoCompleteResult;
+  }
 
+  startTimer = () => {
+    const start = Date.now();
+    this.setState({
+      isMeasuring: true,
+      inputInterval: start
+    });
+  }
 
-  handleChange = (target, text) => {
-    const response = text.length > 2
-      ? fetchPlaceAutocomplete(text)
-      : [];
+  stopTimer = () => {
+    const end = Date.now();
+    this.setState({
+      isMeasuring: false,
+      inputInterval: (end - this.state.inputInterval)
+    });
+    return (end - this.state.inputInterval);
+  }
+
+  handleChange = async (target, text) => {
+    let response = [];
+    
     switch (target) {
       case "origin":
+        response = await this.controlAutoComplete(text);
         this.setState({
           origin: { label: text, value: text },
           autoCompletedPlaces: { origin: placesFormat(response) }
         });
         break;
       case "destination":
+        response = await this.controlAutoComplete(text);
         this.setState({
           [target]: text,
           autoCompletedPlaces: { destination: placesFormat(response) }
@@ -151,7 +179,6 @@ export default class extends Component {
         {loading && <Loading />}
         <View style={styles.container}>
           <Image source={logoImage} style={styles.logo} />
-          <KeyboardAvoidingView behavior="padding" style={{ width: "100%" }}>
             <DestinationForm
               {...this.state}
               handleChange={this.handleChange}
@@ -159,7 +186,6 @@ export default class extends Component {
               submit={this.submit}
               setCurrentLocation={this.setCurrentLocation}
             />
-          </KeyboardAvoidingView>
         </View>
       </RefreshContainer>
     );

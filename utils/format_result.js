@@ -50,5 +50,7 @@ export const detailFormat = (data, calcData) => {
 };
 
 export const placesFormat = data => {
-  return data.map(d => d.structured_formatting.main_text);
+  return data && data.length > 0
+    ? data.map(d => d.structured_formatting.main_text)
+    : [];
 };
