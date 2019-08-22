@@ -56,7 +56,7 @@ export default class extends Component {
   controlAutoComplete = text => {
     let autoCompleteResult = [];
     const interval = this.stopTimer();
-    if (this.state.isMeasuring && 1000 < interval && interval < 5000 ) {
+    if (this.state.isMeasuring && 500 < interval && interval < 5000 ) {
       autoCompleteResult = fetchPlaceAutocomplete(text);
     }
     this.startTimer();

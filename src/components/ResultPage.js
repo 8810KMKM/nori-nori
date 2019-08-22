@@ -9,7 +9,6 @@ import Button from "../../libs/components/Button";
 import ConvertedFoodCollection from "../../libs/components/ConvertedFoodCollection";
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import HeadLine from "../../libs/components/HeadLine";
-import Loading from "../../libs/components/Loading";
 
 export default class ResultPage extends Component {
   constructor(props) {

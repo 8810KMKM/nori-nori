@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
 
-import firebase, { wishListActions } from "../../utils/firebase";
+import { wishListActions } from "../../utils/firebase";
 
 import RefreshContainer from "../../libs/components/RefreshContainer";
 import AddWishModal from "../../libs/components/AddWishModal";

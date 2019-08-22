@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import juiceImage from "../../assets/images/foods/soda.png";
 import burgerImage from "../../assets/images/foods/burger.png";

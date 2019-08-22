@@ -3,7 +3,6 @@ import { _ } from "underscore";
 import { View, Image, StyleSheet } from "react-native";
 
 import resize_image from "../../utils/resize_image";
-import colors from "../../assets/variables/colors";
 
 import ListLabel from "./ListLabel";
 

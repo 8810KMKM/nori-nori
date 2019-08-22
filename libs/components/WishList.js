@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, StyleSheet, Modal, Dimensions, ScrollView } from "react-native";
 
 import colors from "../../assets/variables/colors";
