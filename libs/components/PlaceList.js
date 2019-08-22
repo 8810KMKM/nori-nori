@@ -20,14 +20,15 @@ export default ({ places, target, handleClick }) => (
       ))}
     </View>
     :
-    <></>
+    <View></View>
 );
 
 const styles = StyleSheet.create({
   placeList: {
     width: "90%",
-    padding: 2,
-    backgroundColor: colors.gray
+    padding: 4,
+    backgroundColor: colors.white,
+    borderRadius: 8
   },
   place: {
     fontFamily: "mplus-1p-r",
