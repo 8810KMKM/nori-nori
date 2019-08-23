@@ -14,7 +14,11 @@ export default class extends Component {
     loading: false
   };
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    this.setData();
+  }
+
+  setData = async () => {
     this.setState({ loading: true });
     try {
       const data = await AsyncStorage.multiGet(["fuel", "cost"]);
@@ -28,32 +32,39 @@ export default class extends Component {
       console.log("async storage get error");
     }
     this.setState({ loading: false });
-
-    const { fuel, cost } = this.state;
   };
 
   onRefresh = () => {
     this.setState({ refreshing: true });
-    this.setState({ refreshing: false });
+    this.setData();
+    this.setState({ refreshing: false, errorMessage: { fuel: "", cost: "" } });
   };
 
   handleChange = (target, text) => {
     this.setState({ [target]: text });
   };
 
+  filterInt = value => {
+    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value)) return false;
+    return true;
+  };
+
+  filterFloat = value => {
+    if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) return false;
+    return true;
+  };
   save = async () => {
     const { fuel, cost } = this.state;
     const errorMessage = "数字以外を入力しないでください";
 
-    const filterInt = /^([1-9]\d*|0)$/;
-    if (!filterInt.test(fuel)) {
+    if (this.filterFloat(fuel)) {
       return this.setState({ errorMessage: { fuel: errorMessage } });
     }
-    if (!filterInt.test(cost)) {
+    if (this.filterInt(cost)) {
       return this.setState({ errorMessage: { cost: errorMessage } });
     }
 
-    if (parseInt(fuel) < 3 || parseInt(fuel) > 30) {
+    if (parseFloat(fuel) < 3 || parseFloat(fuel) > 30) {
       return this.setState({
         errorMessage: { fuel: "3~30の数字を入力してください" }
       });
@@ -72,7 +83,8 @@ export default class extends Component {
     } catch (e) {
       console.log("async storage set error");
     }
-    this.setState({ loading: false });
+    this.setState({ loading: false, errorMessage: { fuel: "", cost: "" } });
+    this.setData();
 
     Alert.alert("", "設定を更新しました!");
   };
