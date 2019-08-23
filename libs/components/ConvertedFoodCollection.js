@@ -8,8 +8,9 @@ import grayJuiceImage from "../../assets/images/foods/soda-gray.png";
 import grayBurgerImage from "../../assets/images/foods/burger-gray.png";
 import grayRamenImage from "../../assets/images/foods/ramen-gray.png";
 import multiJuiceImage from "../../assets/images/foods/soda-x10.png";
+import multiBurgerImage from "../../assets/images/foods/burger-x10.png";
+import multiRamenImage from "../../assets/images/foods/ramen-x10.png";
 import colors from "../../assets/variables/colors";
-
 import ConvertedFood from "./ConvertedFood";
 import fonts from "../../assets/variables/fonts";
 
@@ -29,14 +30,14 @@ export default ({ foodAmounts }) => {
         amount={foodAmounts.burger}
         icon={burgerImage}
         grayIcon={grayBurgerImage}
-        multiIcon={multiJuiceImage}
+        multiIcon={multiBurgerImage}
       />
       <ConvertedFood
         name="ラーメン"
         amount={foodAmounts.ramen}
         icon={ramenImage}
         grayIcon={grayRamenImage}
-        multiIcon={multiJuiceImage}
+        multiIcon={multiRamenImage}
       />
     </View>
   );

@@ -65,7 +65,7 @@ package-lock.json
 
 # Root dir shouldn't have Xcode project
 /*.xcodeproj
-
+/ios
 # ReactCommon subdir shouldn't have Xcode project
 /ReactCommon/**/*.xcodeproj
 RNTester/build
